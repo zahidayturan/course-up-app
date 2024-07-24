@@ -1,30 +1,34 @@
 package com.example.courseup.service;
 
 import com.example.courseup.model.Course;
+import com.example.courseup.model.CourseStages;
 import com.example.courseup.repository.CourseRepository;
+import com.example.courseup.repository.CourseStagesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CourseStagesService {
     @Autowired
-    private CourseRepository courseRepository;
+    private CourseStagesRepository courseStagesRepository;
 
-    public List<Course> findAll() {
-        return courseRepository.findAll();
+    public List<CourseStages> findAll() {
+        return courseStagesRepository.findAll();
     }
 
-    public Optional<Course> findById(Long id) {
-        return courseRepository.findById(id);
+    public Optional<CourseStages> findById(Long id) {
+        return courseStagesRepository.findById(id);
     }
 
-    public Course save(Course course) {
-        return courseRepository.save(course);
+    public CourseStages save(CourseStages courseStages) {
+        return courseStagesRepository.save(courseStages);
     }
 
     public void deleteById(Long id) {
-        courseRepository.deleteById(id);
+        courseStagesRepository.deleteById(id);
     }
 
 }

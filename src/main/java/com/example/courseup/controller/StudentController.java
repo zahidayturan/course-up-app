@@ -1,32 +1,37 @@
-package com.example.courseup.service;
+package com.example.courseup.controller;
 
 import com.example.courseup.model.Student;
 import com.example.courseup.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class StudentService {
+@RestController
+@RequestMapping("/student")
+public class StudentController {
 
     @Autowired
     private StudentRepository studentRepository;
 
+    @GetMapping
     public List<Student> findAll() {
         return studentRepository.findAll();
     }
 
-    public Optional<Student> findById(Long id) {
+    @GetMapping("/{id}")
+    public Optional<Student> findById(@PathVariable Long id) {
         return studentRepository.findById(id);
     }
 
-    public Student save(Student student) {
+    @PostMapping
+    public Student save(@RequestBody Student student) {
         return studentRepository.save(student);
     }
 
-    public void deleteById(Long id) {
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Long id) {
         studentRepository.deleteById(id);
     }
 
