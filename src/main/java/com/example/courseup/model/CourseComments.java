@@ -1,5 +1,6 @@
 package com.example.courseup.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -11,10 +12,12 @@ public class CourseComments {
     private Long id;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "course_id")
     private Course course;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "trainee_id")
     private Trainee trainee;
 

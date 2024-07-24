@@ -1,5 +1,7 @@
 package com.example.courseup.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,6 +16,7 @@ public class Course {
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
+    @JsonBackReference
     private Teacher teacher;
 
     private String name;
@@ -27,11 +30,14 @@ public class Course {
     private int totalDuration;
 
     @OneToMany(mappedBy = "course")
+    @JsonManagedReference
     private List<CourseStages> stages;
 
     @OneToMany(mappedBy = "course")
+    @JsonManagedReference
     private List<Basket> baskets;
 
     @OneToMany(mappedBy = "course")
+    @JsonManagedReference
     private List<CourseComments> comments;
 }
