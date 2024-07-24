@@ -22,7 +22,7 @@ public class Course {
     private double price;
     private String level;
     private String language;
-    private boolean subtitles;
+    private String subtitles;
     private int totalStages;
     private int totalDuration;
 

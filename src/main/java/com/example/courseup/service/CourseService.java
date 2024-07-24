@@ -1,6 +1,7 @@
 package com.example.courseup.service;
 
 import com.example.courseup.model.Course;
+import com.example.courseup.model.User;
 import com.example.courseup.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,10 @@ public class CourseService {
 
     public void deleteById(Long id) {
         courseRepository.deleteById(id);
+    }
+
+    public List<Course> getCoursesByUserId(Long userId) {
+        return courseRepository.findCoursesByUserId(userId);
     }
 
 }
