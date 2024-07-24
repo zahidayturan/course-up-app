@@ -1,28 +1,37 @@
 package com.example.courseup.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Trainee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    @JsonIgnore
     private Student student;
 
     @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name = "course_id")
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    @JsonIgnore
     private Course course;
 
-    private int currentDuration;
-    private int currentStages;
-    private double coursePoint;
-    private boolean isFinished;
+    private Integer currentDuration;
+    private Integer currentStages;
+    private Integer coursePoint;
+    private Boolean isFinished;
+
+    @OneToMany(mappedBy = "trainee")
+    @JsonManagedReference
+    private List<CourseComments> courseComments;
 }

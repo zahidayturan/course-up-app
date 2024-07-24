@@ -1,24 +1,26 @@
 package com.example.courseup.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class CourseComments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name = "course_id")
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    @JsonIgnore
     private Course course;
 
     @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name = "trainee_id")
+    @JoinColumn(name = "trainee_id", referencedColumnName = "id")
+    @JsonIgnore
     private Trainee trainee;
 
     private String comments;
