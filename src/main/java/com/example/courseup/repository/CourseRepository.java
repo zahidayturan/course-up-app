@@ -11,4 +11,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     @Query("SELECT c FROM Course c JOIN Trainee t ON c.id = t.course.id JOIN Student s ON t.student.id = s.id WHERE s.user.id = :userId")
     List<Course> findCoursesByUserId(@Param("userId") Long userId);
+
+    @Query("SELECT c FROM Course c WHERE c.category = :categoryName")
+    List<Course> findCoursesByCategory(@Param("categoryName") String  categoryName);
 }

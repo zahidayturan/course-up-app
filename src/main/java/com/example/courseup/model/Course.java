@@ -39,7 +39,4 @@ public class Course {
     @JsonManagedReference
     private List<CourseComments> courseComments;
 
-    @OneToMany(mappedBy = "course")
-    @JsonManagedReference
-    private List<Basket> baskets;
 }

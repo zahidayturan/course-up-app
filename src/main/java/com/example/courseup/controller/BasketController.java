@@ -1,9 +1,13 @@
 package com.example.courseup.controller;
 
+import com.example.courseup.exception.ResourceNotFoundException;
 import com.example.courseup.model.Basket;
+import com.example.courseup.model.Course;
 import com.example.courseup.service.BasketService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,5 +42,21 @@ public class BasketController {
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         basketService.deleteById(id);
+    }
+
+    @Operation(summary = "Get all basket by User Id")
+    @GetMapping("/user/{userId}")
+    public List<Basket> getBasketByUserId(@PathVariable Long userId) {
+        return basketService.getBasketByUserId(userId);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Basket> updateBasket(@PathVariable Long id, @RequestBody Basket updatedBasket) {
+        try {
+            Basket basket = basketService.updateBasket(id, updatedBasket);
+            return new ResponseEntity<>(basket, HttpStatus.OK);
+        } catch (ResourceNotFoundException ex) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 }

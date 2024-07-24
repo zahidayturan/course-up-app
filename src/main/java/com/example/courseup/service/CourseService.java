@@ -35,4 +35,7 @@ public class CourseService {
         return courseRepository.findCoursesByUserId(userId);
     }
 
+    public List<Course> getCoursesByCategory(String categoryName) {
+        return courseRepository.findCoursesByCategory(categoryName);
+    }
 }
