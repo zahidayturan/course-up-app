@@ -3,6 +3,8 @@ package com.example.courseup.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 public class Teacher {
@@ -15,4 +17,7 @@ public class Teacher {
     private User user;
 
     private String description;
+
+    @OneToMany(mappedBy = "teacher")
+    private List<Course> courses;
 }

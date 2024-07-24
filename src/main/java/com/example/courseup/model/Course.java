@@ -28,4 +28,10 @@ public class Course {
 
     @OneToMany(mappedBy = "course")
     private List<CourseStages> stages;
+
+    @OneToMany(mappedBy = "course")
+    private List<Basket> baskets;
+
+    @OneToMany(mappedBy = "course")
+    private List<CourseComments> comments;
 }

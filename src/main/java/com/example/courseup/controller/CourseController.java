@@ -1,9 +1,7 @@
 package com.example.courseup.controller;
 
 import com.example.courseup.model.Course;
-import com.example.courseup.model.User;
 import com.example.courseup.service.CourseService;
-import com.example.courseup.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +14,6 @@ public class CourseController {
 
     @Autowired
     private CourseService courseService;
-
-    @Autowired
-    private UserService userService;
 
     @GetMapping
     public List<Course> findAll() {
