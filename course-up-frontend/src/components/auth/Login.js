@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Endpoints from '../../constants/Endpoints';
 import '../../assets/css/Login.css';
+import {useState} from "react";
 
 const Login = () => {
     const [email, setEmail] = useState('');
