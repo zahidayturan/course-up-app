@@ -1,10 +1,10 @@
 -- Users
 INSERT INTO "user" (id, name, surname, email, password, joining_date) VALUES
-(1, 'John', 'Doe', 'john.doe@example.com', 'password1', '2023-01-01'),
-(2, 'Jane', 'Smith', 'jane.smith@example.com', 'password2', '2023-02-01'),
-(3, 'Alice', 'Johnson', 'alice.johnson@example.com', 'password3', '2023-03-01'),
-(4, 'Bob', 'Brown', 'bob.brown@example.com', 'password4', '2023-04-01'),
-(5, 'Charlie', 'Davis', 'charlie.davis@example.com', 'password5', '2023-05-01');
+(1, 'John', 'Doe', 'john@example.com', '$2a$10$h.m5v59FONvSx/WtZg93rerEsWHfjVlWYRZJfxMhk52zih4J6FiYe', '2023-01-01'),
+(2, 'Jane', 'Smith', 'jane@example.com', '$2a$10$h.m5v59FONvSx/WtZg93rerEsWHfjVlWYRZJfxMhk52zih4J6FiYe', '2023-02-01'),
+(3, 'Alice', 'Johnson', 'alice@example.com', '$2a$10$h.m5v59FONvSx/WtZg93rerEsWHfjVlWYRZJfxMhk52zih4J6FiYe', '2023-03-01'),
+(4, 'Bob', 'Brown', 'bob@example.com', '$2a$10$h.m5v59FONvSx/WtZg93rerEsWHfjVlWYRZJfxMhk52zih4J6FiYe', '2023-04-01'),
+(5, 'Charlie', 'Davis', 'charlie@example.com', '$2a$10$h.m5v59FONvSx/WtZg93rerEsWHfjVlWYRZJfxMhk52zih4J6FiYe', '2023-05-01');
 
 -- Students
 INSERT INTO student (id, user_id) VALUES

@@ -1,5 +1,6 @@
 package com.example.courseup.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -23,15 +24,15 @@ public class User {
     private LocalDate joiningDate;
 
     @OneToOne(mappedBy = "user")
-    @JsonManagedReference
+    @JsonIgnore
     private Student student;
 
     @OneToOne(mappedBy = "user")
-    @JsonManagedReference
+    @JsonIgnore
     private Teacher teacher;
 
     @OneToMany(mappedBy = "user")
-    @JsonManagedReference
+    @JsonIgnore
     private List<Basket> baskets;
 }
 
