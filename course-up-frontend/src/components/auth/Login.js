@@ -1,25 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import ENDPOINTS from '../../constants/endpoints';
+import Endpoints from '../../constants/Endpoints';
+import '../../assets/css/Login.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
+    const [loginError, setLoginError] = useState(null);
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post(ENDPOINTS.LOGIN, { email, password });
+            const response = await axios.post(Endpoints.LOGIN, { email, password });
+
+            // Fetch user details only if necessary
+            const userResponse = await axios.get(`${Endpoints.USER_EMAIL}/${email}`);
+            const user = userResponse.data;
+            localStorage.setItem('user', JSON.stringify(user));
             console.log('Login successful', response.data);
-            window.location.href = '/dashboard';
+            window.location.href = '/home';
         } catch (error) {
-            setError('Invalid email or password');
+            setLoginError('Invalid email or password: ' + error.message);
         }
     };
 
     return (
-        <div>
+        <div className="login-container">
             <h2>Login</h2>
             <form onSubmit={handleSubmit}>
                 <div>
@@ -40,7 +47,7 @@ const Login = () => {
                         required
                     />
                 </div>
-                {error && <p>{error}</p>}
+                {loginError && <p className="error">{loginError}</p>}
                 <button type="submit">Login</button>
             </form>
         </div>

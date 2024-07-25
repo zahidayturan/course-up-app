@@ -1,7 +1,6 @@
 package com.example.courseup.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +20,16 @@ public class User {
     private String surname;
     private String email;
     private String password;
+
+    @Column(name = "joining_date")
     private LocalDate joiningDate;
+
+    @PrePersist
+    protected void onCreate() {
+        if (this.joiningDate == null) {
+            this.joiningDate = LocalDate.now();
+        }
+    }
 
     @OneToOne(mappedBy = "user")
     @JsonIgnore
