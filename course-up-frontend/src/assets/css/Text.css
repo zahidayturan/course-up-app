@@ -27,6 +27,7 @@
     text-decoration: underline;
     cursor: pointer;
     text-underline-offset: 0.3rem;
+    color: var(--secondary-color-2);
 }
 
 .text-underline:hover{

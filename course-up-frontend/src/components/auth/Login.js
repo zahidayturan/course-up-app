@@ -4,6 +4,7 @@ import '../../assets/css/auth/Login.css';
 import '../../assets/css/Main.css';
 import '../../assets/css/Text.css';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -29,9 +30,9 @@ const Login = () => {
         <div>
             <section id="header">
                 <div className="login-row">
-                    <div className="app-logo">
+                    <Link to="/home" className="app-logo">
                         <img src="/logo/courseup-l-v1.png" alt="CourseUp Logo 1" />
-                    </div>
+                    </Link>
                     <div className="logo-v2">
                         <img src="/logo/courseup-l-v2.png" alt="CourseUp Logo 2" />
                     </div>
@@ -74,7 +75,7 @@ const Login = () => {
                         {loginError && <p className="error">{loginError}</p>}
                     </form>
                 </div>
-                <p className="text-normal">Bir hesabınız yok mu? <span className="font-bold text-underline">Kayıt Olun</span></p>
+                <p className="text-normal">Bir hesabınız yok mu? <Link to="/register" className="font-bold text-underline">Kayıt Olun</Link></p>
             </section>
 
             <section id="bottom-bar" className="login-row">
