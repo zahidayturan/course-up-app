@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>A</title>
+    <link rel="stylesheet" href="../../assets/css/Main.css">
+    <link rel="stylesheet" href="../../assets/css/auth/Login.css">
+    <link rel="stylesheet" href="../../assets/css/Text.css">
+</head>
+<body>
+<section id="header">
+    <div class="login-row">
+        <div class="app-logo">
+            <img src="../../../public/logo/courseup-l-v1.png" alt="">
+        </div>
+        <div class="logo-v2">
+            <img src="../../../public/logo/courseup-l-v2.png" alt="">
+        </div>
+    </div>
+</section>
+
+<section id="form" class="login-column">
+    <p class="text-header-large font-semi-bold">Hoş Geldiniz</p>
+    <div class="login-column container-form">
+        <div class="login-row bottom-padding">
+            <p class="text-large font-normal">Giriş Yapın</p>
+            <div class="mini-cont"></div>
+        </div>
+
+        <form class="registration-form" onSubmit={handleSubmit}>
+
+            <label for="email"></label>
+            <input type="text" id="email" name="email" placeholder="E-Posta adresiniz" required>
+
+            <label for="password"></label>
+            <input type="password" id="password" name="password" placeholder="Şifreniz" required>
+
+            <p class="login-forgot-password">Şifremi Unuttum</p>
+            <button type="submit" class="button">Giriş Yap</button>
+        </form>
+    </div>
+    <p class="text-normal">Bir hesabınız yok mu? <span class="font-bold text-underline">Kayıt Olun</span></p>
+</section>
+
+<section id="bottom-bar" class="login-row">
+    <p class="rotated-text">Yeni Nesil<br>Online Kurs<br>Platformu</p>
+    <p>© Copyright 2024 Z Her Hakkı Saklıdır.</p>
+    <img src="../../../public/logo/za-l-v1.png" alt="" style="width: 32px">
+</section>
+
+</body>
+</html>
