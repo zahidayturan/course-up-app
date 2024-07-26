@@ -51,13 +51,14 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
         if (userService.emailExists(user.getEmail())) {
-            return ResponseEntity.status(400).body("Email is already in use");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email is already in use");
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.save(user);
         return ResponseEntity.ok("User registered successfully");
     }
+
     @Operation(summary = "Get User Info by email")
     @GetMapping("/email/{email}")
     public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
@@ -66,13 +67,12 @@ public class UserController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-    @Operation(summary = "Check if email exists")
+    @Operation(summary = "Check email existence")
     @GetMapping("/email-check/{email}")
     public ResponseEntity<String> checkUserEmail(@PathVariable String email) {
         if (userService.emailExists(email)) {
-            return ResponseEntity.status(400).body("Email is already in use");
-        } else {
-            return ResponseEntity.ok("Email is available");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email is already in use");
         }
+        return ResponseEntity.ok("Email is available");
     }
 }

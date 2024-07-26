@@ -13,42 +13,57 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const [isEmailValid, setIsEmailValid] = useState(false);
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     const handleEmailSubmit = async (event) => {
         event.preventDefault();
         try {
             const response = await axios.get(`${Endpoints.CHECK_EMAIL}/${email}`);
-            if (response.status === 400) {
-                setMessage('Bu mail zaten mevcut');
-            } else {
+
+            if (response.status === 200) {
                 setIsEmailValid(true);
-                setMessage('');
+                setMessage('E-posta adresi kullanılabilir.');
+            } else {
+                setMessage('Beklenmedik bir durum oluştu.');
             }
         } catch (error) {
-            setMessage('Bu mail zaten mevcut');
+            if (error.response && error.response.status === 400) {
+                setMessage('Bu mail zaten mevcut');
+            } else {
+                setMessage('Bir hata oluştu.');
+            }
         }
     };
+
 
     const handleRegisterSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.post(Endpoints.REGISTER, {
+            const response = await axios.post(Endpoints.REGISTER, {
                 name,
                 surname,
                 email,
                 password
             });
-            setMessage('Kayıt başarılı! Giriş yapabilirsiniz.');
-            history.push('/home');
+
+            if (response.status === 200) {
+                setMessage('Kayıt başarılı! Giriş yapabilirsiniz.');
+                const userResponse = await axios.get(`${Endpoints.USER_EMAIL}/${email}`);
+                const user = userResponse.data;
+                localStorage.setItem('user', JSON.stringify(user));
+                navigate('/home');
+            } else {
+                setMessage('Beklenmedik bir durum oluştu.');
+            }
         } catch (error) {
             if (error.response && error.response.data) {
                 setMessage(error.response.data);
             } else {
-                setMessage('An error occurred');
+                setMessage('Bir hata oluştu.');
             }
         }
     };
+
 
     return (
         <div>
@@ -91,6 +106,7 @@ const Register = () => {
                         </form>
                     ) : (
                         <form className="registration-form" onSubmit={handleRegisterSubmit}>
+                            <p className="go-back text-underline" onClick={() => setIsEmailValid(false)}>Geri Dön</p>
                             <label htmlFor="email"></label>
                             <input
                                 type="text"
