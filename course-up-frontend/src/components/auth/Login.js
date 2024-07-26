@@ -1,20 +1,20 @@
 import axios from 'axios';
 import Endpoints from '../../constants/Endpoints';
-import '../../assets/css/Login.css';
-import {useState} from "react";
+import '../../assets/css/auth/Login.css';
+import '../../assets/css/Main.css';
+import '../../assets/css/Text.css';
+import { useState } from 'react';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginError, setLoginError] = useState(null);
 
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
             const response = await axios.post(Endpoints.LOGIN, { email, password });
 
-            // Fetch user details only if necessary
             const userResponse = await axios.get(`${Endpoints.USER_EMAIL}/${email}`);
             const user = userResponse.data;
             localStorage.setItem('user', JSON.stringify(user));
@@ -26,30 +26,62 @@ const Login = () => {
     };
 
     return (
-        <div className="login-container">
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Email</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
+        <div>
+            <section id="header">
+                <div className="login-row">
+                    <div className="app-logo">
+                        <img src="/logo/courseup-l-v1.png" alt="CourseUp Logo 1" />
+                    </div>
+                    <div className="logo-v2">
+                        <img src="/logo/courseup-l-v2.png" alt="CourseUp Logo 2" />
+                    </div>
                 </div>
-                <div>
-                    <label>Password</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
+            </section>
+
+            <section id="form" className="login-column">
+                <p className="text-header-large font-semi-bold">Hoş Geldiniz</p>
+                <div className="login-column container-form">
+                    <div className="login-row bottom-padding">
+                        <p className="text-large font-normal">Giriş Yapın</p>
+                        <div className="mini-cont"></div>
+                    </div>
+
+                    <form className="registration-form" onSubmit={handleSubmit}>
+                        <label htmlFor="email"></label>
+                        <input
+                            type="text"
+                            id="email"
+                            name="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="E-Posta adresiniz"
+                            required
+                        />
+
+                        <label htmlFor="password"></label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Şifreniz"
+                            required
+                        />
+
+                        <p className="login-forgot-password">Şifremi Unuttum</p>
+                        <button type="submit" className="button">Giriş Yap</button>
+                        {loginError && <p className="error">{loginError}</p>}
+                    </form>
                 </div>
-                {loginError && <p className="error">{loginError}</p>}
-                <button type="submit">Login</button>
-            </form>
+                <p className="text-normal">Bir hesabınız yok mu? <span className="font-bold text-underline">Kayıt Olun</span></p>
+            </section>
+
+            <section id="bottom-bar" className="login-row">
+                <p className="rotated-text">Yeni Nesil<br />Online Kurs<br />Platformu</p>
+                <p>© Copyright 2024 Z Her Hakkı Saklıdır.</p>
+                <img src="/logo/za-l-v1.png" alt="ZA Logo" style={{ width: '32px' }} />
+            </section>
         </div>
     );
 };

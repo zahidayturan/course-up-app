@@ -1,0 +1,34 @@
+.text-header-large{
+    font-size: 32px;
+    color: var(--secondary-color-2);
+}
+
+.text-normal{
+    font-size: 16px;
+}
+
+.text-large{
+    font-size: 24px;
+}
+
+.font-normal{
+    font-weight: 500;
+}
+
+.font-semi-bold{
+    font-weight: 600;
+}
+
+.font-bold{
+    font-weight: bold;
+}
+
+.text-underline{
+    text-decoration: underline;
+    cursor: pointer;
+    text-underline-offset: 0.3rem;
+}
+
+.text-underline:hover{
+    text-underline-offset: 0.5rem;
+}

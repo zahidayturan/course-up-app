@@ -1,0 +1,132 @@
+.login-row{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.login-column{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.app-logo{
+    height: 20px;
+    background-color: var(--primary-color-1);
+    border-radius: 100px;
+    padding: 14px 20px;
+}
+
+.app-logo img{
+    height: 100%;
+}
+
+.app-logo:hover{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    cursor: pointer;
+}
+
+.logo-v2{
+    height: 124px;
+    border-radius: 0;
+    opacity: 0.2;
+}
+
+.logo-v2 img{
+    height: 100%;
+}
+
+.logo-v2:hover{
+    opacity: 1;
+}
+
+#form{
+    align-items: center;
+    gap: 24px;
+    margin: 32px 0;
+}
+
+.container-form{
+    background-color: var(--primary-color-1);
+    height: max-content;
+    width: 36ch;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    box-shadow: rgba(0, 0, 0, 0.24) 0 4px 8px;
+}
+
+.registration-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+input {
+    border: none;
+    background: var(--secondary-color-1);
+    border-radius: 8px;
+    padding: 14px 14px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.button{
+    width: 100%;
+    height: 42px;
+    border-radius: 36px;
+    background: linear-gradient(90deg, var(--secondary-color-2) 0%, rgb(57,57,57) 100%);
+    align-items: center;
+    transition: all 300ms ease;
+    font-size: 20px;
+    color: white;
+    border: none;
+    user-select: none;
+}
+
+.button:hover{
+    cursor: pointer;
+    background: linear-gradient(90deg, var(--secondary-color-2) 0%, var(--secondary-color-2) 100%);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15), 0 2px 2px rgba(0,0,0,0.15), 0 4px 4px rgba(0,0,0,0.15), 0 8px 8px rgba(0,0,0,0.15);
+}
+
+.login-forgot-password{
+    width: 100%;
+    text-align: end;
+}
+
+.login-forgot-password:hover{
+    cursor: pointer;
+    color: var(--orange-color-1);
+}
+
+.mini-cont{
+    width: 32px;
+    height: 8px;
+    border-radius: 50px;
+    background-color: var(--orange-color-1);
+}
+
+.bottom-padding{
+    padding-bottom: 12px;
+}
+
+.rotated-text{
+    writing-mode: vertical-rl;
+    -webkit-transform: rotate(-180deg);
+    -moz-transform: rotate(-180deg);
+    text-align: start;
+}
+
+#bottom-bar{
+    padding-top: 144px;
+    align-items: end;
+}
