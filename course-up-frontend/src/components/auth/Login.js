@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Endpoints from '../../constants/Endpoints';
-import '../../assets/css/auth/Login.css';
+import '../../assets/css/auth/Auth.css';
 import '../../assets/css/Main.css';
 import '../../assets/css/Text.css';
 import { useState } from 'react';

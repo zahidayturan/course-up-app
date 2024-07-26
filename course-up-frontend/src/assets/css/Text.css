@@ -11,6 +11,10 @@
     font-size: 24px;
 }
 
+.font-light{
+    font-weight: lighter;
+}
+
 .font-normal{
     font-weight: 500;
 }
@@ -21,6 +25,10 @@
 
 .font-bold{
     font-weight: bold;
+}
+
+.text-center{
+    text-align: center;
 }
 
 .text-underline{

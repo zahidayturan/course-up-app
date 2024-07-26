@@ -115,6 +115,10 @@ input {
     background-color: var(--orange-color-1);
 }
 
+.register-mini-count{
+    background-color: var(--green-color-1);
+}
+
 .bottom-padding{
     padding-bottom: 12px;
 }
