@@ -4,7 +4,7 @@ import Endpoints from '../../constants/Endpoints';
 import '../../assets/css/auth/Auth.css';
 import '../../assets/css/Main.css';
 import '../../assets/css/Text.css';
-import {Link} from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -12,17 +12,35 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const [isEmailValid, setIsEmailValid] = useState(false);
+    const history = useNavigate();
 
-    const handleSubmit = async (event) => {
+    const handleEmailSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post(Endpoints.REGISTER, {
+            const response = await axios.get(`${Endpoints.CHECK_EMAIL}/${email}`);
+            if (response.status === 400) {
+                setMessage('Bu mail zaten mevcut');
+            } else {
+                setIsEmailValid(true);
+                setMessage('');
+            }
+        } catch (error) {
+            setMessage('Bu mail zaten mevcut');
+        }
+    };
+
+    const handleRegisterSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            await axios.post(Endpoints.REGISTER, {
                 name,
                 surname,
                 email,
                 password
             });
-            setMessage(response.data);
+            setMessage('Kayıt başarılı! Giriş yapabilirsiniz.');
+            history.push('/home');
         } catch (error) {
             if (error.response && error.response.data) {
                 setMessage(error.response.data);
@@ -46,28 +64,79 @@ const Register = () => {
             </section>
 
             <section id="form" className="login-column">
-                <p className="text-header-large font-semi-bold text-center"> <span className="font-light">CourseUp<br/></span>Ailesine Katılın</p>
+                <p className="text-header-large font-semi-bold text-center">
+                    <span className="font-light">CourseUp<br /></span>Ailesine Katılın
+                </p>
                 <div className="login-column container-form">
                     <div className="login-row bottom-padding">
                         <p className="text-large font-normal">Hesap Oluşturun</p>
                         <div className="mini-cont register-mini-count"></div>
                     </div>
 
-                    <form className="registration-form" onSubmit={handleSubmit}>
-                        <label htmlFor="email"></label>
-                        <input
-                            type="text"
-                            id="email"
-                            name="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="E-Posta adresiniz"
-                            required
-                        />
-                        <p></p>
-                        <button type="submit" className="button">İlerle</button>
-                        {message && <p>{message}</p>}
-                    </form>
+                    {!isEmailValid ? (
+                        <form className="registration-form" onSubmit={handleEmailSubmit}>
+                            <label htmlFor="email"></label>
+                            <input
+                                type="text"
+                                id="email"
+                                name="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="E-Posta adresiniz"
+                                required
+                            />
+                            <p></p>
+                            <button type="submit" className="button">İlerle</button>
+                            {message && <p className="error text-center">{message}</p>}
+                        </form>
+                    ) : (
+                        <form className="registration-form" onSubmit={handleRegisterSubmit}>
+                            <label htmlFor="email"></label>
+                            <input
+                                type="text"
+                                id="email"
+                                name="email"
+                                value={email}
+                                readOnly
+                                placeholder="E-Posta adresiniz"
+                                className="readOnly"
+                                required
+                            />
+                            <label htmlFor="name"></label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                placeholder="Adınız"
+                                required
+                            />
+                            <label htmlFor="surname"></label>
+                            <input
+                                type="text"
+                                id="surname"
+                                name="surname"
+                                value={surname}
+                                onChange={(e) => setSurname(e.target.value)}
+                                placeholder="Soyadınız"
+                                required
+                            />
+                            <label htmlFor="password"></label>
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="Şifreniz"
+                                required
+                            />
+                            <p></p>
+                            <button type="submit" className="button">Kayıt Ol</button>
+                            {message && <p className="error text-center">{message}</p>}
+                        </form>
+                    )}
                 </div>
                 <p className="text-normal">Zaten bir hesabınız var mı? <Link to="/login" className="font-bold text-underline">Giriş Yap</Link></p>
             </section>

@@ -65,4 +65,14 @@ public class UserController {
         return user.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
+
+    @Operation(summary = "Check if email exists")
+    @GetMapping("/email-check/{email}")
+    public ResponseEntity<String> checkUserEmail(@PathVariable String email) {
+        if (userService.emailExists(email)) {
+            return ResponseEntity.status(400).body("Email is already in use");
+        } else {
+            return ResponseEntity.ok("Email is available");
+        }
+    }
 }

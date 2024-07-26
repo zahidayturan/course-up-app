@@ -72,7 +72,7 @@ const Login = () => {
 
                         <p className="login-forgot-password">Şifremi Unuttum</p>
                         <button type="submit" className="button">Giriş Yap</button>
-                        {loginError && <p className="error">{loginError}</p>}
+                        {loginError && <p className="error text-center">{loginError}</p>}
                     </form>
                 </div>
                 <p className="text-normal">Bir hesabınız yok mu? <Link to="/register" className="font-bold text-underline">Kayıt Olun</Link></p>

@@ -4,7 +4,8 @@ const Endpoints = {
     USER: `${API_BASE_URL}/user`,
     LOGIN: `${API_BASE_URL}/login`,
     REGISTER: `${API_BASE_URL}/user/register`,
-    USER_EMAIL: `${API_BASE_URL}/user/email`
+    USER_EMAIL: `${API_BASE_URL}/user/email`,
+    CHECK_EMAIL: `${API_BASE_URL}/user/email-check`
 
 };
 

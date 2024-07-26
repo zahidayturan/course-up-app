@@ -134,3 +134,7 @@ input {
     padding-top: 144px;
     align-items: end;
 }
+
+.readOnly{
+    background-color: var(--grey-color-1);
+}
