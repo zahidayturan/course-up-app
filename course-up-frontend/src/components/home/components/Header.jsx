@@ -25,7 +25,7 @@ const Header = () => {
     };
 
     return (
-        <section className={styles['header']}>
+        <div className={styles['header']}>
             <div className={styles['custom-row']}>
                 <Link to="/" className={styles['app-logo']}>
                     <img src="/logo/courseup-l-v1.png" alt="CourseUp Logo" />
@@ -87,7 +87,7 @@ const Header = () => {
                     </div>
                 </div>
             )}
-        </section>
+        </div>
     );
 };
 

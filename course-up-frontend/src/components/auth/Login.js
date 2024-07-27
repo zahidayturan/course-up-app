@@ -1,8 +1,8 @@
 import axios from 'axios';
 import Endpoints from '../../constants/Endpoints';
-import '../../assets/css/auth/Auth.css';
-import '../../assets/css/Main.css';
-import '../../assets/css/Text.css';
+import '../../assets/css/auth/Auth.module.css';
+import '../../assets/css/Main.module.css';
+import '../../assets/css/Text.module.css';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from './components/AuthHeader';

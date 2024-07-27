@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Endpoints from '../../constants/Endpoints';
-import '../../assets/css/auth/Auth.css';
-import '../../assets/css/Main.css';
-import '../../assets/css/Text.css';
+import '../../assets/css/Main.module.css';
 import { Link, useNavigate } from "react-router-dom";
 import Header from "./components/AuthHeader";
 import Footer from "./components/AuthFooter";
+import styles from '../../assets/css/auth/Auth.module.css';
+import textStyles from '../../assets/css/Text.module.css';
+import classNames from "classnames";
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -87,18 +88,18 @@ const Register = () => {
     return (
         <div>
             <Header />
-            <section id="form" className="login-column">
-                <p className="text-header-large font-semi-bold text-center">
-                    <span className="font-light">CourseUp<br /></span>Ailesine Katılın
+            <div className={classNames(styles['form'], styles['login-column'])}>
+                <p className={classNames(textStyles['text-header-large'], textStyles['font-semi-bold'], textStyles['text-center'])}>
+                    <span className={textStyles['font-light']}>CourseUp<br /></span>Ailesine Katılın
                 </p>
-                <div className="login-column container-form">
-                    <div className="login-row bottom-padding">
-                        <p className="text-large font-normal">Hesap Oluşturun</p>
-                        <div className="mini-cont register-mini-count"></div>
+                <div className={classNames(styles['login-column'], styles['container-form'])}>
+                    <div className={classNames(styles['login-row'], styles['bottom-padding'])}>
+                        <p className={classNames(textStyles['text-large'], textStyles['font-normal'])}>Hesap Oluşturun</p>
+                        <div className={classNames(styles['mini-cont'], styles['register-mini-count'])}></div>
                     </div>
 
                     {!formSubmitted && !isEmailValid ? (
-                        <form className="registration-form" onSubmit={handleEmailSubmit}>
+                        <form className={styles['registration-form']} onSubmit={handleEmailSubmit}>
                             <label htmlFor="email"></label>
                             <input
                                 type="text"
@@ -108,16 +109,17 @@ const Register = () => {
                                 onChange={(e) => setEmail(e.target.value)}
                                 placeholder="E-Posta adresiniz"
                                 required
+                                className={styles['input']}
                             />
                             <p></p>
-                            <button type="submit" className="button">
+                            <button type="submit" className={styles['button']}>
                                 {loading ? 'Kontrol ediliyor...' : 'İlerle'}
                             </button>
-                            {message && <p className="error text-center">{message}</p>}
+                            {message && <p className={classNames(textStyles['error'], textStyles['text-center'])}>{message}</p>}
                         </form>
                     ) : !formSubmitted ? (
-                        <form className="registration-form" onSubmit={handleRegisterSubmit}>
-                            <p className="go-back text-underline" onClick={handleGoBack}>Geri Dön</p>
+                        <form className={styles['registration-form']} onSubmit={handleRegisterSubmit}>
+                            <p className={classNames(styles['go-back'], textStyles['text-underline'])} onClick={handleGoBack}>Geri Dön</p>
                             <label htmlFor="email"></label>
                             <input
                                 type="text"
@@ -126,7 +128,7 @@ const Register = () => {
                                 value={email}
                                 readOnly
                                 placeholder="E-Posta adresiniz"
-                                className="readOnly"
+                                className={classNames(styles['input'], styles['readOnly'])}
                                 required
                             />
                             <label htmlFor="name"></label>
@@ -137,6 +139,7 @@ const Register = () => {
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 placeholder="Adınız"
+                                className={styles['input']}
                                 required
                             />
                             <label htmlFor="surname"></label>
@@ -147,6 +150,7 @@ const Register = () => {
                                 value={surname}
                                 onChange={(e) => setSurname(e.target.value)}
                                 placeholder="Soyadınız"
+                                className={styles['input']}
                                 required
                             />
                             <label htmlFor="password"></label>
@@ -157,25 +161,26 @@ const Register = () => {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 placeholder="Şifreniz"
+                                className={styles['input']}
                                 required
                             />
                             <p></p>
-                            <button type="submit" className="button">
+                            <button type="submit" className={styles['button']}>
                                 {loading ? 'Kayıt yapılıyor...' : 'Kayıt Ol'}
                             </button>
-                            {message && <p className="error text-center top-padding bottom-padding">{message}</p>}
+                            {message && <p className={classNames(textStyles['error'], textStyles['text-center'], styles['top-padding'], styles['bottom-padding'])}>{message}</p>}
                         </form>
                     ) : (
-                        <p className="text-center top-padding bottom-padding">Kayıt başarılı! Giriş yapabilirsiniz.</p>
+                        <p className={classNames(textStyles['text-center'], styles['top-padding'], styles['bottom-padding'])}>Kayıt başarılı! Giriş yapabilirsiniz.</p>
                     )}
                     {loading && (
-                        <div className="loader">
-                            <div className="spinner"></div>
+                        <div className={styles['loader']}>
+                            <div className={styles['spinner']}></div>
                         </div>
                     )}
                 </div>
-                <p className="text-normal text-center">Zaten bir hesabınız var mı? <Link to="/login" className="font-bold text-underline">Giriş Yap</Link></p>
-            </section>
+                <p className={classNames(textStyles['text-normal'], textStyles['text-center'])}>Zaten bir hesabınız var mı? <Link to="/login" className={classNames(textStyles['font-bold'], textStyles['text-underline'])}>Giriş Yap</Link></p>
+            </div>
             <Footer />
         </div>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './components/Header';
-import '../../assets/css/Main.css';
-import '../../assets/css/Text.css';
+import '../../assets/css/Main.module.css';
+import '../../assets/css/Text.module.css';
 
 const Home = () => {
     const [user, setUser] = React.useState(null);

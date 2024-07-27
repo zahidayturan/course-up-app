@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Endpoints from '../../constants/Endpoints';
-import '../../assets/css/auth/Auth.css';
-import '../../assets/css/Main.css';
-import '../../assets/css/Text.css';
+import '../../assets/css/auth/Auth.module.css';
+import '../../assets/css/Main.module.css';
+import '../../assets/css/Text.module.css';
 import Header from "./components/AuthHeader";
 import Footer from "./components/AuthFooter";
 
