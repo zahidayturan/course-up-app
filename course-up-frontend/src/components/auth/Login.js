@@ -69,8 +69,7 @@ const Login = () => {
                             placeholder="Şifreniz"
                             required
                         />
-
-                        <p className="login-forgot-password">Şifremi Unuttum</p>
+                        <Link to="/forgot-password" className="login-forgot-password">Şifremi Unuttum</Link>
                         <button type="submit" className="button">Giriş Yap</button>
                         {loginError && <p className="error text-center">{loginError}</p>}
                     </form>

@@ -4,7 +4,7 @@ import Endpoints from '../../constants/Endpoints';
 import '../../assets/css/auth/Auth.css';
 import '../../assets/css/Main.css';
 import '../../assets/css/Text.css';
-import { Link, useNavigate  } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 
 const Register = () => {
     const [name, setName] = useState('');

@@ -5,7 +5,9 @@ const Endpoints = {
     LOGIN: `${API_BASE_URL}/login`,
     REGISTER: `${API_BASE_URL}/user/register`,
     USER_EMAIL: `${API_BASE_URL}/user/email`,
-    CHECK_EMAIL: `${API_BASE_URL}/user/email-check`
+    CHECK_EMAIL: `${API_BASE_URL}/user/email-check`,
+    PASSWORD_RESET_REQ: `${API_BASE_URL}/login/password-reset`,
+    RESET_PASSWORD: `${API_BASE_URL}/login/reset-password`
 
 };
 
