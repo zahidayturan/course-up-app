@@ -5,6 +5,8 @@ import Endpoints from '../../constants/Endpoints';
 import '../../assets/css/auth/Auth.css';
 import '../../assets/css/Main.css';
 import '../../assets/css/Text.css';
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 const ResetPassword = () => {
     const [newPassword, setNewPassword] = useState('');
@@ -49,16 +51,7 @@ const ResetPassword = () => {
 
     return (
         <div>
-            <section id="header">
-                <div className="login-row">
-                    <Link to="/" className="app-logo">
-                        <img src="/logo/courseup-l-v1.png" alt="CourseUp Logo 1" />
-                    </Link>
-                    <div className="logo-v2">
-                        <img src="/logo/courseup-l-v2.png" alt="CourseUp Logo 2" />
-                    </div>
-                </div>
-            </section>
+            <Header />
 
             <section id="form" className="login-column">
                 <p className="text-header-large font-semi-bold text-center">
@@ -94,11 +87,7 @@ const ResetPassword = () => {
                 </div>
             </section>
 
-            <section id="bottom-bar" className="login-row">
-                <p className="rotated-text">Yeni Nesil<br />Online Kurs<br />Platformu</p>
-                <p>© Copyright 2024 Z Her Hakkı Saklıdır.</p>
-                <img src="/logo/za-l-v1.png" alt="ZA Logo" style={{ width: '32px' }} />
-            </section>
+            <Footer />
         </div>
     );
 };

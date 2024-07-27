@@ -108,6 +108,8 @@ input {
 .login-forgot-password{
     width: 100%;
     text-align: end;
+    text-decoration: none;
+    color: var(--primary-color-2);
 }
 
 .login-forgot-password:hover{
