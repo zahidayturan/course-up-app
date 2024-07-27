@@ -22,13 +22,13 @@ const Register = () => {
 
             if (response.status === 200) {
                 setIsEmailValid(true);
-                setMessage('E-posta adresi kullanılabilir.');
+                //setMessage('E-posta adresi kullanılabilir.');
             } else {
                 setMessage('Beklenmedik bir durum oluştu.');
             }
         } catch (error) {
             if (error.response && error.response.status === 400) {
-                setMessage('Bu mail zaten mevcut');
+                setMessage('Bu mail zaten kayıt edilmiş');
             } else {
                 setMessage('Bir hata oluştu.');
             }
@@ -64,11 +64,19 @@ const Register = () => {
         }
     };
 
+    const handleGoBack = () => {
+        setIsEmailValid(false);
+        setName('');
+        setSurname('');
+        setPassword('');
+        setMessage('');
+    };
+
 
     return (
         <div>
             <section id="header">
-                <div className="login-row">
+                <div className="login-row row-center">
                     <Link to="/home" className="app-logo">
                         <img src="/logo/courseup-l-v1.png" alt="CourseUp Logo 1" />
                     </Link>
@@ -76,8 +84,8 @@ const Register = () => {
                         <img src="/logo/courseup-l-v2.png" alt="CourseUp Logo 2" />
                     </div>
                 </div>
+                <p className="rotated-text-top">Yeni Nesil<br />Online Kurs Platformu</p>
             </section>
-
             <section id="form" className="login-column">
                 <p className="text-header-large font-semi-bold text-center">
                     <span className="font-light">CourseUp<br /></span>Ailesine Katılın
@@ -106,7 +114,7 @@ const Register = () => {
                         </form>
                     ) : (
                         <form className="registration-form" onSubmit={handleRegisterSubmit}>
-                            <p className="go-back text-underline" onClick={() => setIsEmailValid(false)}>Geri Dön</p>
+                            <p className="go-back text-underline" onClick={handleGoBack}>Geri Dön</p>
                             <label htmlFor="email"></label>
                             <input
                                 type="text"
@@ -154,12 +162,12 @@ const Register = () => {
                         </form>
                     )}
                 </div>
-                <p className="text-normal">Zaten bir hesabınız var mı? <Link to="/login" className="font-bold text-underline">Giriş Yap</Link></p>
+                <p className="text-normal text-center">Zaten bir hesabınız var mı? <Link to="/login" className="font-bold text-underline">Giriş Yap</Link></p>
             </section>
 
             <section id="bottom-bar" className="login-row">
-                <p className="rotated-text">Yeni Nesil<br />Online Kurs<br />Platformu</p>
-                <p>© Copyright 2024 Z Her Hakkı Saklıdır.</p>
+                <p className="rotated-text-bottom">Yeni Nesil<br />Online Kurs<br />Platformu</p>
+                <p className="text-center">© Copyright 2024 Z Her Hakkı Saklıdır.</p>
                 <img src="/logo/za-l-v1.png" alt="ZA Logo" style={{ width: '32px' }} />
             </section>
         </div>

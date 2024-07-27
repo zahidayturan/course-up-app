@@ -1,3 +1,9 @@
+#header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
 .login-row{
     display: flex;
     flex-direction: row;
@@ -30,8 +36,7 @@
 }
 
 .logo-v2{
-    height: 124px;
-    border-radius: 0;
+    height: 9vw;
     opacity: 0.2;
 }
 
@@ -52,7 +57,8 @@
 .container-form{
     background-color: var(--primary-color-1);
     height: max-content;
-    width: 36ch;
+    width: 94%;
+    max-width: 36ch;
     border-radius: 16px;
     padding: 20px;
     display: flex;
@@ -123,11 +129,15 @@ input {
     padding-bottom: 12px;
 }
 
-.rotated-text{
+.rotated-text-bottom{
     writing-mode: vertical-rl;
     -webkit-transform: rotate(-180deg);
     -moz-transform: rotate(-180deg);
     text-align: start;
+}
+
+.rotated-text-top{
+    display: none;
 }
 
 #bottom-bar{
@@ -137,4 +147,35 @@ input {
 
 .readOnly{
     background-color: var(--grey-color-1);
+}
+
+@media screen and (max-width: 720px) {
+
+    .logo-v2{
+        display: none;
+    }
+
+    #form{
+        margin: 108px 0;
+    }
+
+    .rotated-text-bottom{
+        display: none;
+    }
+
+    .rotated-text-top{
+        display: flex;
+        text-align: center;
+    }
+
+    .row-center{
+        justify-content: center;
+    }
+
+    #bottom-bar{
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 12px;
+
+    }
 }
