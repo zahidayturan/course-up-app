@@ -5,8 +5,8 @@ import '../../assets/css/auth/Auth.css';
 import '../../assets/css/Main.css';
 import '../../assets/css/Text.css';
 import { Link, useNavigate } from "react-router-dom";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./components/AuthHeader";
+import Footer from "./components/AuthFooter";
 
 const Register = () => {
     const [name, setName] = useState('');

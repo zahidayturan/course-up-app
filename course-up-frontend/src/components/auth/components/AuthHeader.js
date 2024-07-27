@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Header = () => (
+const AuthHeader = () => (
     <section id="header">
         <div className="login-row row-center">
             <Link to="/" className="app-logo">
@@ -15,4 +15,4 @@ const Header = () => (
     </section>
 );
 
-export default Header;
+export default AuthHeader;

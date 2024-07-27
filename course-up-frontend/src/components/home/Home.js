@@ -1,4 +1,8 @@
 import React from 'react';
+import Header from './components/Header';
+import '../../assets/css/Home.css';
+import '../../assets/css/Main.css';
+import '../../assets/css/Text.css';
 
 const Home = () => {
     const [user, setUser] = React.useState(null);
@@ -19,7 +23,8 @@ const Home = () => {
 
     return (
         <div>
-            <h2>Home</h2>
+            <Header />
+            <br/>
             {user ? (
                 <div>
                     <p>Welcome, {user.name}!</p>

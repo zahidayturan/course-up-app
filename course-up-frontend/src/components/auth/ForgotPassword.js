@@ -4,8 +4,8 @@ import Endpoints from '../../constants/Endpoints';
 import '../../assets/css/auth/Auth.css';
 import '../../assets/css/Main.css';
 import '../../assets/css/Text.css';
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./components/AuthHeader";
+import Footer from "./components/AuthFooter";
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');

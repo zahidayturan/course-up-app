@@ -1,6 +1,6 @@
 import React from "react";
 
-const Footer = () => (
+const AuthFooter = () => (
     <section id="bottom-bar" className="login-row">
         <p className="rotated-text-bottom">Yeni Nesil<br />Online Kurs<br />Platformu</p>
         <p>© Copyright 2024 Z Her Hakkı Saklıdır.</p>
@@ -8,4 +8,4 @@ const Footer = () => (
     </section>
 );
 
-export default Footer;
+export default AuthFooter;
