@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Endpoints from '../../constants/Endpoints';
-import '../../assets/css/auth/Auth.module.css';
 import '../../assets/css/Main.module.css';
-import '../../assets/css/Text.module.css';
 import Header from "./components/AuthHeader";
 import Footer from "./components/AuthFooter";
+import styles from '../../assets/css/auth/Auth.module.css';
+import textStyles from '../../assets/css/Text.module.css';
+import classNames from "classnames";
 
 const ResetPassword = () => {
     const [newPassword, setNewPassword] = useState('');
@@ -52,41 +53,40 @@ const ResetPassword = () => {
     return (
         <div>
             <Header />
-
-            <section id="form" className="login-column">
-                <p className="text-header-large font-semi-bold text-center">
-                    <span className="font-light">Şifre Sıfırlama<br/></span>Yeni Şifre
+            <div className={classNames(styles['form'], styles['login-column'])}>
+                <p className={classNames(textStyles['text-header-large'], textStyles['font-semi-bold'], textStyles['text-center'])}>
+                    <span className={textStyles['font-light']}>Şifre Sıfırlama<br/></span>Yeni Şifre
                 </p>
-                <div className="login-column container-form">
+                <div className={classNames(styles['login-column'], styles['container-form'])}>
                     {!formSubmitted ? (
-                        <form className="registration-form" onSubmit={handleSubmit}>
-                            <label htmlFor="newPassword">Yeni Şifre</label>
+                        <form className={styles['registration-form']} onSubmit={handleSubmit}>
+                            <label htmlFor="newPassword" className={textStyles['label']}>Yeni Şifre</label>
                             <input
                                 type="password"
                                 id="newPassword"
                                 name="newPassword"
                                 value={newPassword}
-                                placeholder={"Yeni şifrenizi giriniz"}
+                                placeholder="Yeni şifrenizi giriniz"
                                 onChange={(e) => setNewPassword(e.target.value)}
                                 required
+                                className={styles['input']}
                             />
                             <p></p>
-                            <button type="submit" className="button" style={{ fontSize: 16 }}>
+                            <button type="submit" className={styles['button']} style={{ fontSize: 16 }}>
                                 {loading ? 'Sıfırlanıyor...' : 'Şifreyi Sıfırla'}
                             </button>
-                            {message && <p className="error text-center top-padding bottom-padding">{message}</p>}
+                            {message && <p className={classNames(textStyles['error'], textStyles['text-center'], styles['top-padding'], styles['bottom-padding'])}>{message}</p>}
                         </form>
                     ) : (
-                        <p className="error text-center top-padding bottom-padding">{message}</p>
+                        <p className={classNames(textStyles['error'], textStyles['text-center'], styles['top-padding'], styles['bottom-padding'])}>{message}</p>
                     )}
                     {loading && (
-                        <div className="loader">
-                            <div className="spinner"></div>
+                        <div className={styles['loader']}>
+                            <div className={styles['spinner']}></div>
                         </div>
                     )}
                 </div>
-            </section>
-
+            </div>
             <Footer />
         </div>
     );

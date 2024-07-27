@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Endpoints from '../../constants/Endpoints';
-import '../../assets/css/auth/Auth.module.css';
 import '../../assets/css/Main.module.css';
-import '../../assets/css/Text.module.css';
 import Header from "./components/AuthHeader";
 import Footer from "./components/AuthFooter";
+import styles from '../../assets/css/auth/Auth.module.css';
+import textStyles from '../../assets/css/Text.module.css';
+import classNames from "classnames";
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
@@ -30,13 +31,14 @@ const ForgotPassword = () => {
     return (
         <div>
             <Header />
-
-            <section id="form" className="login-column">
-                <p className="text-header-large font-semi-bold text-center"> <span className="font-light">CourseUp<br/></span>Şifre Sıfırlama</p>
-                <div className="login-column container-form">
+            <div className={classNames(styles['login-column'], styles['form'])}>
+                <p className={classNames(textStyles['text-header-large'], textStyles['font-semi-bold'], textStyles['text-center'])}>
+                    <span className={textStyles['font-light']}>CourseUp<br/></span>Şifre Sıfırlama
+                </p>
+                <div className={classNames(styles['login-column'], styles['container-form'])}>
                     {!formSubmitted ? (
-                        <form className="registration-form" onSubmit={handleSubmit}>
-                            <label htmlFor="email">E-posta Adresi</label>
+                        <form className={styles['registration-form']} onSubmit={handleSubmit}>
+                            <label htmlFor="email" className={textStyles['label']}>E-posta Adresi</label>
                             <input
                                 type="email"
                                 id="email"
@@ -45,24 +47,24 @@ const ForgotPassword = () => {
                                 onChange={(e) => setEmail(e.target.value)}
                                 placeholder="E-Posta adresiniz"
                                 required
+                                className={styles['input']}
                             />
                             <p></p>
-                            <button type="submit" className="button" style={{ fontSize: 16 }}>
+                            <button type="submit" className={styles['button']} style={{ fontSize: 16 }}>
                                 {loading ? 'Gönderiliyor...' : 'Şifre Sıfırlama E-postası Gönder'}
                             </button>
                         </form>
                     ) : (
-                        <p className="text-center top-padding bottom-padding">{message}</p>
+                        <p className={classNames(textStyles['text-center'], styles['top-padding'], styles['bottom-padding'])}>{message}</p>
                     )}
-                    {!formSubmitted && message && <p className="error text-center top-padding">{message}</p>}
+                    {!formSubmitted && message && <p className={classNames(textStyles['error'], textStyles['text-center'], styles['top-padding'])}>{message}</p>}
                     {loading && (
-                        <div className="loader">
-                            <div className="spinner"></div>
+                        <div className={styles['loader']}>
+                            <div className={styles['spinner']}></div>
                         </div>
                     )}
                 </div>
-            </section>
-
+            </div>
             <Footer />
         </div>
     );

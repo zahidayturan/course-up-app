@@ -7,6 +7,7 @@ const Header = () => {
     const [showCategories, setShowCategories] = useState(false);
     const [showLanguages, setShowLanguages] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
 
     const handleCategoryToggle = () => {
         setShowCategories(!showCategories);
@@ -22,6 +23,10 @@ const Header = () => {
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+    };
+
+    const toggleSearchBar = () => {
+        setIsSearchBarVisible(!isSearchBarVisible);
     };
 
     return (
@@ -50,6 +55,13 @@ const Header = () => {
             </form>
 
             <div className={styles['custom-row']}>
+                <img
+                    src={isSearchBarVisible ? "/icon/close.png" : "/icon/search.png"}
+                    alt="Search"
+                    className={styles['show']}
+                    style={{ height: 20, cursor: 'pointer' }}
+                    onClick={toggleSearchBar}
+                />
                 <Link to="/basket"><img src="/icon/basket.png" alt="Basket" style={{ height: 20 }} /></Link>
                 <Link to="/login" className={classNames(styles['auth-button-login'], styles['hide'])}>Giriş Yapın</Link>
                 <Link to="/register" className={classNames(styles['auth-button-register'], styles['hide'])}>Kayıt Olun</Link>

@@ -11,6 +11,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    gap: 8px;
 }
 
 .app-logo {
@@ -175,12 +176,16 @@
     color: var(--secondary-color-2);
 }
 
+.show{
+    display: none;
+}
+
 @media (max-width: 744px) {
     .hide {
         display: none;
     }
 
-    .hamburger-menu, .side-menu {
+    .hamburger-menu, .side-menu ,.show {
         display: flex;
     }
 

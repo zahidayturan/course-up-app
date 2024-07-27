@@ -1,12 +1,12 @@
 import axios from 'axios';
 import Endpoints from '../../constants/Endpoints';
-import '../../assets/css/auth/Auth.module.css';
-import '../../assets/css/Main.module.css';
-import '../../assets/css/Text.module.css';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from './components/AuthHeader';
 import Footer from "./components/AuthFooter";
+import styles from '../../assets/css/auth/Auth.module.css';
+import textStyles from '../../assets/css/Text.module.css';
+import classNames from "classnames";
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -39,16 +39,16 @@ const Login = () => {
     return (
         <div>
             <Header />
-            <section id="form" className="login-column">
-                <p className="text-header-large font-semi-bold">Hoş Geldiniz</p>
-                <div className="login-column container-form">
-                    <div className="login-row bottom-padding">
-                        <p className="text-large font-normal">Giriş Yapın</p>
-                        <div className="mini-cont"></div>
+            <section className={classNames(styles['form'], styles['login-column'])}>
+                <p className={classNames(textStyles['text-header-large'], textStyles['font-semi-bold'])}>Hoş Geldiniz</p>
+                <div className={classNames(styles['login-column'], styles['container-form'])}>
+                    <div className={classNames(styles['login-row'], styles['bottom-padding'])}>
+                        <p className={classNames(textStyles['text-large'], textStyles['font-normal'])}>Giriş Yapın</p>
+                        <div className={styles['mini-cont']}></div>
                     </div>
 
                     {!formSubmitted ? (
-                        <form className="registration-form" onSubmit={handleSubmit}>
+                        <form className={styles['registration-form']} onSubmit={handleSubmit}>
                             <label htmlFor="email"></label>
                             <input
                                 type="text"
@@ -58,6 +58,7 @@ const Login = () => {
                                 onChange={(e) => setEmail(e.target.value)}
                                 placeholder="E-Posta adresiniz"
                                 required
+                                className={styles['input']}
                             />
 
                             <label htmlFor="password"></label>
@@ -69,23 +70,24 @@ const Login = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                                 placeholder="Şifreniz"
                                 required
+                                className={styles['input']}
                             />
-                            <Link to="/forgot-password" className="login-forgot-password">Şifremi Unuttum</Link>
-                            <button type="submit" className="button">
+                            <Link to="/forgot-password" className={classNames(styles['login-forgot-password'], textStyles['font-normal'])}>Şifremi Unuttum</Link>
+                            <button type="submit" className={styles['button']}>
                                 {loading ? 'Giriş Yapılıyor...' : 'Giriş Yap'}
                             </button>
-                            {loginError && <p className="error text-center top-padding bottom-padding">{loginError}</p>}
+                            {loginError && <p className={classNames(textStyles['error'], textStyles['text-center'], styles['top-padding'], styles['bottom-padding'])}>{loginError}</p>}
                         </form>
                     ) : (
-                        <p className="text-center top-padding bottom-padding">Başarıyla giriş yaptınız. Yönlendiriliyorsunuz...</p>
+                        <p className={classNames(textStyles['text-center'], styles['top-padding'], styles['bottom-padding'])}>Başarıyla giriş yaptınız. Yönlendiriliyorsunuz...</p>
                     )}
                     {loading && (
-                        <div className="loader">
-                            <div className="spinner"></div>
+                        <div className={styles['loader']}>
+                            <div className={styles['spinner']}></div>
                         </div>
                     )}
                 </div>
-                <p className="text-normal text-center">Bir hesabınız yok mu? <Link to="/register" className="font-bold text-underline">Kayıt Olun</Link></p>
+                <p className={classNames(textStyles['text-normal'], textStyles['text-center'])}>Bir hesabınız yok mu? <Link to="/register" className={classNames(textStyles['font-bold'], textStyles['text-underline'])}>Kayıt Olun</Link></p>
             </section>
             <Footer />
         </div>

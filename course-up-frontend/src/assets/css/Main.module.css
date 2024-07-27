@@ -41,7 +41,7 @@ p{
     color: var(--secondary-color-2);
 }
 
-.button, input{
+button, input{
     font-family: "Montserrat", sans-serif;
 }
 

@@ -57,7 +57,7 @@
 .container-form{
     background-color: var(--primary-color-1);
     height: max-content;
-    width: 94%;
+    width: 90%;
     max-width: 36ch;
     border-radius: 16px;
     padding: 20px;
@@ -97,6 +97,7 @@ input {
     color: white;
     border: none;
     user-select: none;
+    font-family: "Montserrat", sans-serif;
 }
 
 .button:hover{
