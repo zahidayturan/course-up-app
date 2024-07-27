@@ -45,3 +45,9 @@ p{
     font-family: "Montserrat", sans-serif;
 }
 
+@media (max-width: 744px) {
+    body {
+        padding: 12px;
+    }
+}
+

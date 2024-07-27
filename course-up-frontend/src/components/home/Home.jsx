@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from './components/Header';
-import '../../assets/css/Home.css';
 import '../../assets/css/Main.css';
 import '../../assets/css/Text.css';
 

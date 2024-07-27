@@ -6,7 +6,7 @@
     gap: 18px;
 }
 
-#header {
+.header {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -41,6 +41,7 @@
     top: 100%;
     left: 0;
     background: white;
+    border-radius: 12px;
     border: 1px solid #ddd;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px;
     z-index: 1000;
@@ -62,7 +63,7 @@
     display: flex;
     align-items: center;
     border-radius: 100px;
-    background-color: var(--grey-color-1);;
+    background-color: var(--grey-color-1);
     padding: 0 6px;
     width: 28vw;
 }
@@ -78,7 +79,6 @@
     color: var(--secondary-color-2);
     opacity: 1;
 }
-
 
 .search-bar button {
     background: transparent;
@@ -122,4 +122,74 @@
     border-radius: 100%;
     color: var(--primary-color-1);
     background-color: var(--orange-color-1);
+}
+
+.hamburger-menu {
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--secondary-color-2);
+}
+
+.hamburger-menu img {
+    height: 50%;
+}
+
+.side-menu {
+    position: absolute;
+    top: 64px;
+    right: 12px;
+    width: 200px;
+    height: min-content;
+    background: white;
+    border-radius: 16px;
+    justify-content: center;
+    display: none;
+}
+
+.side-menu-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 12px;
+    gap: 12px;
+}
+
+.category-list {
+    margin-top: 20px;
+}
+
+.category-list p {
+    cursor: pointer;
+}
+
+.category-text{
+    height: 32px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: var(--secondary-color-2);
+}
+
+@media (max-width: 744px) {
+    .hide {
+        display: none;
+    }
+
+    .hamburger-menu, .side-menu {
+        display: flex;
+    }
+
+    .button-mobile{
+        display: flex;
+        justify-content: center;
+    }
+
+    .auth-button-login{
+        background-color: var(--secondary-color-1);
+    }
 }
