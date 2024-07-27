@@ -12,9 +12,12 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginError, setLoginError] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setLoading(true);
         try {
             const response = await axios.post(Endpoints.LOGIN, { email, password });
 
@@ -22,9 +25,14 @@ const Login = () => {
             const user = userResponse.data;
             localStorage.setItem('user', JSON.stringify(user));
             console.log('Login successful', response.data);
-            window.location.href = '/home';
+            setFormSubmitted(true);
+            setTimeout(() => {
+                window.location.href = '/home';
+            }, 2000); // 2 saniye sonra yönlendirme
         } catch (error) {
-            setLoginError('Invalid email or password: ' + error.message);
+            setLoginError('Geçersiz e-posta veya şifre');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -39,36 +47,46 @@ const Login = () => {
                         <div className="mini-cont"></div>
                     </div>
 
-                    <form className="registration-form" onSubmit={handleSubmit}>
-                        <label htmlFor="email"></label>
-                        <input
-                            type="text"
-                            id="email"
-                            name="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="E-Posta adresiniz"
-                            required
-                        />
+                    {!formSubmitted ? (
+                        <form className="registration-form" onSubmit={handleSubmit}>
+                            <label htmlFor="email"></label>
+                            <input
+                                type="text"
+                                id="email"
+                                name="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="E-Posta adresiniz"
+                                required
+                            />
 
-                        <label htmlFor="password"></label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder="Şifreniz"
-                            required
-                        />
-                        <Link to="/forgot-password" className="login-forgot-password">Şifremi Unuttum</Link>
-                        <button type="submit" className="button">Giriş Yap</button>
-                        {loginError && <p className="error text-center">{loginError}</p>}
-                    </form>
+                            <label htmlFor="password"></label>
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="Şifreniz"
+                                required
+                            />
+                            <Link to="/forgot-password" className="login-forgot-password">Şifremi Unuttum</Link>
+                            <button type="submit" className="button">
+                                {loading ? 'Giriş Yapılıyor...' : 'Giriş Yap'}
+                            </button>
+                            {loginError && <p className="error text-center top-padding bottom-padding">{loginError}</p>}
+                        </form>
+                    ) : (
+                        <p className="text-center top-padding bottom-padding">Başarıyla giriş yaptınız. Yönlendiriliyorsunuz...</p>
+                    )}
+                    {loading && (
+                        <div className="loader">
+                            <div className="spinner"></div>
+                        </div>
+                    )}
                 </div>
                 <p className="text-normal text-center">Bir hesabınız yok mu? <Link to="/register" className="font-bold text-underline">Kayıt Olun</Link></p>
             </section>
-
             <Footer />
         </div>
     );

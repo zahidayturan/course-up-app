@@ -8,7 +8,6 @@ const Endpoints = {
     CHECK_EMAIL: `${API_BASE_URL}/user/email-check`,
     PASSWORD_RESET_REQ: `${API_BASE_URL}/login/password-reset`,
     RESET_PASSWORD: `${API_BASE_URL}/login/reset-password`
-
 };
 
 export default Endpoints;

@@ -4,7 +4,7 @@ import Endpoints from '../../constants/Endpoints';
 import '../../assets/css/auth/Auth.css';
 import '../../assets/css/Main.css';
 import '../../assets/css/Text.css';
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -15,16 +15,19 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const [isEmailValid, setIsEmailValid] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [formSubmitted, setFormSubmitted] = useState(false);
     const navigate = useNavigate();
 
     const handleEmailSubmit = async (event) => {
         event.preventDefault();
+        setLoading(true);
         try {
             const response = await axios.get(`${Endpoints.CHECK_EMAIL}/${email}`);
 
             if (response.status === 200) {
                 setIsEmailValid(true);
-                //setMessage('E-posta adresi kullanılabilir.');
+                setMessage('');
             } else {
                 setMessage('Beklenmedik bir durum oluştu.');
             }
@@ -34,12 +37,14 @@ const Register = () => {
             } else {
                 setMessage('Bir hata oluştu.');
             }
+        } finally {
+            setLoading(false);
         }
     };
 
-
     const handleRegisterSubmit = async (event) => {
         event.preventDefault();
+        setLoading(true);
         try {
             const response = await axios.post(Endpoints.REGISTER, {
                 name,
@@ -49,11 +54,14 @@ const Register = () => {
             });
 
             if (response.status === 200) {
-                setMessage('Kayıt başarılı! Giriş yapabilirsiniz.');
+                setFormSubmitted(true);
+                setMessage('Kayıt başarılı! Giriş yapılıyor.');
                 const userResponse = await axios.get(`${Endpoints.USER_EMAIL}/${email}`);
                 const user = userResponse.data;
                 localStorage.setItem('user', JSON.stringify(user));
-                navigate('/home');
+                setTimeout(() => {
+                    navigate('/home');
+                }, 2000);
             } else {
                 setMessage('Beklenmedik bir durum oluştu.');
             }
@@ -63,6 +71,8 @@ const Register = () => {
             } else {
                 setMessage('Bir hata oluştu.');
             }
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -73,7 +83,6 @@ const Register = () => {
         setPassword('');
         setMessage('');
     };
-
 
     return (
         <div>
@@ -88,7 +97,7 @@ const Register = () => {
                         <div className="mini-cont register-mini-count"></div>
                     </div>
 
-                    {!isEmailValid ? (
+                    {!formSubmitted && !isEmailValid ? (
                         <form className="registration-form" onSubmit={handleEmailSubmit}>
                             <label htmlFor="email"></label>
                             <input
@@ -101,10 +110,12 @@ const Register = () => {
                                 required
                             />
                             <p></p>
-                            <button type="submit" className="button">İlerle</button>
+                            <button type="submit" className="button">
+                                {loading ? 'Kontrol ediliyor...' : 'İlerle'}
+                            </button>
                             {message && <p className="error text-center">{message}</p>}
                         </form>
-                    ) : (
+                    ) : !formSubmitted ? (
                         <form className="registration-form" onSubmit={handleRegisterSubmit}>
                             <p className="go-back text-underline" onClick={handleGoBack}>Geri Dön</p>
                             <label htmlFor="email"></label>
@@ -149,14 +160,22 @@ const Register = () => {
                                 required
                             />
                             <p></p>
-                            <button type="submit" className="button">Kayıt Ol</button>
-                            {message && <p className="error text-center">{message}</p>}
+                            <button type="submit" className="button">
+                                {loading ? 'Kayıt yapılıyor...' : 'Kayıt Ol'}
+                            </button>
+                            {message && <p className="error text-center top-padding bottom-padding">{message}</p>}
                         </form>
+                    ) : (
+                        <p className="text-center top-padding bottom-padding">Kayıt başarılı! Giriş yapabilirsiniz.</p>
+                    )}
+                    {loading && (
+                        <div className="loader">
+                            <div className="spinner"></div>
+                        </div>
                     )}
                 </div>
                 <p className="text-normal text-center">Zaten bir hesabınız var mı? <Link to="/login" className="font-bold text-underline">Giriş Yap</Link></p>
             </section>
-
             <Footer />
         </div>
     );
