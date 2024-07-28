@@ -3,6 +3,8 @@ import Header from './components/Header';
 import '../../assets/css/Main.module.css';
 import '../../assets/css/Text.module.css';
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
+import Endpoints from "../../constants/Endpoints";
 
 const Home = () => {
     const [user, setUser] = React.useState(null);
@@ -18,10 +20,16 @@ const Home = () => {
         }
     }, []);
 
-    const handleLogout = () => {
-        localStorage.removeItem('user');
-        navigate('/login');
+    const handleLogout = async () => {
+        try {
+            await axios.get(Endpoints.LOGOUT);
+            localStorage.removeItem('user');
+            navigate('/login');
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
     };
+
 
     return (
         <div>

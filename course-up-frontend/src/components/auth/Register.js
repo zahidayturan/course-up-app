@@ -172,7 +172,7 @@ const Register = () => {
                             {message && <p className={classNames(textStyles['error'], textStyles['text-center'], styles['top-padding'], styles['bottom-padding'])}>{message}</p>}
                         </form>
                     ) : (
-                        <p className={classNames(textStyles['text-center'], styles['top-padding'], styles['bottom-padding'])}>Kayıt başarılı! Giriş yapabilirsiniz.</p>
+                        <p className={classNames(textStyles['text-center'], styles['top-padding'], styles['bottom-padding'])}>Kayıt başarılı! Giriş yapılıyor.</p>
                     )}
                     {loading && (
                         <div className={styles['loader']}>

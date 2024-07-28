@@ -38,7 +38,7 @@ const Header = () => {
                 <div className={classNames(styles['category-container'], styles['hide'])}>
                     <p onClick={handleCategoryToggle}>Kategoriler</p>
                     {showCategories && (
-                        <div className="dropdown-menu">
+                        <div className={styles['dropdown-menu']}>
                             <Link to="/category/programming">Programming</Link>
                             <Link to="/category/design">Design</Link>
                             <Link to="/category/marketing">Marketing</Link>
