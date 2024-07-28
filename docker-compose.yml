@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./course-up-backend
+    ports:
+      - "8080:8080"
+    networks:
+      - courseup-network
+
+  frontend:
+    build: ./course-up-frontend
+    ports:
+      - "3000:80"
+    networks:
+      - courseup-network
+
+networks:
+  courseup-network:
+    driver: bridge
