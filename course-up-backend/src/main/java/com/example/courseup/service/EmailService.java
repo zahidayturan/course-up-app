@@ -1,6 +1,7 @@
 package com.example.courseup.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -14,10 +15,13 @@ public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
+    @Value("${app.frontend.base-url}")
+    private String frontendBaseUrl;
+
     public void sendPasswordResetEmail(String to, String token) {
         String subject = "Password Reset Request";
         String text = "To reset your password, click the link below:\n"
-                + "http://localhost:3000/reset-password?token=" + token;
+                + frontendBaseUrl + "/reset-password?token=" + token;
 
         MimeMessage message = mailSender.createMimeMessage();
         try {
