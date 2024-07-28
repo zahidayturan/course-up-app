@@ -1,7 +1,13 @@
 import React from 'react';
+import Header from './components/Header';
+import '../../assets/css/Main.module.css';
+import '../../assets/css/Text.module.css';
+import {useNavigate} from "react-router-dom";
 
 const Home = () => {
     const [user, setUser] = React.useState(null);
+    const navigate = useNavigate();
+
 
     React.useEffect(() => {
         const storedUser = localStorage.getItem('user');
@@ -14,12 +20,13 @@ const Home = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('user');
-        window.location.href = '/login';
+        navigate('/login');
     };
 
     return (
         <div>
-            <h2>Home</h2>
+            <Header />
+            <br/>
             {user ? (
                 <div>
                     <p>Welcome, {user.name}!</p>
