@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Endpoints from '../../constants/Endpoints';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Header from './components/AuthHeader';
 import Footer from "./components/AuthFooter";
 import styles from '../../assets/css/auth/Auth.module.css';
@@ -15,6 +15,8 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
     const [formSubmitted, setFormSubmitted] = useState(false);
 
+    const navigate = useNavigate();
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         setLoading(true);
@@ -27,8 +29,8 @@ const Login = () => {
             console.log('Login successful', response.data);
             setFormSubmitted(true);
             setTimeout(() => {
-                window.location.href = '/home';
-            }, 2000); // 2 saniye sonra yönlendirme
+                navigate('/home');
+            }, 2000);
         } catch (error) {
             setLoginError('Geçersiz e-posta veya şifre');
         } finally {

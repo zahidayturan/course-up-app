@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://course-up-be.onrender.com';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const Endpoints = {
     USER: `${API_BASE_URL}/user`,

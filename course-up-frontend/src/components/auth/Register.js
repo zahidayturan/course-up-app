@@ -18,6 +18,7 @@ const Register = () => {
     const [isEmailValid, setIsEmailValid] = useState(false);
     const [loading, setLoading] = useState(false);
     const [formSubmitted, setFormSubmitted] = useState(false);
+
     const navigate = useNavigate();
 
     const handleEmailSubmit = async (event) => {
