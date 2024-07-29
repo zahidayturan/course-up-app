@@ -18,6 +18,8 @@ const Register = () => {
     const [isEmailValid, setIsEmailValid] = useState(false);
     const [loading, setLoading] = useState(false);
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     const navigate = useNavigate();
 
@@ -46,6 +48,10 @@ const Register = () => {
 
     const handleRegisterSubmit = async (event) => {
         event.preventDefault();
+        if (password !== confirmPassword) {
+            setMessage('Şifreler eşleşmiyor.');
+            return;
+        }
         setLoading(true);
         try {
             const response = await axios.post(Endpoints.REGISTER, {
@@ -140,6 +146,7 @@ const Register = () => {
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 placeholder="Adınız"
+                                minLength={2}
                                 className={styles['input']}
                                 required
                             />
@@ -151,19 +158,36 @@ const Register = () => {
                                 value={surname}
                                 onChange={(e) => setSurname(e.target.value)}
                                 placeholder="Soyadınız"
+                                minLength={2}
                                 className={styles['input']}
                                 required
                             />
                             <label htmlFor="password"></label>
+                            <div className={styles['input-and-icon']}>
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    id="password"
+                                    name="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    placeholder="Şifreniz"
+                                    minLength={4}
+                                    required
+                                    className={styles['input']}
+                                />
+                                <p onClick={(e) => setShowPassword(!showPassword)} className={styles['toggle-password']}>{showPassword ? "gizle" : "göster"}</p>
+                            </div>
+                            <label htmlFor="confirmPassword"></label>
                             <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                placeholder="Şifreniz"
-                                className={styles['input']}
+                                type={showPassword ? "text" : "password"}
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                placeholder="Şifrenizi tekrar giriniz"
+                                minLength={4}
                                 required
+                                className={styles['input']}
                             />
                             <p></p>
                             <button type="submit" className={styles['button']}>

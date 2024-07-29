@@ -11,6 +11,8 @@ import classNames from "classnames";
 
 const ResetPassword = () => {
     const [newPassword, setNewPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const [formSubmitted, setFormSubmitted] = useState(false);
@@ -28,6 +30,10 @@ const ResetPassword = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (newPassword !== confirmNewPassword) {
+            setMessage('Şifreler eşleşmiyor.');
+            return;
+        }
         setLoading(true);
         try {
             await axios.post(`${Endpoints.RESET_PASSWORD}`, null, {
@@ -61,13 +67,29 @@ const ResetPassword = () => {
                     {!formSubmitted ? (
                         <form className={styles['registration-form']} onSubmit={handleSubmit}>
                             <label htmlFor="newPassword" className={textStyles['label']}>Yeni Şifre</label>
+                            <div className={styles['input-and-icon']}>
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    id="newPassword"
+                                    name="newPassword"
+                                    value={newPassword}
+                                    placeholder="Yeni şifrenizi giriniz"
+                                    minLength={4}
+                                    onChange={(e) => setNewPassword(e.target.value)}
+                                    required
+                                    className={styles['input']}
+                                />
+                                <p onClick={(e) => setShowPassword(!showPassword)} className={styles['toggle-password']}>{showPassword ? "gizle" : "göster"}</p>
+                            </div>
+                            <label htmlFor="confirmNewPassword"></label>
                             <input
-                                type="password"
-                                id="newPassword"
-                                name="newPassword"
-                                value={newPassword}
-                                placeholder="Yeni şifrenizi giriniz"
-                                onChange={(e) => setNewPassword(e.target.value)}
+                                type={showPassword ? "text" : "password"}
+                                id="confirmNewPassword"
+                                name="confirmNewPassword"
+                                value={confirmNewPassword}
+                                onChange={(e) => setConfirmNewPassword(e.target.value)}
+                                placeholder="Yeni şifrenizi tekrar giriniz"
+                                minLength={4}
                                 required
                                 className={styles['input']}
                             />

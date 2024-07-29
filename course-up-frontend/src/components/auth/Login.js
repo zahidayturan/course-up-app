@@ -14,6 +14,7 @@ const Login = () => {
     const [loginError, setLoginError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const navigate = useNavigate();
 
@@ -62,18 +63,21 @@ const Login = () => {
                                 required
                                 className={styles['input']}
                             />
-
                             <label htmlFor="password"></label>
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                placeholder="Şifreniz"
-                                required
-                                className={styles['input']}
-                            />
+                            <div className={styles['input-and-icon']}>
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    id="password"
+                                    name="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    placeholder="Şifreniz"
+                                    minLength={4}
+                                    required
+                                    className={styles['input']}
+                                />
+                                <p onClick={(e) => setShowPassword(!showPassword)} className={styles['toggle-password']}>{showPassword ? "gizle" : "göster"}</p>
+                            </div>
                             <Link to="/forgot-password" className={classNames(styles['login-forgot-password'], textStyles['font-normal'])}>Şifremi Unuttum</Link>
                             <button type="submit" className={styles['button']}>
                                 {loading ? 'Giriş Yapılıyor...' : 'Giriş Yap'}
