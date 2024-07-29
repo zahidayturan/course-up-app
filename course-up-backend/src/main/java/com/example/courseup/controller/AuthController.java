@@ -5,6 +5,7 @@ import com.example.courseup.repository.PasswordResetTokenRepository;
 import com.example.courseup.service.EmailService;
 import com.example.courseup.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpSession;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
@@ -26,7 +27,7 @@ public class AuthController {
     @Autowired
     private PasswordResetTokenRepository tokenRepository;
 
-    @PostMapping
+    @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
         Optional<User> userOptional = userService.findByEmail(loginRequest.getEmail());
         if (userOptional.isPresent()) {
@@ -36,6 +37,12 @@ public class AuthController {
             }
         }
         return ResponseEntity.status(401).body("Invalid email or password");
+    }
+
+    @GetMapping("/logout")
+    public ResponseEntity<String> logout() {
+        System.out.println("Logout successful");
+        return ResponseEntity.ok("Logout successful");
     }
 
     @Data

@@ -5,6 +5,7 @@ import Register from "./components/auth/Register";
 import Home from "./components/home/Home";
 import ForgotPassword from "./components/auth/ForgotPassword";
 import ResetPassword from "./components/auth/ResetPassword";
+import NotFound from "./components/404";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/reset-password" element={<ResetPassword />} />
                     <Route path="/home" element={<Home />} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>
         </Router>
