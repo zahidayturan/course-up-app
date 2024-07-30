@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styles from '../../../assets/css/home/Courses.module.css';
+import textStyles from '../../../assets/css/Text.module.css';
 import classNames from "classnames";
 
 const Courses = () => {
@@ -49,7 +50,7 @@ const Courses = () => {
         <div>
             <div className={styles["mobile-title-and-row"]}>
                 <p>Popüler <span style={{ fontWeight: "400" }}>Kurslar</span></p>
-                <div style={{width:48,height:14,borderRadius:30,backgroundColor:"var(--yellow-color-1)"}}></div>
+                <div style={{width:48,height:10,borderRadius:30,backgroundColor:"var(--yellow-color-1)"}}></div>
             </div>
 
             <div className={styles["custom-row"]}>
@@ -65,7 +66,28 @@ const Courses = () => {
                     <div style={{ width: 10, height: 90, borderRadius: 30, backgroundColor: "var(--yellow-color-1)", alignSelf: "start" }}></div>
                 </div>
                 <div className={styles["course-containers"]} ref={containerRef} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove}>
-                    <div className={styles["course-container"]}></div>
+                    <div className={styles["course-container"]}>
+                        <div className={styles["discount-text"]}> <span className={textStyles["font-bold"]}>%40</span> indirim</div>
+                        <img className={styles["course-img"]} src="/img/excel-course.jpeg" alt=""/>
+                        <div className={styles["text-column"]}>
+                            <div>
+                                <p className={textStyles["font-bold"]} style={{fontSize:18}}>Microsoft Excel</p>
+                                <p className={classNames(textStyles["font-italic"],textStyles["text-small"])}>Eğitmen: Mehmet Ay</p>
+                            </div>
+                            <p className={textStyles["text-small"]} style={{textAlign:"justify"}}>Excel eğitim setimiz ile Excel'in tüm detaylarını öğrenin. Excel 2016 - Excel 2019 - Office 365 - Microsoft 365</p>
+                            <p className={textStyles["text-small"]}>16 Saat Eğitim Süresi - 2453 öğrenci</p>
+                            <div style={{display:"flex",justifyContent:"space-between",alignItems:"end",width:"100%"}}>
+                                <div>
+                                    <p className={textStyles["text-small"]}>4.0 <span style={{fontSize:12}}>(159 kişi)</span></p>
+                                    <p>* * * * *</p>
+                                </div>
+                                <div style={{textAlign:"end"}}>
+                                    <p className={textStyles["text-small"]} style={{textDecoration:"line-through"}}>499.99 ₺</p>
+                                    <p className={textStyles["font-bold"]}>299.99 ₺</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div className={styles["course-container"]}></div>
                     <div className={styles["course-container"]}></div>
                     <div className={styles["course-container"]}></div>
