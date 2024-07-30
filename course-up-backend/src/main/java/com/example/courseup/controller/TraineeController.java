@@ -39,4 +39,17 @@ public class TraineeController {
     public void deleteById(@PathVariable Long id) {
         traineeService.deleteById(id);
     }
+
+
+    @Operation(summary = "Get all course by User Id")
+    @GetMapping("/user/{userId}")
+    public List<Trainee> getCoursesByUserId(@PathVariable Long userId) {
+        return traineeService.getTraineeByUserId(userId);
+    }
+
+    @Operation(summary = "Get all active course by User Id")
+    @GetMapping("/active/user/{userId}")
+    public List<Trainee> getActiveCoursesByUserId(@PathVariable Long userId) {
+        return traineeService.getActiveTraineeByUserId(userId);
+    }
 }

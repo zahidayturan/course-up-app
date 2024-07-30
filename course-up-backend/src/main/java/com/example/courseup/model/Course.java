@@ -1,6 +1,7 @@
 package com.example.courseup.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,7 +37,7 @@ public class Course {
     private List<CourseStages> courseStages;
 
     @OneToMany(mappedBy = "course")
-    @JsonManagedReference
+    @JsonIgnore
     private List<CourseComments> courseComments;
 
 }

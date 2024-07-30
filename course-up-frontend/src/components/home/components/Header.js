@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import styles from '../../../assets/css/home/Header.module.css';
 import axios from "axios";
@@ -10,10 +10,11 @@ const Header = () => {
     const [showLanguages, setShowLanguages] = useState(false);
     const [showProfile, setShowProfile] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [user, setUser] = React.useState(null);
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    React.useEffect(() => {
+    useEffect(() => {
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
             setUser(JSON.parse(storedUser));
@@ -23,12 +24,15 @@ const Header = () => {
     }, []);
 
     const handleLogout = async () => {
+        setLoading(true);
         try {
             await axios.get(Endpoints.LOGOUT);
             localStorage.removeItem('user');
             navigate('/login');
         } catch (error) {
             console.error("Logout failed:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -54,6 +58,11 @@ const Header = () => {
 
     return (
         <div>
+            {loading && (
+                <div className={styles["loading-overlay"]}>
+                    <div className={styles["spinner"]}></div>
+                </div>
+            )}
             <div className={styles['header']}>
                 <div className={styles['custom-row']}>
                     <Link to="/" className={styles['app-logo']}>

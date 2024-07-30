@@ -1,0 +1,95 @@
+.custom-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.top-and-bottom{
+    padding: 24px 0;
+}
+
+.banner {
+    height: 360px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-radius: 32px;
+    position: relative;
+}
+
+.banner-text-and-buttons {
+    gap: 0;
+    position: absolute;
+    padding: 0 16px;
+    width: calc(100% - 32px);
+}
+
+.banner-text {
+    color: var(--primary-color-1);
+    font-size: 24px;
+    padding: 14px;
+    background: rgba(34, 34, 34, 0.9);
+    border-radius: 16px;
+    margin-left: 24px;
+    user-select: none;
+}
+
+.banner-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 32px;
+}
+
+.arrow-to-left,
+.arrow-to-right {
+    background-color: var(--secondary-color-2);
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.arrow-to-right {
+    rotate: 180deg;
+}
+
+.arrow-to-left img,
+.arrow-to-right img {
+    height: 60%;
+}
+
+.ongoing-courses {
+    width: 460px;
+    min-width: 360px;
+    height: 360px;
+    background-color: var(--primary-color-1);
+    border-radius: 16px;
+}
+
+@media (max-width: 744px) {
+    .mobile-row{
+        flex-direction: column;
+    }
+    .ongoing-courses{
+        width: 100%;
+        min-width: auto;
+    }
+
+    .arrow-to-right ,.arrow-to-left{
+        display: none;
+    }
+
+    .top-and-bottom{
+        padding: 12px 0;
+    }
+
+    .banner-text {
+        margin-left: 12px;
+    }
+}

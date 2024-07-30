@@ -29,6 +29,7 @@ body {
     background-color: var(--background-color);
     cursor: default;
     padding: 24px;
+    gap: 24px;
 }
 
 html {

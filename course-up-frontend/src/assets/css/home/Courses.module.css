@@ -1,0 +1,127 @@
+.custom-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.custom-column{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.arrow-to-left,
+.arrow-to-right {
+    background-color: var(--secondary-color-2);
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.arrow-to-right {
+    rotate: 180deg;
+}
+
+.arrow-to-left img,
+.arrow-to-right img {
+    height: 60%;
+}
+
+.left-bar ,.right-bar{
+    width: 100px;
+    height: 376px;
+}
+
+.left-bar{
+    align-items: end;
+}
+
+.right-bar{
+    align-items: start;
+    width: 60px;
+}
+
+.course-containers {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 390px;
+    overflow: hidden;
+    white-space: initial;
+    gap: 12px;
+    touch-action: pan-x;
+}
+
+.course-container {
+    height: 360px;
+    width: 296px;
+    min-width: 296px;
+    border-radius: 12px;
+    padding: 8px;
+    background-color: var(--primary-color-1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 4px;
+    cursor: pointer;
+    position: relative;
+}
+
+.course-container:hover{
+    box-shadow: rgba(0, 0, 0, 0.24) 0 0px 8px;
+}
+
+.course-img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 6px 6px 0 0;
+}
+
+.discount-text{
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    font-size: 14px;
+    color: var(--orange-color-1);
+    background-color: var(--primary-color-1);
+    border-radius: 30px;
+    padding: 4px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0 4px 8px;
+}
+
+.text-column{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    height: 100%;
+}
+
+.mobile-title-and-row{
+    display: none;
+}
+
+@media (max-width: 744px) {
+
+    .arrow-to-right ,.arrow-to-left ,.left-bar ,.right-bar{
+        display: none;
+    }
+
+    .mobile-title-and-row{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: start;
+        font-size: 24px;
+        font-weight: 700;
+        padding: 12px 0;
+    }
+}

@@ -30,4 +30,11 @@ public class TraineeService {
         traineeRepository.deleteById(id);
     }
 
+    public List<Trainee> getTraineeByUserId(Long userId) {
+        return traineeRepository.findTraineeByUserId(userId);
+    }
+
+    public List<Trainee> getActiveTraineeByUserId(Long userId) {
+        return traineeRepository.findActiveTraineeByUserId(userId);
+    }
 }

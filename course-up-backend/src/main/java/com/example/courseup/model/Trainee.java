@@ -23,7 +23,7 @@ public class Trainee {
 
     @ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "id")
-    @JsonIgnore
+    @JsonManagedReference
     private Course course;
 
     private Integer currentDuration;
@@ -32,6 +32,6 @@ public class Trainee {
     private Boolean isFinished;
 
     @OneToMany(mappedBy = "trainee")
-    @JsonManagedReference
+    @JsonIgnore
     private List<CourseComments> courseComments;
 }
