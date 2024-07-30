@@ -152,6 +152,7 @@
     border-radius: 16px;
     justify-content: center;
     display: none;
+    z-index: 999;
 }
 
 .side-menu-content {
