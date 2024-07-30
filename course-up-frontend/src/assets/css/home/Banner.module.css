@@ -88,4 +88,8 @@
     .top-and-bottom{
         padding: 12px 0;
     }
+
+    .banner-text {
+        margin-left: 12px;
+    }
 }
