@@ -1,6 +1,8 @@
 package com.example.courseup.controller;
 
 import com.example.courseup.model.CourseStages;
+import com.example.courseup.model.DTO.CourseCommentsDTO;
+import com.example.courseup.model.DTO.CourseStagesDTO;
 import com.example.courseup.repository.CourseStagesRepository;
 import com.example.courseup.service.CourseStagesService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,8 +21,8 @@ public class CourseStagesController {
 
     @Operation(summary = "Get all course stages")
     @GetMapping
-    public List<CourseStages> findAll() {
-        return courseStagesService.findAll();
+    public List<CourseStagesDTO> findAll() {
+        return courseStagesService.getAllCourseStages();
     }
 
     @Operation(summary = "Get course stage by Id")
@@ -38,6 +40,11 @@ public class CourseStagesController {
     @Operation(summary = "Delete course stage by ID")
     public void deleteById(@PathVariable Long id) {
         courseStagesService.deleteById(id);
+    }
+
+    @GetMapping("/all")
+    public List<CourseStagesDTO> getAllCourseStages() {
+        return courseStagesService.getAllCourseStages();
     }
 
 }
