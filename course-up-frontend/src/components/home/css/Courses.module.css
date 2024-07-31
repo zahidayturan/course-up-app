@@ -45,7 +45,7 @@
 
 .right-bar{
     align-items: start;
-    width: 72px;
+    width: 66px;
 }
 
 .course-containers {
@@ -57,7 +57,7 @@
     overflow: hidden;
     white-space: initial;
     gap: 12px;
-    touch-action: pan-x;
+    touch-action: cross-slide-x;
 }
 
 .course-container {

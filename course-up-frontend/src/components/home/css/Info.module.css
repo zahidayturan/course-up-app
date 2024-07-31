@@ -19,6 +19,7 @@
     width: max-content;
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px;
+    user-select: none;
 }
 
 .text-button:hover{
@@ -58,8 +59,8 @@
         height: 80%;
         opacity: 0.1;
         position: absolute;
-        right: 8px;
-        top: 8px;
+        right: 0;
+        top: 16px;
     }
 
     .back-img{

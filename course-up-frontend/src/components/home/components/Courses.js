@@ -36,14 +36,20 @@ const Courses = () => {
                 setLoading(false);
             }
         };
-
         fetchCourses();
     }, []);
     useEffect(() => {
+        setIsAtEnd(false);
         const handleScroll = () => {
             const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
             setIsAtStart(scrollLeft === 0);
-            setIsAtEnd(scrollLeft + clientWidth >= scrollWidth-100);
+            setIsAtEnd(scrollLeft + clientWidth >= scrollWidth-1);
+            console.log(scrollLeft);
+            console.log(clientWidth);
+            console.log(scrollWidth);
+            console.log(isAtStart);
+            console.log(isAtEnd);
+            
         };
 
         const container = containerRef.current;
@@ -51,10 +57,7 @@ const Courses = () => {
 
         handleScroll();
 
-        return () => {
-            container.removeEventListener('scroll', handleScroll);
-        };
-        }, []);
+        }, [isAtEnd, isAtStart]);
 
     const scrollLeft = () => {
         containerRef.current.scrollBy({ left: -316, behavior: 'smooth' });
@@ -135,7 +138,7 @@ const Courses = () => {
                 </div>
                 <div className={classNames(styles["custom-column"], styles["right-bar"])}>
                     <div style={{ width: 10, height: 60, borderRadius: 30, backgroundColor: "var(--yellow-color-1)", alignSelf: "end" }}></div>
-                    {(!isAtStart || !isAtEnd) && (
+                    {(isAtStart || !isAtEnd) && (
                         <div className={styles['arrow-to-right']} onClick={scrollRight}>
                             <img src="/icon/arrow.png" alt="arrow" />
                         </div>

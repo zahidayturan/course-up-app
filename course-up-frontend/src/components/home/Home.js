@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Banner from "./components/Banner";
 import Courses from "./components/Courses";
 import Info from "./components/Info";
+import Categories from "./components/Categories";
 
 const Home = () => {
     return (
@@ -12,6 +13,7 @@ const Home = () => {
             <Banner />
             <Courses />
             <Info />
+            <Categories />
         </div>
     );
 };
