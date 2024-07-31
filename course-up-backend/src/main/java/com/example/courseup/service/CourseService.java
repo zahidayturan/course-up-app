@@ -38,4 +38,8 @@ public class CourseService {
     public List<Course> getCoursesByCategory(String categoryName) {
         return courseRepository.findCoursesByCategory(categoryName);
     }
+
+    public List<Course> getTopPopularCourses() {
+        return courseRepository.findTopCoursesByPopularity();
+    }
 }

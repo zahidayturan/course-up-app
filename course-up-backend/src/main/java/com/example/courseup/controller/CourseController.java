@@ -51,4 +51,10 @@ public class CourseController {
     public List<Course> getCoursesByCategory(@PathVariable String categoryName) {
         return courseService.getCoursesByCategory(categoryName);
     }
+
+    @Operation(summary = "Get all course by Category Name")
+    @GetMapping("/popular-courses")
+    public List<Course> getTopPopularCourses() {
+        return courseService.getTopPopularCourses();
+    }
 }
