@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Endpoints from '../../constants/Endpoints';
-import '../../assets/css/Main.module.css';
 import Header from "./components/AuthHeader";
 import Footer from "./components/AuthFooter";
-import styles from '../../assets/css/auth/Auth.module.css';
-import textStyles from '../../assets/css/Text.module.css';
+import mainStyles from '../css/Main.module.css'
+import styles from './css/Auth.module.css';
+import textStyles from '../css/Text.module.css';
 import classNames from "classnames";
 
 const ForgotPassword = () => {
@@ -59,8 +59,8 @@ const ForgotPassword = () => {
                     )}
                     {!formSubmitted && message && <p className={classNames(textStyles['error'], textStyles['text-center'], styles['top-padding'])}>{message}</p>}
                     {loading && (
-                        <div className={styles['loader']}>
-                            <div className={styles['spinner']}></div>
+                        <div className={mainStyles['loader']}>
+                            <div className={mainStyles['spinner']}></div>
                         </div>
                     )}
                 </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import styles from '../../../assets/css/auth/Auth.module.css';
+import styles from '../css/Auth.module.css';
 import classNames from "classnames";
 
 const AuthFooter = () => (

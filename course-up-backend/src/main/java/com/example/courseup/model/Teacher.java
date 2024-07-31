@@ -1,6 +1,7 @@
 package com.example.courseup.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,12 +19,12 @@ public class Teacher {
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @JsonBackReference
+    @JsonManagedReference
     private User user;
 
     private String description;
 
     @OneToMany(mappedBy = "teacher")
-    @JsonManagedReference
+    @JsonBackReference
     private List<Course> courses;
 }

@@ -4,8 +4,9 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from './components/AuthHeader';
 import Footer from "./components/AuthFooter";
-import styles from '../../assets/css/auth/Auth.module.css';
-import textStyles from '../../assets/css/Text.module.css';
+import mainStyles from '../css/Main.module.css'
+import styles from './css/Auth.module.css';
+import textStyles from '../css/Text.module.css';
 import classNames from "classnames";
 
 const Login = () => {
@@ -88,8 +89,8 @@ const Login = () => {
                         <p className={classNames(textStyles['text-center'], styles['top-padding'], styles['bottom-padding'])}>Başarıyla giriş yaptınız. Yönlendiriliyorsunuz...</p>
                     )}
                     {loading && (
-                        <div className={styles['loader']}>
-                            <div className={styles['spinner']}></div>
+                        <div className={mainStyles['loader']}>
+                            <div className={mainStyles['spinner']}></div>
                         </div>
                     )}
                 </div>

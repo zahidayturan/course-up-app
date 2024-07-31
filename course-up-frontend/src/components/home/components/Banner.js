@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
-import styles from '../../../assets/css/home/Banner.module.css';
-import textStyles from '../../../assets/css/Text.module.css';
+import styles from '../css/Banner.module.css';
+import textStyles from '../../css/Text.module.css';
 import axios from "axios";
 import Endpoints from "../../../constants/Endpoints";
 
@@ -18,11 +18,7 @@ const Banner = () => {
                 const response = await axios.get(`${Endpoints.ONGOING_COURSES}/${userId}`);
                 setOngoingCourses(response.data);
 
-                if (response.data.length > 0) {
-                    console.log(response.data[0].course.name);
-                }
-
-                console.log('Ongoing courses set', response.data);
+                console.log('Ongoing courses set');
             } catch (error) {
                 setOngoingCoursesError('Kurslarınız yüklenirken bir hata oluştu');
             } finally {
@@ -40,26 +36,66 @@ const Banner = () => {
         }
     }, []);
 
+
+    const Banner1 = () => (
+        <p className={styles['banner-text']}>
+            Hedeflerine<br />giden yolda<br />
+            <span className={textStyles['font-bold']}>CourseUp<br />yanında</span><br /><br /><br />
+            <span style={{ fontSize: "18px" }}>Bir kursa kayıt ol<br />ve yolculuğuna başla</span>
+        </p>
+    );
+
+    const Banner2 = () => (
+        <p className={styles['banner-text']} style={{backgroundColor:"rgb(66,76,56,0.9)"}}>
+            Yeni hedefler<br />için<br />
+            <span className={textStyles['font-bold']}>CourseUp<br />seninle</span><br /><br /><br />
+            <span style={{ fontSize: "18px" }}>Kendini geliştirmeye<br />başla</span>
+        </p>
+    );
+
+    const banners = [
+        {
+            img: "/img/banner-library.png",
+            component: <Banner1 />
+        },
+        {
+            img: "/img/banner-road.png",
+            component: <Banner2 />
+        }
+    ];
+
+    const [currentBanner, setCurrentBanner] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentBanner((prev) => (prev + 1) % banners.length);
+        }, 12000);
+        return () => clearInterval(interval);
+    }, [banners.length]);
+
+    const handleNext = () => {
+        setCurrentBanner((prev) => (prev + 1) % banners.length);
+    };
+
+    const handlePrev = () => {
+        setCurrentBanner((prev) => (prev - 1 + banners.length) % banners.length);
+    };
     return (
         <div>
             <div className={classNames(styles['custom-row'], styles['mobile-row'], styles['top-and-bottom'])}>
                 <div className={styles['banner']}>
                     <div className={classNames(styles['custom-row'], styles['banner-text-and-buttons'])}>
                         <div style={{ display: "flex", alignItems: "center", flexDirection: "row" }}>
-                            <div className={styles['arrow-to-left']}>
+                            <div className={styles['arrow-to-left']} onClick={handlePrev}>
                                 <img src="/icon/arrow.png" alt="arrow" />
                             </div>
-                            <p className={styles['banner-text']}>
-                                Hedeflerine<br />giden yolda<br />
-                                <span className={textStyles['font-bold']}>CourseUp<br />yanında</span><br /><br /><br />
-                                <span style={{ fontSize: "18px" }}>Bir kursa kayıt ol<br />ve yolculuğuna başla</span>
-                            </p>
+                            {banners[currentBanner].component}
                         </div>
-                        <div className={styles['arrow-to-right']}>
+                        <div className={styles['arrow-to-right']} onClick={handleNext}>
                             <img src="/icon/arrow.png" alt="arrow" />
                         </div>
                     </div>
-                    <img className={styles['banner-img']} src="/img/banner-library.png" alt="banner" />
+                    <img className={styles['banner-img']} src={banners[currentBanner].img} alt="banner" />
                 </div>
                 {user && (
                     <div className={styles['ongoing-courses']}>

@@ -19,7 +19,7 @@ public class Course {
 
     @ManyToOne
     @JoinColumn(name = "teacher_id", referencedColumnName = "id")
-    @JsonBackReference
+    @JsonManagedReference
     private Teacher teacher;
 
     private String name;

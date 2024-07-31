@@ -1,5 +1,6 @@
 package com.example.courseup.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,11 +16,11 @@ public class Basket {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @JsonBackReference
+    @JsonManagedReference
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "id")
-    @JsonBackReference
+    @JsonManagedReference
     private Course course;
 }

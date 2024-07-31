@@ -14,4 +14,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     @Query("SELECT c FROM Course c WHERE c.category = :categoryName")
     List<Course> findCoursesByCategory(@Param("categoryName") String  categoryName);
+
+    @Query(value = "SELECT c.* FROM course c JOIN (SELECT course_id FROM trainee GROUP BY course_id ORDER BY COUNT(course_id) DESC LIMIT 6) top_courses ON c.id = top_courses.course_id", nativeQuery = true)
+    List<Course> findTopCoursesByPopularity();
 }

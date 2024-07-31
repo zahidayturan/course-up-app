@@ -7,7 +7,7 @@
 }
 
 .top-and-bottom{
-    padding: 24px 0;
+    padding: 24px 0 36px 0;
 }
 
 .banner {
@@ -91,5 +91,9 @@
 
     .banner-text {
         margin-left: 12px;
+    }
+
+    .banner ,.banner-img{
+        border-radius: 16px;
     }
 }

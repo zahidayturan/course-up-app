@@ -1,6 +1,7 @@
 package com.example.courseup.controller;
 
 import com.example.courseup.model.CourseComments;
+import com.example.courseup.model.DTO.CourseCommentsDTO;
 import com.example.courseup.service.CourseCommentsService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/course-comment")
+@RequestMapping("/course-comments")
 public class CourseCommentController {
 
     @Autowired
@@ -18,8 +19,8 @@ public class CourseCommentController {
 
     @Operation(summary = "Get all course comments")
     @GetMapping
-    public List<CourseComments> findAll() {
-        return courseCommentsService.findAll();
+    public List<CourseCommentsDTO> findAll() {
+        return courseCommentsService.getAllCourseComments();
     }
 
     @Operation(summary = "Get course comment by Id")
@@ -38,6 +39,11 @@ public class CourseCommentController {
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         courseCommentsService.deleteById(id);
+    }
+
+    @GetMapping("/all")
+    public List<CourseCommentsDTO> getAllCourseComments() {
+        return courseCommentsService.getAllCourseComments();
     }
 
 }
