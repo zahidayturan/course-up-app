@@ -7,7 +7,7 @@
 }
 
 .top-and-bottom{
-    padding: 24px 0;
+    padding: 24px 0 36px 0;
 }
 
 .banner {
@@ -17,7 +17,6 @@
     align-items: center;
     border-radius: 32px;
     position: relative;
-    touch-action: pan-x;
 }
 
 .banner-text-and-buttons {

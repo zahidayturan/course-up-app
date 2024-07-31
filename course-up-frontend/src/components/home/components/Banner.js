@@ -50,7 +50,7 @@ const Banner = () => {
     );
 
     const Banner2 = () => (
-        <p className={styles['banner-text']}>
+        <p className={styles['banner-text']} style={{backgroundColor:"rgb(66,76,56,0.9)"}}>
             Yeni hedefler<br />için<br />
             <span className={textStyles['font-bold']}>CourseUp<br />seninle</span><br /><br /><br />
             <span style={{ fontSize: "18px" }}>Kendini geliştirmeye<br />başla</span>
