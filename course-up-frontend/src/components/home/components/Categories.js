@@ -14,7 +14,6 @@ const Categories = () => {
         { name: "Dijital Pazarlama", path: "/" },
         { name: "Girişimcilik", path: "/" },
         { name: "Finans", path: "/" },
-        { name: "Tüm Kategoriler", path: "/" }
     ];
     return (
         <div className={styles["custom-row"]}>

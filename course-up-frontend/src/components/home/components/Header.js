@@ -73,9 +73,12 @@ const Header = () => {
                         <p onClick={handleCategoryToggle}>Kategoriler</p>
                         {showCategories && (
                             <div className={styles['dropdown-menu']}>
-                                <Link to="/category/programming">Programming</Link>
-                                <Link to="/category/design">Design</Link>
-                                <Link to="/category/marketing">Marketing</Link>
+                                <Link to="/category/programming">Programlama</Link>
+                                <Link to="/category/design">Tasarım</Link>
+                                <Link to="/category/marketing">Kişisel Gelişim</Link>
+                                <Link to="/category/marketing">Fotoğrafçılık</Link>
+                                <Link to="/category/marketing">Müzik</Link>
+                                <Link to="/category/marketing">Tüm Kategoriler</Link>
                             </div>
                         )}
                     </div>
@@ -95,6 +98,7 @@ const Header = () => {
                             <div onClick={handleProfileToggle} className={classNames(styles['auth-button-register'], styles['hide'])}>Hesabım</div>
                             { showProfile && (
                                 <div className={styles['dropdown-menu']}>
+                                    <Link to="/profile">Profilim</Link>
                                     <p onClick={handleLogout}>Çıkış Yap</p>
                                 </div>)}
                         </div>
@@ -122,7 +126,7 @@ const Header = () => {
                             { user ? (
                                 <React.Fragment>
                                     <p style={{textAlign:"center"} }>Merhaba <span style={{fontWeight:600}}>{user.name}</span></p>
-                                    <div onClick={handleLogout} className={classNames(styles['auth-button-register'],styles['button-mobile'])}>Çıkış Yap</div>
+                                    <Link to="/profile" className={classNames(styles['auth-button-register'], styles['button-mobile'])}>Profilim</Link>
                                 </React.Fragment>
                             ) : (
                                 <React.Fragment>
@@ -130,18 +134,31 @@ const Header = () => {
                                     <Link to="/register" className={classNames(styles['auth-button-register'], styles['button-mobile'])}>Kayıt Olun</Link>
                                 </React.Fragment>
                             )}
-
-                            <Link to="/category/programming" className={styles['category-text']}>Programming</Link>
-                            <Link to="/category/design" className={styles['category-text']}>Design</Link>
-                            <Link to="/category/marketing" className={styles['category-text']}>Marketing</Link>
+                            <div className={styles["custom-row"]} style={{gap:"8px" ,justifyContent:"start"}}>
+                                <div style={{width:"2px",height:"100%",borderRadius:"30px",backgroundColor:"var(--grey-color-1)"}}></div>
+                                <div>
+                                    <p style={{fontWeight:700,fontSize:18,paddingBottom:"4px"}}>Hızlı Menüler</p>
+                                    <Link to="/category/programming" className={styles['category-text']}>Kurslarım</Link>
+                                    <Link to="/category/marketing" className={styles['category-text']}>İstek Listem</Link>
+                                    <Link to="/category/design" className={styles['category-text']}>İstatistiklerim</Link>
+                                    <Link to="/category/design" className={styles['category-text']}>Yorumlarım</Link>
+                                    <Link to="/category/design" className={styles['category-text']}>Sepetim</Link>
+                                    <Link to="/category/design" className={styles['category-text']}>Ayarlarım</Link>
+                                </div>
+                            </div>
                             <div className={styles['language-container']} style={{display:"flex", justifyContent:"center"}}>
                                 <p onClick={handleLanguageToggle} className={styles['language-menu']}>TR</p>
                                 {showLanguages && (
                                     <div className={styles['dropdown-menu']}>
-                                        <p>TR</p>
+                                        <p>Türkçe</p>
                                     </div>
                                 )}
                             </div>
+                            {user && (
+                                <React.Fragment>
+                                    <div onClick={handleLogout} className={classNames(styles['auth-button-login'],styles['button-mobile'])}>Çıkış Yap</div>
+                                </React.Fragment>
+                            )}
                         </div>
                     </div>
                 )}
