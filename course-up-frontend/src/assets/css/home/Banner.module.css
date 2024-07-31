@@ -17,6 +17,7 @@
     align-items: center;
     border-radius: 32px;
     position: relative;
+    touch-action: pan-x;
 }
 
 .banner-text-and-buttons {
@@ -91,5 +92,9 @@
 
     .banner-text {
         margin-left: 12px;
+    }
+
+    .banner ,.banner-img{
+        border-radius: 16px;
     }
 }
