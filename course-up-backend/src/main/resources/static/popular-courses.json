@@ -12,19 +12,5 @@
     "discountedPrice": "299.99 ₺",
     "image": "/img/excel-course.jpeg",
     "discount": "40%"
-  },
-  {
-    "id": 2,
-    "name": "İleri Seviye Python",
-    "instructor": "Veli Demir",
-    "description": "Python ve Programlama Öğrenin. Django , Web Geliştirme , Veri Analizi (Pandas , Numpy), Selenium",
-    "duration": "40 Saat Eğitim Süresi",
-    "students": "10157 öğrenci",
-    "rating": "4.1",
-    "reviews": "1259 kişi",
-    "originalPrice": "1199.99 ₺",
-    "discountedPrice": "899.99 ₺",
-    "image": "/img/python-course.png",
-    "discount": "25%"
   }
 ]

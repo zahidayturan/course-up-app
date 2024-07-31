@@ -24,7 +24,7 @@ public class JsonUpdateService {
         this.objectMapper = objectMapper;
     }
 
-    @Scheduled(fixedRate = 12 * 60 * 60 * 1000) // 12 saat
+    @Scheduled(fixedRate = 12 * 60 * 60 * 1000)
     public void updateJsonFile() {
         try {
             List<Course> topCourses = courseRepository.findTopCoursesByPopularity();
