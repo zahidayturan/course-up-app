@@ -47,6 +47,7 @@
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px;
     z-index: 1000;
     cursor: pointer;
+    width: max-content;
 }
 
 .dropdown-menu a, .dropdown-menu p {
@@ -153,6 +154,7 @@
     justify-content: center;
     display: none;
     z-index: 999;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px;
 }
 
 .side-menu-content {
@@ -209,5 +211,11 @@
 
     .search-bar input{
         font-size: 14px;
+    }
+
+    .dropdown-menu{
+        right: 0;
+        width: auto;
+        text-align: center;
     }
 }

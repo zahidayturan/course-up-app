@@ -44,12 +44,6 @@ const Courses = () => {
             const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
             setIsAtStart(scrollLeft === 0);
             setIsAtEnd(scrollLeft + clientWidth >= scrollWidth-1);
-            console.log(scrollLeft);
-            console.log(clientWidth);
-            console.log(scrollWidth);
-            console.log(isAtStart);
-            console.log(isAtEnd);
-            
         };
 
         const container = containerRef.current;

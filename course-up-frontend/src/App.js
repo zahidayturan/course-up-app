@@ -6,6 +6,7 @@ import Home from "./components/home/Home";
 import ForgotPassword from "./components/auth/ForgotPassword";
 import ResetPassword from "./components/auth/ResetPassword";
 import NotFound from "./components/404";
+import Profile from "./components/profile/Profile";
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/reset-password" element={<ResetPassword />} />
                     <Route path="/home" element={<Home />} />
+                    <Route path="/profile" element={<Profile />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>
