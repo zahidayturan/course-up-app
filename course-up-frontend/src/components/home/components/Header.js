@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
-import styles from '../../../assets/css/home/Header.module.css';
+import styles from '../css/Header.module.css';
+import mainStyles from '../../css/Main.module.css';
 import axios from "axios";
 import Endpoints from "../../../constants/Endpoints";
 
@@ -59,8 +60,8 @@ const Header = () => {
     return (
         <div>
             {loading && (
-                <div className={styles["loading-overlay"]}>
-                    <div className={styles["spinner"]}></div>
+                <div className={mainStyles["loading-overlay"]}>
+                    <div className={mainStyles["main-spinner"]}></div>
                 </div>
             )}
             <div className={styles['header']}>

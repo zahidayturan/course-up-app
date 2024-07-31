@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
-import styles from '../../../assets/css/home/Banner.module.css';
-import textStyles from '../../../assets/css/Text.module.css';
+import styles from '../css/Banner.module.css';
+import textStyles from '../../css/Text.module.css';
 import axios from "axios";
 import Endpoints from "../../../constants/Endpoints";
 
@@ -18,11 +18,7 @@ const Banner = () => {
                 const response = await axios.get(`${Endpoints.ONGOING_COURSES}/${userId}`);
                 setOngoingCourses(response.data);
 
-                if (response.data.length > 0) {
-                    console.log(response.data[0].course.name);
-                }
-
-                console.log('Ongoing courses set', response.data);
+                console.log('Ongoing courses set');
             } catch (error) {
                 setOngoingCoursesError('Kurslarınız yüklenirken bir hata oluştu');
             } finally {

@@ -1,49 +1,44 @@
 import React, { useRef, useState, useEffect } from 'react';
-import styles from '../../../assets/css/home/Courses.module.css';
-import textStyles from '../../../assets/css/Text.module.css';
+import styles from '../css/Courses.module.css';
+import textStyles from '../../css/Text.module.css';
 import classNames from "classnames";
+import axios from "axios";
+import Endpoints from "../../../constants/Endpoints";
+import mainStyles from '../../css/Main.module.css'
 
-const coursesData = [
-    {
-        "id": 1,
-        "name": "Microsoft Excel",
-        "instructor": "Mehmet Ay",
-        "description": "Excel eğitim setimiz ile Excel'in tüm detaylarını öğrenin.",
-        "duration": "16 Saat Eğitim Süresi",
-        "students": "2453 öğrenci",
-        "rating": "4.0",
-        "reviews": "159 kişi",
-        "originalPrice": "499.99 ₺",
-        "discountedPrice": "299.99 ₺",
-        "image": "/img/excel-course.jpeg",
-        "discount": "40%"
-    },
-    {
-        "id": 2,
-        "name": "İleri Seviye Python",
-        "instructor": "Veli Demir",
-        "description": "Python ve Programlama Öğrenin. Django , Web Geliştirme , Veri Analizi (Pandas , Numpy), Selenium",
-        "duration": "40 Saat Eğitim Süresi",
-        "students": "10157 öğrenci",
-        "rating": "4.1",
-        "reviews": "1259 kişi",
-        "originalPrice": "1199.99 ₺",
-        "discountedPrice": "899.99 ₺",
-        "image": "/img/python-course.png",
-        "discount": "25%"
-    },
-];
 
 const Courses = () => {
     const containerRef = useRef(null);
     const [isAtStart, setIsAtStart] = useState(true);
     const [isAtEnd, setIsAtEnd] = useState(false);
     const [courses, setCourses] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
 
     useEffect(() => {
-        setCourses(coursesData);
-    }, []);
+        const fetchCourses = async () => {
+            try {
+                setLoading(true);
+                const response = await axios.get(Endpoints.POPULAR_COURSES);
+                setCourses(response.data);
+                console.log('Popular courses set');
+            } catch (err) {
+                console.error('Error fetching remote data:', err);
+                try {
+                    const fallbackResponse = await axios.get('/json/popular-courses.json');
+                    setCourses(fallbackResponse.data);
+                } catch (fallbackErr) {
+                    console.log(err);
+                    setError('Poüler kurslar yüklenirken bir hata oluştu.');
+                }
+            } finally {
+                setLoading(false);
+            }
+        };
 
+        fetchCourses();
+    }, []);
     useEffect(() => {
         const handleScroll = () => {
             const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
@@ -81,7 +76,6 @@ const Courses = () => {
         containerRef.current.scrollLeft -= deltaX;
         containerRef.current.startX = touch.clientX;
     };
-
     return (
         <div>
             <div className={styles["mobile-title-and-row"]}>
@@ -101,37 +95,47 @@ const Courses = () => {
                     )}
                     <div style={{ width: 10, height: 90, borderRadius: 30, backgroundColor: "var(--yellow-color-1)", alignSelf: "start" }}></div>
                 </div>
-                <div className={styles["course-containers"]} ref={containerRef} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} >
-                    {courses.map((course) => (
-                        <div key={course.id} className={styles["course-container"]}>
-                            <div className={styles["discount-text"]}>
-                                <span className={textStyles["font-bold"]}>{course.discount}</span> indirim
-                            </div>
-                            <img className={styles["course-img"]} src={course.image} alt={course.name} />
-                            <div className={styles["text-column"]}>
-                                <div>
-                                    <p className={textStyles["font-bold"]} style={{ fontSize: 18 }}>{course.name}</p>
-                                    <p className={classNames(textStyles["font-italic"], textStyles["text-small"])}>Eğitmen: {course.instructor}</p>
-                                </div>
-                                <p className={textStyles["text-small"]} style={{ textAlign: "justify" }}>{course.description}</p>
-                                <p className={textStyles["text-small"]}>{course.duration} - {course.students}</p>
-                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "end", width: "100%" }}>
-                                    <div>
-                                        <p className={textStyles["text-small"]}>{course.rating} <span style={{ fontSize: 12 }}>({course.reviews})</span></p>
-                                        <p>* * * * *</p>
-                                    </div>
-                                    <div style={{ textAlign: "end" }}>
-                                        <p className={textStyles["text-small"]} style={{ textDecoration: "line-through" }}>{course.originalPrice}</p>
-                                        <p className={textStyles["font-bold"]}>{course.discountedPrice}</p>
-                                    </div>
-                                </div>
-                            </div>
+                <div className={styles["course-containers"]} ref={containerRef} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove}>
+                    {loading ? (
+                        <div className={mainStyles["loading-overlay"]}>
+                            <div className={mainStyles["main-spinner"]}></div>
                         </div>
-                    ))}
+                    ) : error ? (
+                        <div><p>{error}</p></div>
+                    ) : courses.length > 0 ? (
+                        courses.map((course) => (
+                            <div key={course.id} className={styles["course-container"]}>
+                                <div className={styles["discount-text"]}>
+                                    <span className={textStyles["font-bold"]}>{course.discount}</span> indirim
+                                </div>
+                                <img className={styles["course-img"]} src={course.image} alt={course.name} />
+                                <div className={styles["text-column"]}>
+                                    <div>
+                                        <p className={textStyles["font-bold"]} style={{ fontSize: 18 }}>{course.name}</p>
+                                        <p className={classNames(textStyles["font-italic"], textStyles["text-small"])}>Eğitmen: {course.instructor}</p>
+                                    </div>
+                                    <p className={textStyles["text-small"]} style={{ textAlign: "justify" }}>{course.description}</p>
+                                    <p className={textStyles["text-small"]}>{course.duration} - {course.students}</p>
+                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "end", width: "100%" }}>
+                                        <div>
+                                            <p className={textStyles["text-small"]}>{course.rating} <span style={{ fontSize: 12 }}>({course.reviews})</span></p>
+                                            <p>* * * * *</p>
+                                        </div>
+                                        <div style={{ textAlign: "end" }}>
+                                            <p className={textStyles["text-small"]} style={{ textDecoration: "line-through" }}>{course.originalPrice}</p>
+                                            <p className={textStyles["font-bold"]}>{course.discountedPrice}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <div><p>Popüler kurs bulunamadı.</p></div>
+                    )}
                 </div>
                 <div className={classNames(styles["custom-column"], styles["right-bar"])}>
                     <div style={{ width: 10, height: 60, borderRadius: 30, backgroundColor: "var(--yellow-color-1)", alignSelf: "end" }}></div>
-                    {(isAtStart || !isAtEnd) && (
+                    {(!isAtStart || !isAtEnd) && (
                         <div className={styles['arrow-to-right']} onClick={scrollRight}>
                             <img src="/icon/arrow.png" alt="arrow" />
                         </div>

@@ -1,7 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react';
-import styles from '../../../assets/css/home/Info.module.css';
-import textStyles from '../../../assets/css/Text.module.css';
-import classNames from "classnames";
+import React from 'react';
+import styles from '../css/Info.module.css';
+import textStyles from '../../css/Text.module.css';
 
 const Info = () => {
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from '../../../assets/css/auth/Auth.module.css';
+import styles from '../css/Auth.module.css';
 import classNames from "classnames";
 
 const AuthHeader = () => (

@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "Microsoft Excel",
+    "instructor": "Mehmet Ay",
+    "description": "Excel eğitim setimiz ile Excel'in tüm detaylarını öğrenin.",
+    "duration": "16 Saat Eğitim Süresi",
+    "students": "2453 öğrenci",
+    "rating": "4.0",
+    "reviews": "159 kişi",
+    "originalPrice": "499.99 ₺",
+    "discountedPrice": "299.99 ₺",
+    "image": "/img/excel-course.jpeg",
+    "discount": "40%"
+  }
+]
