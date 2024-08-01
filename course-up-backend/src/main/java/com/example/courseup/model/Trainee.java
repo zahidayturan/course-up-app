@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -30,6 +31,8 @@ public class Trainee {
     private Integer currentStages;
     private Double coursePoint;
     private Boolean isFinished;
+    private LocalDate startedDate;
+    private LocalDate endDate;
 
     @OneToMany(mappedBy = "trainee")
     @JsonIgnore
