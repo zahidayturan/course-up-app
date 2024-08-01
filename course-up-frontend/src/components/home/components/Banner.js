@@ -82,6 +82,19 @@ const Banner = () => {
         setCurrentBanner((prev) => (prev - 1 + banners.length) % banners.length);
     };
 
+    const ProgressBar = ({ percentage }) => {
+        const backgroundColor = percentage >= 75 ? 'var(--green-color-1)' : percentage >=50 ? 'var(--orange-color-1)' : 'var(--yellow-color-1)';
+
+        return (
+            <div className={styles["progress-bar-background"]}>
+                <div
+                    className={styles["progress-bar-foreground"]}
+                    style={{ width: `${percentage}%`, backgroundColor }}
+                ></div>
+            </div>
+        );
+    };
+
     const title = (
         <div className={styles["custom-row"]} style={{ alignItems: "start" }}>
             <p style={{ fontSize: 18 }}>
@@ -136,7 +149,7 @@ const Banner = () => {
                                     <div key={item.id} className={styles["course-box"]}>
                                         <p className={textStyles["font-bold"]}>{item.course.name}</p>
                                         <p className={classNames(textStyles["text-small"],textStyles["font-italic"])}>Eğitmen: Ali Yıldız</p>
-                                        <p className={textStyles["text-small"]}>Bar</p>
+                                        <ProgressBar percentage={80} />
                                         <p className={textStyles["text-small"]}>İlerleme <span className={textStyles["font-bold"]}>% 80</span></p>
                                         <div className={styles["custom-row"]} style={{justifyContent:"end",gap:4}}>
                                             <p className={textStyles["text-small"]} style={{textAlign:"end"}}>Devam Et</p>

@@ -153,3 +153,18 @@
         max-height: 360px;
     }
 }
+
+.progress-bar-background {
+    width: 50%;
+    height: 8px;
+    background-color: var(--primary-color-1);
+    border-radius: 50px;
+    padding: 3px;
+    margin: 4px 0;
+}
+
+.progress-bar-foreground {
+    height: 100%;
+    background-color: var(--green-color-1);
+    border-radius: 50px;
+}
