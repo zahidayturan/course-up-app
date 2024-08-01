@@ -28,7 +28,7 @@ public class Trainee {
 
     private Integer currentDuration;
     private Integer currentStages;
-    private Integer coursePoint;
+    private Double coursePoint;
     private Boolean isFinished;
 
     @OneToMany(mappedBy = "trainee")

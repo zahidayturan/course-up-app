@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/json")
 public class JsonFileController {
 
     @Value("${json.file.path}")
     private String jsonFilePath;
 
-    @GetMapping("/popular-courses-json")
+    @GetMapping("/popular-courses")
     public Resource getPopularCoursesJson() {
         return new FileSystemResource(jsonFilePath);
     }

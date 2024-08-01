@@ -15,6 +15,15 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     @Query("SELECT c FROM Course c WHERE c.category = :categoryName")
     List<Course> findCoursesByCategory(@Param("categoryName") String  categoryName);
 
-    @Query(value = "SELECT c.* FROM course c JOIN (SELECT course_id FROM trainee GROUP BY course_id ORDER BY COUNT(course_id) DESC LIMIT 6) top_courses ON c.id = top_courses.course_id", nativeQuery = true)
+    @Query(value = "SELECT c FROM Course c LEFT JOIN FETCH c.courseStages WHERE c.id IN (SELECT course.id FROM Trainee GROUP BY course.id ORDER BY COUNT(course.id) DESC LIMIT 6)")
     List<Course> findTopCoursesByPopularity();
+
+    @Query("SELECT COUNT(t) FROM Trainee t WHERE t.course.id = :courseId")
+    Integer findNumberOfCourseStudents(@Param("courseId") Long courseId);
+
+    @Query("SELECT COUNT(t) FROM Trainee t WHERE t.course.id = :courseId AND t.isFinished = true AND t.coursePoint > 0")
+    Integer findNumberOfCourseReviewers(@Param("courseId") Long courseId);
+
+    @Query("SELECT AVG(t.coursePoint) FROM Trainee t WHERE t.course.id = :courseId AND t.isFinished = true AND t.coursePoint > 0")
+    Double findCourseRating(@Param("courseId") Long courseId);
 }
