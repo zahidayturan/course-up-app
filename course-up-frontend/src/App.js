@@ -19,7 +19,7 @@ function App() {
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/reset-password" element={<ResetPassword />} />
                     <Route path="/home" element={<Home />} />
-                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/profile/*" element={<Profile />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>

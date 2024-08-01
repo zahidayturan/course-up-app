@@ -18,9 +18,9 @@ INSERT INTO teacher (id, user_id, description) VALUES
 (2, 5, 'Expert in Physics');
 
 -- Courses
-INSERT INTO course (id, teacher_id, name, description, category, price, level, language, subtitles, total_stages, total_duration) VALUES
-(1, 1, 'Calculus 101', 'Introductory calculus course', 'Mathematics', 100.0, 'Beginner', 'English', 'German-Chinese', 3, 20),
-(2, 2, 'Physics 101', 'Basics of Physics', 'Science', 150.0, 'Beginner', 'English', 'Turkish-German', 2, 15);
+INSERT INTO course (id, teacher_id, name, description, category, price, discount ,level, language, subtitles, total_stages, total_duration, image) VALUES
+(1, 1, 'Calculus 101', 'Introductory calculus course', 'Mathematics', 100.0, 25,'Beginner', 'English', 'German-Chinese', 3, 20, "null"),
+(2, 2, 'Physics 101', 'Basics of Physics', 'Science', 150.0, 10,'Beginner', 'English', 'Turkish-German', 2, 15, "null");
 
 -- Course Stages
 INSERT INTO course_stages (id, course_id, name, description, duration) VALUES
