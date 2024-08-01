@@ -1,8 +1,6 @@
 package com.example.courseup.service;
 
-import com.example.courseup.model.Course;
 import com.example.courseup.model.DTO.PopularCoursesDTO;
-import com.example.courseup.repository.CourseRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,7 +27,7 @@ public class JsonUpdateService {
         this.objectMapper = objectMapper;
     }
 
-    @Scheduled(fixedRate = 500000)
+    @Scheduled(fixedRate = 12 * 60 * 60 * 1000) // 12 hours
     public void updateJsonFile() {
         try {
             List<PopularCoursesDTO> topCourses = courseService.getTopPopularCourses();

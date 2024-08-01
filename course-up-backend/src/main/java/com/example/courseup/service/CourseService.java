@@ -44,10 +44,29 @@ public class CourseService {
     }
 
 
+    public double getCourseRating(Long courseId) {
+        Double rating = courseRepository.findCourseRating(courseId);
+        return rating != null ? rating : 0.0;
+    }
+
+    public Integer getNumberOfCourseStudents(Long courseId) {
+        return courseRepository.findNumberOfCourseStudents(courseId);
+    }
+
+    public Integer getNumberOfCourseReviewers(Long courseId) {
+        return courseRepository.findNumberOfCourseReviewers(courseId);
+    }
+
     public List<PopularCoursesDTO> getTopPopularCourses() {
-        List<Course> course = courseRepository.findTopCoursesByPopularity();
-        return course.stream()
-                .map(PopularCoursesDTO::new)
+        List<Course> courses = courseRepository.findTopCoursesByPopularity();
+        return courses.stream()
+                .map(course -> {
+                    Integer students = getNumberOfCourseStudents(course.getId());
+                    Double rating = getCourseRating(course.getId());
+                    Integer reviews = getNumberOfCourseReviewers(course.getId());
+                    return new PopularCoursesDTO(course, students, rating, reviews);
+                })
                 .collect(Collectors.toList());
     }
+
 }
