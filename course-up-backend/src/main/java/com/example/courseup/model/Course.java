@@ -26,11 +26,13 @@ public class Course {
     private String description;
     private String category;
     private Double price;
+    private Double discount;
     private String level;
     private String language;
     private String subtitles;
     private Integer totalStages;
     private Integer totalDuration;
+    private String image;
 
     @OneToMany(mappedBy = "course")
     @JsonManagedReference

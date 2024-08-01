@@ -10,7 +10,7 @@ const Endpoints = {
     PASSWORD_RESET_REQ: `${API_BASE_URL}/auth/password-reset`,
     RESET_PASSWORD: `${API_BASE_URL}/auth/reset-password`,
     ONGOING_COURSES: `${API_BASE_URL}/trainee/active/user`,
-    POPULAR_COURSES: `${API_BASE_URL}/api/popular-courses-json`
+    POPULAR_COURSES: `${API_BASE_URL}/api/json/popular-courses`
 };
 
 export default Endpoints;

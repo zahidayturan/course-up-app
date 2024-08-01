@@ -21,7 +21,7 @@ public class EmailService {
     public void sendPasswordResetEmail(String to, String token) {
         String subject = "Password Reset Request";
         String text = "To reset your password, click the link below:\n"
-                + frontendBaseUrl + "/reset-password?token=" + token;
+                + frontendBaseUrl + "/#/reset-password?token=" + token;
 
         MimeMessage message = mailSender.createMimeMessage();
         try {

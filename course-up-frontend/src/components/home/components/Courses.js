@@ -103,7 +103,7 @@ const Courses = () => {
                         courses.map((course) => (
                             <div key={course.id} className={styles["course-container"]}>
                                 <div className={styles["discount-text"]}>
-                                    <span className={textStyles["font-bold"]}>{course.discount}</span> indirim
+                                    <span className={textStyles["font-bold"]}>% {course.discount}</span> indirim
                                 </div>
                                 <img className={styles["course-img"]} src={course.image} alt={course.name} />
                                 <div className={styles["text-column"]}>
@@ -112,15 +112,15 @@ const Courses = () => {
                                         <p className={classNames(textStyles["font-italic"], textStyles["text-small"])}>Eğitmen: {course.instructor}</p>
                                     </div>
                                     <p className={textStyles["text-small"]} style={{ textAlign: "justify" }}>{course.description}</p>
-                                    <p className={textStyles["text-small"]}>{course.duration} - {course.students}</p>
+                                    <p className={textStyles["text-small"]}>{course.duration} Saat Eğitim Süresi - {course.students} öğrenci</p>
                                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "end", width: "100%" }}>
                                         <div>
-                                            <p className={textStyles["text-small"]}>{course.rating} <span style={{ fontSize: 12 }}>({course.reviews})</span></p>
+                                            <p className={textStyles["text-small"]}>{course.rating} <span style={{ fontSize: 12 }}>({course.reviews}) kişi</span></p>
                                             <p>* * * * *</p>
                                         </div>
                                         <div style={{ textAlign: "end" }}>
-                                            <p className={textStyles["text-small"]} style={{ textDecoration: "line-through" }}>{course.originalPrice}</p>
-                                            <p className={textStyles["font-bold"]}>{course.discountedPrice}</p>
+                                            <p className={textStyles["text-small"]} style={{ textDecoration: "line-through" }}>{course.originalPrice} ₺</p>
+                                            <p className={textStyles["font-bold"]}>{course.discountedPrice} ₺</p>
                                         </div>
                                     </div>
                                 </div>
