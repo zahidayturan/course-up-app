@@ -99,6 +99,8 @@ const Header = () => {
                             { showProfile && (
                                 <div className={styles['dropdown-menu']}>
                                     <Link to="/profile">Profilim</Link>
+                                    <Link to="/profile/my-courses">Kurslarım</Link>
+                                    <Link to="/profile/my-settings">Ayarlarım</Link>
                                     <p onClick={handleLogout}>Çıkış Yap</p>
                                 </div>)}
                         </div>
@@ -127,6 +129,19 @@ const Header = () => {
                                 <React.Fragment>
                                     <p style={{textAlign:"center"} }>Merhaba <span style={{fontWeight:600}}>{user.name}</span></p>
                                     <Link to="/profile" className={classNames(styles['auth-button-register'], styles['button-mobile'])}>Profilim</Link>
+                                    <div className={styles["custom-row"]} style={{gap:"8px" ,justifyContent:"start"}}>
+                                        <div style={{width:"2px",height:"100%",borderRadius:"30px",backgroundColor:"var(--grey-color-1)"}}></div>
+                                        <div>
+                                            <p style={{fontWeight:700,fontSize:18,paddingBottom:"4px"}}>Hızlı Menüler</p>
+                                            <Link to="/profile/my-courses" className={styles['category-text']}>Kurslarım</Link>
+                                            <Link to="/profile/my-wishlist" className={styles['category-text']}>İstek Listem</Link>
+                                            <Link to="/profile/my-statistics" className={styles['category-text']}>İstatistiklerim</Link>
+                                            <Link to="/profile/my-comments" className={styles['category-text']}>Yorumlarım</Link>
+                                            <Link to="/basket" className={styles['category-text']}>Sepetim</Link>
+                                            <Link to="/help" className={styles['category-text']}>Yardım Merkezi</Link>
+                                            <Link to="/profile/my-settings" className={styles['category-text']}>Ayarlarım</Link>
+                                        </div>
+                                    </div>
                                 </React.Fragment>
                             ) : (
                                 <React.Fragment>
@@ -134,18 +149,19 @@ const Header = () => {
                                     <Link to="/register" className={classNames(styles['auth-button-register'], styles['button-mobile'])}>Kayıt Olun</Link>
                                 </React.Fragment>
                             )}
-                            <div className={styles["custom-row"]} style={{gap:"8px" ,justifyContent:"start"}}>
-                                <div style={{width:"2px",height:"100%",borderRadius:"30px",backgroundColor:"var(--grey-color-1)"}}></div>
-                                <div>
-                                    <p style={{fontWeight:700,fontSize:18,paddingBottom:"4px"}}>Hızlı Menüler</p>
-                                    <Link to="/category/programming" className={styles['category-text']}>Kurslarım</Link>
-                                    <Link to="/category/marketing" className={styles['category-text']}>İstek Listem</Link>
-                                    <Link to="/category/design" className={styles['category-text']}>İstatistiklerim</Link>
-                                    <Link to="/category/design" className={styles['category-text']}>Yorumlarım</Link>
-                                    <Link to="/category/design" className={styles['category-text']}>Sepetim</Link>
-                                    <Link to="/category/design" className={styles['category-text']}>Ayarlarım</Link>
-                                </div>
-                            </div>
+                            {!user && (
+                                <React.Fragment>
+                                    <div className={styles["custom-row"]} style={{gap:"8px" ,justifyContent:"start"}}>
+                                        <div style={{width:"2px",height:"100%",borderRadius:"30px",backgroundColor:"var(--grey-color-1)"}}></div>
+                                        <div>
+                                            <p style={{fontWeight:700,fontSize:18,paddingBottom:"4px"}}>Hızlı Menüler</p>
+                                            <Link to="/" className={styles['category-text']}>Kategoriler</Link>
+                                            <Link to="/" className={styles['category-text']}>Sepetim</Link>
+                                            <Link to="/" className={styles['category-text']}>Yardım Merkezi</Link>
+                                        </div>
+                                    </div>
+                                </React.Fragment>
+                            )}
                             <div className={styles['language-container']} style={{display:"flex", justifyContent:"center"}}>
                                 <p onClick={handleLanguageToggle} className={styles['language-menu']}>TR</p>
                                 {showLanguages && (
