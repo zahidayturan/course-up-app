@@ -65,11 +65,60 @@
 }
 
 .ongoing-courses {
-    width: 460px;
-    min-width: 360px;
-    height: 360px;
+    min-width: 320px;
+    height: min-content;
+    max-height: 360px;
     background-color: var(--primary-color-1);
     border-radius: 16px;
+    overflow-y: auto;
+    touch-action: cross-slide-y;
+}
+
+.ongoing-courses::-webkit-scrollbar {
+    width: 6px;
+}
+.ongoing-courses::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 50px;
+}
+.ongoing-courses::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color-2);
+    cursor: grab;
+}
+
+.course-box{
+    background-color: var(--secondary-color-1);
+    padding: 8px;
+    border-radius: 8px;
+    margin: 8px 0;
+}
+
+.arrow-icon{
+    background-color: var(--secondary-color-2);
+    border-radius: 50px;
+    height: 12px;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.arrow-icon:hover{
+    background-color: var(--green-color-1);
+    padding: 4px 12px;
+}
+
+.opacity-logo{
+    height: 48px;
+    position: absolute;
+    opacity: 0.1;
+    bottom: 18px;
+    z-index: -1;
+}
+
+.is-web{
+    height: 360px;
+    position: relative;
+    display: flex;
+    justify-content: center
 }
 
 @media (max-width: 744px) {
@@ -79,9 +128,10 @@
     .ongoing-courses{
         width: 100%;
         min-width: auto;
+        border-radius: 8px;
     }
 
-    .arrow-to-right ,.arrow-to-left{
+    .arrow-to-right ,.arrow-to-left ,.opacity-logo{
         display: none;
     }
 
@@ -95,5 +145,11 @@
 
     .banner ,.banner-img{
         border-radius: 16px;
+    }
+
+    .is-web{
+        width: 100%;
+        height: min-content;
+        max-height: 360px;
     }
 }

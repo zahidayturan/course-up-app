@@ -4,6 +4,7 @@ import styles from '../css/Banner.module.css';
 import textStyles from '../../css/Text.module.css';
 import axios from "axios";
 import Endpoints from "../../../constants/Endpoints";
+import mainStyles from "../../css/Main.module.css";
 
 const Banner = () => {
     const [user, setUser] = useState(null);
@@ -80,9 +81,25 @@ const Banner = () => {
     const handlePrev = () => {
         setCurrentBanner((prev) => (prev - 1 + banners.length) % banners.length);
     };
+
+    const title = (
+        <div className={styles["custom-row"]} style={{ alignItems: "start" }}>
+            <p style={{ fontSize: 18 }}>
+                Devam eden <span className={textStyles["font-bold"]}>kursların</span>
+            </p>
+            <div
+                style={{
+                    width: 32,
+                    height: 8,
+                    borderRadius: 30,
+                    backgroundColor: "var(--green-color-1)",
+                }}
+            ></div>
+        </div>
+    );
     return (
         <div>
-            <div className={classNames(styles['custom-row'], styles['mobile-row'], styles['top-and-bottom'])}>
+            <div className={classNames(styles['custom-row'], styles['mobile-row'], styles['top-and-bottom'])} style={{alignItems:"start"}}>
                 <div className={styles['banner']}>
                     <div className={classNames(styles['custom-row'], styles['banner-text-and-buttons'])}>
                         <div style={{ display: "flex", alignItems: "center", flexDirection: "row" }}>
@@ -98,24 +115,45 @@ const Banner = () => {
                     <img className={styles['banner-img']} src={banners[currentBanner].img} alt="banner" />
                 </div>
                 {user && (
-                    <div className={styles['ongoing-courses']}>
+                    <div className={styles["is-web"]}>
+                        <div className={styles['ongoing-courses']}>
                         {ongoingCoursesLoading ? (
-                            <p>Loading...</p>
+                                <div style={{padding:12}}>
+                                    {title}
+                                    <div className={mainStyles['loader']}>
+                                        <div className={mainStyles['spinner']}></div>
+                                    </div>
+                                </div>
                         ) : ongoingCoursesError ? (
-                            <p>{ongoingCoursesError}</p>
+                                <div style={{padding:12}}>
+                                    {title}
+                                    <p className={textStyles["text-center"]} style={{padding:"14px 0",fontSize:14}}>{ongoingCoursesError}</p>
+                                </div>
                         ) : ongoingCourses && ongoingCourses.length > 0 ? (
-                            <div>
+                            <div style={{padding:12}}>
+                                {title}
                                 {ongoingCourses.map((item) => (
-                                    <div key={item.id}>
-                                        <p>{item.course.name}</p>
-                                        <p>{item.course.description}</p>
-                                        <p>{item.course.category}</p>
+                                    <div key={item.id} className={styles["course-box"]}>
+                                        <p className={textStyles["font-bold"]}>{item.course.name}</p>
+                                        <p className={classNames(textStyles["text-small"],textStyles["font-italic"])}>Eğitmen: Ali Yıldız</p>
+                                        <p className={textStyles["text-small"]}>Bar</p>
+                                        <p className={textStyles["text-small"]}>İlerleme <span className={textStyles["font-bold"]}>% 80</span></p>
+                                        <div className={styles["custom-row"]} style={{justifyContent:"end",gap:4}}>
+                                            <p className={textStyles["text-small"]} style={{textAlign:"end"}}>Devam Et</p>
+                                            <img className={styles["arrow-icon"]} src="/icon/long-arrow.png" alt=""/>
+                                        </div>
                                     </div>
                                 ))}
+                                <p className={textStyles["text-center"]} style={{padding:"14px 0",fontSize:14}}>Aradığın kurs burada yok mu?<br/><span className={classNames(textStyles["text-underline"],textStyles["font-bold"])}>Şimdi yeni bir kurs ekle</span></p>
                             </div>
                         ) : (
-                            <p>Aktif kursunuz yok</p>
+                            <div style={{padding:12}}>
+                                {title}
+                                <p className={textStyles["text-center"]} style={{padding:"14px 0",fontSize:14}}>Devam eden bir kursun yok.<br/><span className={classNames(textStyles["text-underline"],textStyles["font-bold"])}>Şimdi yeni bir kurs ekle</span></p>
+                            </div>
                         )}
+                    </div>
+                        <img className={styles["opacity-logo"]} src="/logo/courseup-l-v1.png" alt=""/>
                     </div>
                 )}
             </div>
