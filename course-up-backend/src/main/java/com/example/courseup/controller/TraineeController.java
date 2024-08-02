@@ -1,5 +1,6 @@
 package com.example.courseup.controller;
 
+import com.example.courseup.model.DTO.UserCoursesDTO;
 import com.example.courseup.model.Trainee;
 import com.example.courseup.service.TraineeService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,13 +44,13 @@ public class TraineeController {
 
     @Operation(summary = "Get all course by User Id")
     @GetMapping("/user/{userId}")
-    public List<Trainee> getCoursesByUserId(@PathVariable Long userId) {
+    public List<UserCoursesDTO> getTopPopularCourses(@PathVariable Long userId) {
         return traineeService.getTraineeByUserId(userId);
     }
 
     @Operation(summary = "Get all active course by User Id")
     @GetMapping("/active/user/{userId}")
-    public List<Trainee> getActiveCoursesByUserId(@PathVariable Long userId) {
+    public List<UserCoursesDTO> getActiveCoursesByUserId(@PathVariable Long userId) {
         return traineeService.getActiveTraineeByUserId(userId);
     }
 }

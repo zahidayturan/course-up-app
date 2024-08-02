@@ -1,0 +1,36 @@
+.custom-row{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.custom-column{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.courses-box {
+    width: 100%;
+    justify-content: center;
+    height: min-content;
+    background-color: var(--primary-color-1);
+    border-radius: 8px;
+}
+
+.mini-decoration{
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    border-radius: 100%;
+    background-color: var(--green-color-1);
+    margin-left: 8px;
+}
+
+@media (max-width: 820px) {
+
+}

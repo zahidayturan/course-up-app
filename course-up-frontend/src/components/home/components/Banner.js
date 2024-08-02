@@ -145,19 +145,22 @@ const Banner = () => {
                         ) : ongoingCourses && ongoingCourses.length > 0 ? (
                             <div style={{padding:12}}>
                                 {title}
-                                {ongoingCourses.map((item) => (
-                                    <div key={item.id} className={styles["course-box"]}>
-                                        <p className={textStyles["font-bold"]}>{item.course.name}</p>
-                                        <p className={classNames(textStyles["text-small"],textStyles["font-italic"])}>Eğitmen: Ali Yıldız</p>
-                                        <ProgressBar percentage={80} />
-                                        <p className={textStyles["text-small"]}>İlerleme <span className={textStyles["font-bold"]}>% 80</span></p>
-                                        <div className={styles["custom-row"]} style={{justifyContent:"end",gap:4}}>
-                                            <p className={textStyles["text-small"]} style={{textAlign:"end"}}>Devam Et</p>
-                                            <img className={styles["arrow-icon"]} src="/icon/long-arrow.png" alt=""/>
+                                {ongoingCourses.map((item) => {
+                                    const percentage = ((item.current_duration / item.duration) * 100).toFixed(0);
+                                    return (
+                                        <div key={item.id} className={styles["course-box"]}>
+                                            <p className={textStyles["font-bold"]}>{item.name}</p>
+                                            <p className={classNames(textStyles["text-small"], textStyles["font-italic"])}>Eğitmen: {item.instructor}</p>
+                                            <ProgressBar percentage={percentage} />
+                                            <p className={textStyles["text-small"]}>İlerleme <span className={textStyles["font-bold"]}>% {percentage}</span></p>
+                                            <div className={styles["custom-row"]} style={{justifyContent:"end", gap:4}}>
+                                                <p className={textStyles["text-small"]} style={{textAlign:"end"}}>Devam Et</p>
+                                                <img className={styles["arrow-icon"]} src="/icon/long-arrow.png" alt=""/>
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
-                                <p className={textStyles["text-center"]} style={{padding:"14px 0",fontSize:14}}>Aradığın kurs burada yok mu?<br/><span className={classNames(textStyles["text-underline"],textStyles["font-bold"])}>Şimdi yeni bir kurs ekle</span></p>
+                                    );
+                                })}
+                                <p className={textStyles["text-center"]} style={{padding:"14px 0", fontSize:14}}>Aradığın kurs burada yok mu?<br/><span className={classNames(textStyles["text-underline"], textStyles["font-bold"])}>Şimdi yeni bir kurs ekle</span></p>
                             </div>
                         ) : (
                             <div style={{padding:12}}>
