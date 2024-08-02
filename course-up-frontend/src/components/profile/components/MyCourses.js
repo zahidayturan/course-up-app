@@ -36,15 +36,24 @@ const MyCourses = () => {
         }
     }, []);
 
-    const ProgressBar = ({ percentage }) => {
+    const ProgressBarAndPlayButton = ({ percentage }) => {
         const backgroundColor = percentage >= 75 ? 'var(--green-color-1)' : percentage >=50 ? 'var(--orange-color-1)' : 'var(--yellow-color-1)';
         return (
-            <div className={styles["progress-bar-background"]}>
-                <div
-                    className={styles["progress-bar-foreground"]}
-                    style={{ height: `${percentage}%`, backgroundColor }}
-                ></div>
+            <div className={styles["custom-column"]} style={{marginLeft:8}}>
+                <div style={{display:"flex", flexDirection:"column",alignItems:"center"}}>
+                    <div className={styles["progress-bar-background"]}>
+                        <div
+                            className={styles["progress-bar-foreground"]}
+                            style={{ height: `${percentage}%`, backgroundColor }}
+                        ></div>
+                    </div>
+                    <p className={classNames(textStyles["text-center"])} style={{fontSize:12}}>İlerleme<br/><span className={textStyles["font-bold"]}>% {percentage}</span></p>
+                </div>
+                <div className={styles["play-button"]} style={{backgroundColor}}>
+                    <img src="/icon/play.png" alt="Play" />
+                </div>
             </div>
+
         );
     };
 
@@ -63,25 +72,41 @@ const MyCourses = () => {
                             <p className={textStyles["text-center"]} style={{padding:"14px 0",fontSize:14}}>{coursesError}</p>
                         </div>
                     ) : courses && courses.length > 0 ? (
-                        <div style={{padding:12}}>
-                            <p style={{fontSize:24}}>Devam eden <span className={textStyles["font-bold"]}>kurslarım</span></p>
-                            {courses.map((item) => {
-                                const percentage = ((item.current_duration / item.duration) * 100).toFixed(1);
-                                return (
-                                    <div key={item.id} className={styles["course-container"]}>
-                                        <p className={textStyles["font-bold"]}>{item.name}</p>
-                                        <p className={classNames(textStyles["text-small"], textStyles["font-italic"])}>Eğitmen: {item.instructor}</p>
-                                        <p className={classNames(textStyles["text-small"])}>{item.description}</p>
-                                        <p className={classNames(textStyles["text-small"])}>Kurs Süresi {item.duration}</p>
-                                        <p className={classNames(textStyles["text-small"])}>Bölüm Sayısı {item.stage}</p>
-                                        <p className={classNames(textStyles["text-small"])}>Geçen Süre {item.current_duration}</p>
-                                        <p className={classNames(textStyles["text-small"])}>Kaldığın Bölüm {item.current_stage}</p>
-                                        <p className={classNames(textStyles["text-small"])}>Başlama Tarihi {item.started_date}</p>
-                                        <ProgressBar percentage={percentage} />
-                                        <p className={textStyles["text-small"]}>İlerleme <span className={textStyles["font-bold"]}>% {percentage}</span></p>
-                                    </div>
-                                );
-                            })}
+                        <div style={{padding:12,width:"100%"}}>
+                            <div className={styles["custom-row"]}>
+                                <p style={{fontSize:24}}>Devam eden <span className={textStyles["font-bold"]}>kursların</span></p>
+                                <div className={styles["mini-decoration"]}></div>
+                            </div>
+
+                            <div className={styles["course-grid"]}>
+                                {courses.map((item) => {
+                                    const percentage = ((item.current_duration / item.duration) * 100).toFixed(1);
+                                    return (
+                                            <div key={item.id} className={styles["course-container"]}>
+                                                <div className={styles["custom-row"]} style={{height:"100%"}}>
+                                                    <div className={styles["text-info"]}>
+                                                        <div>
+                                                            <p className={textStyles["font-bold"]}>{item.name}</p>
+                                                            <p className={classNames(textStyles["text-small"], textStyles["font-italic"])}>Eğitmen: {item.instructor}</p>
+                                                        </div>
+                                                        <p className={textStyles["text-small"]} style={{width:"100%"}}>{item.description}</p>
+                                                        <div className={textStyles["text-small"]}>
+                                                            <p><span style={{fontWeight:"bold"}}>Kurs Süresi: </span> {item.duration} dakika</p>
+                                                            <p><span style={{fontWeight:"bold"}}>Bölüm Sayısı: </span> {item.stage} bölüm</p>
+                                                        </div>
+
+                                                        <div className={classNames(styles["custom-row"],styles["course-info"])}>
+                                                            <p>Geçirdiğin Süre<br/><span style={{fontWeight:400}}>{item.current_duration} dakika</span></p>
+                                                            <p>Kaldığın Bölüm<br/><span  style={{fontWeight:400}}>Bölüm {item.current_stage}</span></p>
+                                                            <p>Başlama Tarihin<br/><span  style={{fontWeight:400}}>{item.started_date}</span></p>
+                                                        </div>
+                                                    </div>
+                                                    <ProgressBarAndPlayButton percentage={percentage} />
+                                                </div>
+                                            </div>
+                                    );
+                                })}
+                            </div>
                         </div>
                     ) : (
                         <div style={{padding:12}}>

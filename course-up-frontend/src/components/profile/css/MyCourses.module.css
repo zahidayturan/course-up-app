@@ -1,4 +1,22 @@
+.custom-row{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.custom-column{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
 .courses-box {
+    width: 100%;
+    justify-content: center;
     min-width: 320px;
     height: min-content;
     background-color: var(--primary-color-1);
@@ -13,11 +31,19 @@
     background-color: var(--secondary-color-1);
     padding: 8px;
     border-radius: 8px;
-    margin: 8px 0;
+    min-height: 200px;
 }
+
+.course-grid {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
 .progress-bar-background {
     width: 18px;
-    height: 96px;
+    height: 108px;
     background-color: var(--primary-color-1);
     border-radius: 100px;
     padding: 3px;
@@ -29,4 +55,67 @@
     width: 100%;
     background-color: var(--green-color-1);
     border-radius: 100px;
+}
+
+.mini-decoration{
+    width: 48px;
+    height: 10px;
+    border-radius: 50px;
+    background-color: var(--green-color-1);
+    margin-left: 8px;
+}
+
+.play-button{
+    height: 38px;
+    width: 38px;
+    background-color: var(--secondary-color-2);
+    border-radius: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+.play-button img {
+    height: 50%;
+}
+
+.play-button:hover{
+    box-shadow: rgba(0, 0, 0, 0.24) 0 4px 8px;
+    rotate: -15deg;
+}
+
+.course-info{
+    font-weight: bold;
+    text-align: center;
+    font-size: 14px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.text-info{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+}
+
+@media (max-width: 820px) {
+    .course-grid {
+        margin-top: 12px;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 16px;
+    }
+
+    .course-info{
+        gap: 8px;
+        margin-top: 8px;
+    }
 }
