@@ -41,6 +41,7 @@ const Courses = () => {
     useEffect(() => {
         setIsAtEnd(false);
         const handleScroll = () => {
+            if (!containerRef.current) return;
             const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
             setIsAtStart(scrollLeft === 0);
             setIsAtEnd(scrollLeft + clientWidth >= scrollWidth - 1);
@@ -52,7 +53,9 @@ const Courses = () => {
         handleScroll();
 
         return () => {
-            container.removeEventListener('scroll', handleScroll);
+            if (container) {
+                container.removeEventListener('scroll', handleScroll);
+            }
         };
     }, [isAtEnd, isAtStart]);
 
@@ -85,13 +88,15 @@ const Courses = () => {
         };
 
         const addWheelEventListener = () => {
-            if (window.innerWidth <= 744) {
+            if (window.innerWidth <= 744 && containerRef.current) {
                 containerRef.current.addEventListener('wheel', handleWheel, { passive: false });
             }
         };
 
         const removeWheelEventListener = () => {
-            containerRef.current.removeEventListener('wheel', handleWheel);
+            if (containerRef.current) {
+                containerRef.current.removeEventListener('wheel', handleWheel);
+            }
         };
 
         const handleResize = () => {

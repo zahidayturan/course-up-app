@@ -4,18 +4,10 @@ import textStyles from "../../css/Text.module.css";
 import { Link, useLocation } from "react-router-dom";
 import classNames from "classnames";
 
-const Options = () => {
+const Options = ({ options, title }) => {
     const [user, setUser] = useState(null);
     const location = useLocation();
     const [currentDate, setCurrentDate] = useState("");
-
-    const options = [
-        { name: "Kurslarım", path: "/profile/my-courses" },
-        { name: "İstatistiklerim", path: "/profile/my-statistics" },
-        { name: "İstek Listem", path: "/profile/my-wishlist" },
-        { name: "Yorumlarım", path: "/profile/my-comments" },
-        { name: "Ayarlarım", path: "/profile/my-settings" }
-    ];
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
@@ -35,7 +27,7 @@ const Options = () => {
     return (
         <div className={classNames(styles["option"], styles["custom-row"])}>
             <div className={styles["custom-row"]}>
-                <p>Merhaba <br/><span className={classNames(textStyles["font-bold"], textStyles["text-large"])}>Profilin</span></p>
+                <p>Merhaba <br/><span className={classNames(textStyles["font-bold"], textStyles["text-large"])}>{title}</span></p>
                 <p className={styles["is-mobile"]} dangerouslySetInnerHTML={{ __html: currentDate }}></p>
             </div>
             <div className={styles["options-names"]}>

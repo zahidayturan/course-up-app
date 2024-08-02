@@ -101,7 +101,7 @@ const Header = () => {
                                     <Link to="/profile">Profilim</Link>
                                     <Link to="/profile/my-courses">Kurslarım</Link>
                                     <Link to="/profile/my-settings">Ayarlarım</Link>
-                                    <Link to="/profile/teacher">Eğitmen Ol</Link>
+                                    <Link to="/profile/trainer">Eğitmen Ol</Link>
                                     <p onClick={handleLogout}>Çıkış Yap</p>
                                 </div>)}
                         </div>
@@ -140,7 +140,7 @@ const Header = () => {
                                             <Link to="/profile/my-comments" className={styles['category-text']}>Yorumlarım</Link>
                                             <Link to="/basket" className={styles['category-text']}>Sepetim</Link>
                                             <Link to="/help" className={styles['category-text']}>Yardım Merkezi</Link>
-                                            <Link to="/profile/teacher" className={styles['category-text']}>Eğitmen Ol</Link>
+                                            <Link to="/profile/trainer" className={styles['category-text']}>Eğitmen Ol</Link>
                                             <Link to="/profile/my-settings" className={styles['category-text']}>Ayarlarım</Link>
                                         </div>
                                     </div>
