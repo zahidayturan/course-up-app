@@ -46,7 +46,10 @@ public class TraineeService {
                 .collect(Collectors.toList());
     }
 
-    public List<Trainee> getActiveTraineeByUserId(Long userId) {
-        return traineeRepository.findActiveTraineeByUserId(userId);
+    public List<UserCoursesDTO> getActiveTraineeByUserId(Long userId) {
+        List<Trainee> trainees = traineeRepository.findActiveTraineeByUserId(userId);
+        return trainees.stream()
+                .map(trainee -> new UserCoursesDTO(trainee.getCourse(), trainee))
+                .collect(Collectors.toList());
     }
 }

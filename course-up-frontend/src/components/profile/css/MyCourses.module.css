@@ -1,0 +1,32 @@
+.courses-box {
+    min-width: 320px;
+    height: min-content;
+    background-color: var(--primary-color-1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-grow: 2;
+}
+
+.course-container{
+    background-color: var(--secondary-color-1);
+    padding: 8px;
+    border-radius: 8px;
+    margin: 8px 0;
+}
+.progress-bar-background {
+    width: 18px;
+    height: 96px;
+    background-color: var(--primary-color-1);
+    border-radius: 100px;
+    padding: 3px;
+    display: flex;
+    align-items: end;
+}
+
+.progress-bar-foreground {
+    width: 100%;
+    background-color: var(--green-color-1);
+    border-radius: 100px;
+}

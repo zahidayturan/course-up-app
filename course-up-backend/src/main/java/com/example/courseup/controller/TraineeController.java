@@ -1,7 +1,5 @@
 package com.example.courseup.controller;
 
-import com.example.courseup.model.DTO.PopularCoursesDTO;
-import com.example.courseup.model.DTO.TraineeDTO;
 import com.example.courseup.model.DTO.UserCoursesDTO;
 import com.example.courseup.model.Trainee;
 import com.example.courseup.service.TraineeService;
@@ -52,7 +50,7 @@ public class TraineeController {
 
     @Operation(summary = "Get all active course by User Id")
     @GetMapping("/active/user/{userId}")
-    public List<Trainee> getActiveCoursesByUserId(@PathVariable Long userId) {
+    public List<UserCoursesDTO> getActiveCoursesByUserId(@PathVariable Long userId) {
         return traineeService.getActiveTraineeByUserId(userId);
     }
 }

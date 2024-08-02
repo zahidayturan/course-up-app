@@ -9,6 +9,7 @@ const Endpoints = {
     CHECK_EMAIL: `${API_BASE_URL}/user/email-check`,
     PASSWORD_RESET_REQ: `${API_BASE_URL}/auth/password-reset`,
     RESET_PASSWORD: `${API_BASE_URL}/auth/reset-password`,
+    USER_COURSES: `${API_BASE_URL}/trainee/user`,
     ONGOING_COURSES: `${API_BASE_URL}/trainee/active/user`,
     POPULAR_COURSES: `${API_BASE_URL}/api/json/popular-courses`
 };
