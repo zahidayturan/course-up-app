@@ -4,8 +4,7 @@ import textStyles from '../../css/Text.module.css';
 import classNames from "classnames";
 import axios from "axios";
 import Endpoints from "../../../constants/Endpoints";
-import mainStyles from '../../css/Main.module.css'
-
+import mainStyles from '../../css/Main.module.css';
 
 const Courses = () => {
     const containerRef = useRef(null);
@@ -14,7 +13,7 @@ const Courses = () => {
     const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-
+    const scrollSpeed = 3; // Kaydırma hızını buradan ayarlayabilirsiniz
 
     useEffect(() => {
         const fetchCourses = async () => {
@@ -30,7 +29,7 @@ const Courses = () => {
                     setCourses(fallbackResponse.data);
                 } catch (fallbackErr) {
                     console.log(err);
-                    setError('Poüler kurslar yüklenirken bir hata oluştu.');
+                    setError('Popüler kurslar yüklenirken bir hata oluştu.');
                 }
             } finally {
                 setLoading(false);
@@ -38,12 +37,13 @@ const Courses = () => {
         };
         fetchCourses();
     }, []);
+
     useEffect(() => {
         setIsAtEnd(false);
         const handleScroll = () => {
             const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
             setIsAtStart(scrollLeft === 0);
-            setIsAtEnd(scrollLeft + clientWidth >= scrollWidth-1);
+            setIsAtEnd(scrollLeft + clientWidth >= scrollWidth - 1);
         };
 
         const container = containerRef.current;
@@ -51,7 +51,10 @@ const Courses = () => {
 
         handleScroll();
 
-        }, [isAtEnd, isAtStart]);
+        return () => {
+            container.removeEventListener('scroll', handleScroll);
+        };
+    }, [isAtEnd, isAtStart]);
 
     const scrollLeft = () => {
         containerRef.current.scrollBy({ left: -316, behavior: 'smooth' });
@@ -73,6 +76,41 @@ const Courses = () => {
         containerRef.current.scrollLeft -= deltaX;
         containerRef.current.startX = touch.clientX;
     };
+
+    useEffect(() => {
+        const handleWheel = (e) => {
+            if (e.deltaY === 0) return;
+            e.preventDefault();
+            containerRef.current.scrollBy({ left: e.deltaY * scrollSpeed, behavior: 'smooth' });
+        };
+
+        const addWheelEventListener = () => {
+            if (window.innerWidth <= 744) {
+                containerRef.current.addEventListener('wheel', handleWheel, { passive: false });
+            }
+        };
+
+        const removeWheelEventListener = () => {
+            containerRef.current.removeEventListener('wheel', handleWheel);
+        };
+
+        const handleResize = () => {
+            if (window.innerWidth <= 744) {
+                addWheelEventListener();
+            } else {
+                removeWheelEventListener();
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        handleResize();
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+            removeWheelEventListener();
+        };
+    }, []);
+
     return (
         <div>
             <div className={styles["mobile-title-and-row"]}>
@@ -92,7 +130,12 @@ const Courses = () => {
                     )}
                     <div style={{ width: 10, height: 90, borderRadius: 30, backgroundColor: "var(--yellow-color-1)", alignSelf: "start" }}></div>
                 </div>
-                <div className={styles["course-containers"]} ref={containerRef} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove}>
+                <div
+                    className={styles["course-containers"]}
+                    ref={containerRef}
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                >
                     {loading ? (
                         <div className={mainStyles["loading-overlay"]}>
                             <div className={mainStyles["main-spinner"]}></div>
