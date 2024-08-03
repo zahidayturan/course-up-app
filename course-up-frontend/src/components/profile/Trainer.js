@@ -29,7 +29,7 @@ const Trainer = () => {
         <div>
             <Header />
             {user ? (
-                user.isTeacher ? (
+                user.teacher ? (
                     <div>
                         <Options options={profileOptions} title="Eğitmen Panelin" />
                         <Routes>

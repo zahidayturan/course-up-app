@@ -11,7 +11,8 @@ const Endpoints = {
     RESET_PASSWORD: `${API_BASE_URL}/auth/reset-password`,
     USER_COURSES: `${API_BASE_URL}/trainee/user`,
     ONGOING_COURSES: `${API_BASE_URL}/trainee/active/user`,
-    POPULAR_COURSES: `${API_BASE_URL}/api/json/popular-courses`
+    POPULAR_COURSES: `${API_BASE_URL}/api/json/popular-courses`,
+    TEACHER_SAVE: `${API_BASE_URL}/teacher`
 };
 
 export default Endpoints;

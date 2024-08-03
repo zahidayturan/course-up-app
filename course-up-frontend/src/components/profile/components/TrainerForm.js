@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styles from "../css/TrainerForm.module.css";
-import mainStyles from "../../css/Main.module.css";
-import textStyles from "../../css/Text.module.css";
 import classNames from "classnames";
+import Endpoints from "../../../constants/Endpoints";
+import axios from "axios";
 
 const TrainerForm = () => {
     const [user, setUser] = useState(null);
+    const [acceptedTerms, setAcceptedTerms] = useState(false);
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
@@ -16,6 +17,34 @@ const TrainerForm = () => {
             console.log('No user data found in localStorage');
         }
     }, []);
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        if (!acceptedTerms) {
+            alert("Sözleşmeyi kabul etmelisiniz");
+            return;
+        }
+
+        try {
+            const response = await axios.post(Endpoints.TEACHER_SAVE, {
+                userId: user.id,
+                description: "Henüz açıklama eklenmemiş"
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.status === 200 || response.status === 201) {
+                console.log('Teacher saved successfully:');
+            } else {
+                console.error('Failed to save teacher', response);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
 
     return (
         <div style={{display:"flex",alignItems:"center",flexDirection:"column"}}>
@@ -86,9 +115,15 @@ const TrainerForm = () => {
                         <li>Bu sözleşme, tarafların yazılı onayı olmadan değiştirilemez.</li>
                         <li>Bu sözleşme, tarafların tamamını bağlayıcı niteliktedir.</li>
                     </ul>
-                    <form style={{marginTop:16}}>
+                    <form onSubmit={handleSubmit} style={{marginTop:16}}>
                         <div style={{display:"flex",flexDirection:"row",width:"100%",gap:6}}>
-                            <input style={{width:24}} type="checkbox" id="form-check" name="form-check" required/>
+                            <input style={{width:24}}
+                                   type="checkbox"
+                                   id="form-check"
+                                   name="form-check"
+                                   required
+                                   checked={acceptedTerms}
+                                   onChange={(e) => setAcceptedTerms(e.target.checked)}/>
                             <label htmlFor="form-check" style={{fontWeight:"bold"}}>Yukarıda yer alan Eğitmen Olma Sözleşmesini okudum ve sözleşmeyi kabul ediyorum</label>
                         </div>
                         <div style={{display:"flex",justifyContent:"center"}}>
