@@ -1,5 +1,6 @@
 package com.example.courseup.controller;
 
+import com.example.courseup.model.DTO.UserDTO;
 import com.example.courseup.model.User;
 import com.example.courseup.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,8 +27,8 @@ public class UserController {
 
     @Operation(summary = "Get user by Id")
     @GetMapping("/{id}")
-    public ResponseEntity<User> findById(@PathVariable Long id) {
-        Optional<User> user = userService.findById(id);
+    public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
+        Optional<UserDTO> user = userService.getAllUserInfo(id);
         return user.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
@@ -61,8 +62,8 @@ public class UserController {
 
     @Operation(summary = "Get User Info by email")
     @GetMapping("/email/{email}")
-    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
-        Optional<User> user = userService.findByEmail(email);
+    public ResponseEntity<UserDTO> getUserByEmail(@PathVariable String email) {
+        Optional<UserDTO> user = userService.findByEmail(email);
         return user.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }

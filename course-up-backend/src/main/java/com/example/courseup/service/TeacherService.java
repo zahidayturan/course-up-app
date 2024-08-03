@@ -1,6 +1,7 @@
 package com.example.courseup.service;
 
 import com.example.courseup.model.Teacher;
+import com.example.courseup.model.User;
 import com.example.courseup.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,10 @@ public class TeacherService {
 
     public void deleteById(Long id) {
         teacherRepository.deleteById(id);
+    }
+
+    public boolean checkIsTeacher(Long userId) {
+        return teacherRepository.checkIsTeacher(userId);
     }
 
 }

@@ -1,0 +1,95 @@
+.header-box{
+    height: min-content;
+    width: 100%;
+    border-radius: 8px;
+    background-color: var(--secondary-color-2);
+    margin: 18px 0;
+    position: relative;
+    display: flex;
+}
+
+.custom-row {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.custom-column{
+     display: flex;
+    gap: 12px;
+    flex-direction: column;
+ }
+
+.custom-row p{
+    color: var(--secondary-color-1);
+}
+
+.mini-dec{
+    width: 48px;
+    height: 10px;
+    border-radius: 30px;
+    background-color: var(--green-color-1);
+}
+
+.app-logo{
+    width: 144px;
+    filter: brightness(2);
+}
+
+.mobile-row{
+    margin: 24px 0 0 0;
+    font-size: 16px;
+}
+
+.back-img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0.1;
+}
+
+.form-box{
+    background-color: var(--primary-color-1);
+    width: max-content;
+    max-width: 100%;
+    margin: 0;
+}
+
+span{
+    font-weight: bold;
+}
+
+ul{
+    margin-left: 24px;
+}
+
+.form-button{
+    background-color: var(--orange-color-1);
+    color: var(--primary-color-1);
+    border-radius: 50px;
+    padding: 8px 14px;
+    cursor: pointer;
+    border: none;
+    margin-top: 12px;
+}
+
+.form-button:hover{
+    background-color: var(--secondary-color-2);
+    padding: 8px 18px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0 4px 8px;
+}
+
+@media (max-width: 744px) {
+    .custom-row{
+        flex-direction: column-reverse;
+    }
+
+    .mobile-row{
+        flex-direction: column;
+        font-size: 14px;
+        margin: 24px 0 0 0;
+        gap: 16px;
+    }
+}

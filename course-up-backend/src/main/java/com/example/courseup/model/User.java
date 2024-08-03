@@ -18,7 +18,11 @@ public class User {
     private Long id;
     private String name;
     private String surname;
+
+    @JsonIgnore
     private String email;
+
+    @JsonIgnore
     private String password;
 
     @Column(name = "joining_date")

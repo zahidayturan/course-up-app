@@ -48,6 +48,7 @@ const ForgotPassword = () => {
                                 placeholder="E-Posta adresiniz"
                                 required
                                 className={styles['input']}
+                                autoComplete="email"
                             />
                             <p></p>
                             <button type="submit" className={styles['button']} style={{ fontSize: 16 }}>
