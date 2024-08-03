@@ -62,8 +62,8 @@ public class UserController {
 
     @Operation(summary = "Get User Info by email")
     @GetMapping("/email/{email}")
-    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
-        Optional<User> user = userService.findByEmail(email);
+    public ResponseEntity<UserDTO> getUserByEmail(@PathVariable String email) {
+        Optional<UserDTO> user = userService.findByEmail(email);
         return user.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }

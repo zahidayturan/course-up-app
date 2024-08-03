@@ -19,5 +19,4 @@ public class UserDTO {
         this.isTeacher = user.getTeacher() != null;
         this.isStudent = user.getStudent() != null;
     }
-
 }

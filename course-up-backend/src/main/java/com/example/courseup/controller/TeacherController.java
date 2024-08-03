@@ -1,8 +1,11 @@
 package com.example.courseup.controller;
 
 import com.example.courseup.model.Teacher;
+import com.example.courseup.model.User;
 import com.example.courseup.service.TeacherService;
+import com.example.courseup.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +18,9 @@ public class TeacherController {
 
     @Autowired
     private TeacherService teacherService;
+
+    @Autowired
+    private UserService userService;
 
     @Operation(summary = "Get all teachers")
     @GetMapping
@@ -29,9 +35,24 @@ public class TeacherController {
     }
 
     @Operation(summary = "Save a new teacher")
-    @PostMapping
-    public Teacher save(@RequestBody Teacher teacher) {
-        return teacherService.save(teacher);
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    public Teacher save(@RequestBody TeacherRequest teacherRequest) {
+        Optional<User> optionalUser = userService.findById(teacherRequest.getUserId());
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            Teacher teacher = new Teacher();
+            teacher.setUser(user);
+            teacher.setDescription(teacherRequest.getDescription());
+            return teacherService.save(teacher);
+        } else {
+            throw new RuntimeException("User not found with id: " + teacherRequest.getUserId());
+        }
+    }
+
+    @Data
+    public static class TeacherRequest {
+        private Long userId;
+        private String description;
     }
 
     @Operation(summary = "Delete teacher by ID")

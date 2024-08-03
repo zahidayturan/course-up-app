@@ -1,5 +1,6 @@
 package com.example.courseup.controller;
 
+import com.example.courseup.model.DTO.UserDTO;
 import com.example.courseup.model.User;
 import com.example.courseup.repository.PasswordResetTokenRepository;
 import com.example.courseup.service.EmailService;
@@ -28,15 +29,20 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
-        Optional<User> userOptional = userService.findByEmail(loginRequest.getEmail());
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            if (userService.checkPassword(user, loginRequest.getPassword())) {
-                return ResponseEntity.ok("Login successful");
+        Optional<UserDTO> userDTOOptional = userService.findByEmail(loginRequest.getEmail());
+        if (userDTOOptional.isPresent()) {
+            UserDTO userDTO = userDTOOptional.get();
+            Optional<User> userOptional = userService.findById(userDTO.getId());
+            if (userOptional.isPresent()) {
+                User user = userOptional.get();
+                if (userService.checkPassword(user.getPassword(), loginRequest.getPassword())) {
+                    return ResponseEntity.ok("Login successful");
+                }
             }
         }
         return ResponseEntity.status(401).body("Invalid email or password");
     }
+
 
     @GetMapping("/logout")
     public ResponseEntity<String> logout() {

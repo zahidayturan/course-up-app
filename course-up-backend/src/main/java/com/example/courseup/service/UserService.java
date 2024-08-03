@@ -1,13 +1,16 @@
 package com.example.courseup.service;
 
+import com.example.courseup.controller.AuthController;
 import com.example.courseup.model.DTO.UserDTO;
 import com.example.courseup.model.PasswordResetToken;
 import com.example.courseup.model.User;
 import com.example.courseup.repository.PasswordResetTokenRepository;
 import com.example.courseup.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,8 +48,9 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public Optional<User> findByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public Optional<UserDTO> findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .map(UserDTO::new);
     }
 
     public boolean emailExists(String email) {
@@ -54,7 +58,10 @@ public class UserService {
     }
 
     public String createPasswordResetToken(String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+        UserDTO userDTO = findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found by email"));
+        User user = findById(userDTO.getId())
+                .orElseThrow(() -> new RuntimeException("User not found by id"));
         String token = UUID.randomUUID().toString();
         PasswordResetToken resetToken = new PasswordResetToken(token, user);
         tokenRepository.save(resetToken);
@@ -73,7 +80,7 @@ public class UserService {
         return true;
     }
 
-    public boolean checkPassword(User user, String rawPassword) {
-        return passwordEncoder.matches(rawPassword, user.getPassword());
+    public boolean checkPassword(String userPassword, String rawPassword) {
+        return passwordEncoder.matches(rawPassword, userPassword);
     }
 }
