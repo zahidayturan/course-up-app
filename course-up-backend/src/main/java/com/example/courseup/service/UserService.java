@@ -1,5 +1,6 @@
 package com.example.courseup.service;
 
+import com.example.courseup.model.DTO.UserDTO;
 import com.example.courseup.model.PasswordResetToken;
 import com.example.courseup.model.User;
 import com.example.courseup.repository.PasswordResetTokenRepository;
@@ -23,6 +24,11 @@ public class UserService {
 
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
+    }
+
+    public Optional<UserDTO> getAllUserInfo(Long id) {
+        return userRepository.findById(id)
+                .map(UserDTO::new);
     }
 
     public User save(User user) {

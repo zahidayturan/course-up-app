@@ -7,10 +7,10 @@ import lombok.Data;
 @Data
 public class StudentDTO {
 
-    private User user;
+    private UserDTO user;
 
     public StudentDTO(Student student) {
-        this.user = student.getUser();
+        this.user = new UserDTO(student.getUser());
     }
 
 }
