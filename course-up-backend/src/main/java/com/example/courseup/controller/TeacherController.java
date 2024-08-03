@@ -39,4 +39,10 @@ public class TeacherController {
     public void deleteById(@PathVariable Long id) {
         teacherService.deleteById(id);
     }
+
+    @Operation(summary = "Check is teacher by userId")
+    @GetMapping("/is-teacher/{userId}")
+    public boolean checkIsTeacher(@PathVariable Long userId) {
+        return teacherService.checkIsTeacher(userId);
+    }
 }

@@ -9,12 +9,15 @@ public class UserDTO {
     private Long id;
     private String name;
     private String surname;
-
+    private boolean isTeacher;
+    private boolean isStudent;
 
     public UserDTO(User user) {
         this.id = user.getId();
         this.name = user.getName();
         this.surname = user.getSurname();
+        this.isTeacher = user.getTeacher() != null;
+        this.isStudent = user.getStudent() != null;
     }
 
 }
