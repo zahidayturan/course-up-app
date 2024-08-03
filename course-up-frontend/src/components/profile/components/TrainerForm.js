@@ -3,10 +3,12 @@ import styles from "../css/TrainerForm.module.css";
 import classNames from "classnames";
 import Endpoints from "../../../constants/Endpoints";
 import axios from "axios";
+import mainStyles from "../../css/Main.module.css";
 
 const TrainerForm = () => {
     const [user, setUser] = useState(null);
     const [acceptedTerms, setAcceptedTerms] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
@@ -26,6 +28,11 @@ const TrainerForm = () => {
             return;
         }
 
+        if (!user) {
+            alert("Kullanıcı bilgisi bulunamadı");
+            return;
+        }
+        setLoading(true);
         try {
             const response = await axios.post(Endpoints.TEACHER_SAVE, {
                 userId: user.id,
@@ -38,15 +45,29 @@ const TrainerForm = () => {
 
             if (response.status === 200 || response.status === 201) {
                 console.log('Teacher saved successfully:');
+                const userResponse = await axios.get(`${Endpoints.USER}/${user.id}`);
+                const updatedUser = userResponse.data;
+                localStorage.setItem('user', JSON.stringify(updatedUser));
+                console.log("User data updated");
+                window.location.reload();
             } else {
                 console.error('Failed to save teacher', response);
             }
         } catch (error) {
             console.error('Error:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
+
     return (
+        <div>
+        {loading && (
+            <div className={mainStyles["loading-overlay"]}>
+                <div className={mainStyles["main-spinner"]}></div>
+            </div>
+        )}
         <div style={{display:"flex",alignItems:"center",flexDirection:"column"}}>
             <div className={styles["header-box"]}>
                 <div style={{padding:"12px"}}>
@@ -134,6 +155,7 @@ const TrainerForm = () => {
                     </form>
                 </div>
             </div>
+        </div>
         </div>
     );
 };
