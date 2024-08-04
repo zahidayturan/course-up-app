@@ -5,6 +5,7 @@ import styles from "../css/TrainerCourses.module.css";
 import classNames from "classnames";
 import axios from "axios";
 import Endpoints from "../../../constants/Endpoints";
+import {Link, useLocation} from "react-router-dom";
 
 const TrainerCourses = () => {
     const [user, setUser] = useState(null);
@@ -12,6 +13,7 @@ const TrainerCourses = () => {
     const [inactiveCourses, setInactiveCourses] = useState([]);
     const [coursesError, setCoursesError] = useState(null);
     const [coursesLoading, setCoursesLoading] = useState(false);
+    const location = useLocation();
 
     useEffect(() => {
         const fetchTeacherCourses = async (userId) => {
@@ -66,64 +68,84 @@ const TrainerCourses = () => {
         </div>
     );
 
+    const buttonMenu = [
+        {img: "/icon/start.png", decC:"" ,text : "Kurslarını", boldText: "görüntüle",path: "/profile/trainer/my-courses"},
+        {img: "/icon/add.png", decC:"var(--yellow-color-1)" ,text : "Yeni", boldText: "kurs ekle",path: "/profile/trainer/my-courses/add-course"},
+        {img: "/icon/wait.png", decC:"var(--green-color-1)",text : "Onay bekleyen", boldText: "kursların",path: "/profile/trainer/my-courses/approval"},
+        {img: "/icon/search.png",decC:"var(--orange-color-1)",text : "Kurslarını",boldText: "öne çıkar",path: "/profile/trainer/my-courses/stand-out"},
+        {img: "/icon/people.png", decC:"var(--grey-color-1)", text :"Sözleşmeni", boldText: "incele",path: "/profile/trainer/my-courses/aggrement"},
+    ];
+
+
     return (
         <div>
             {user && (
-                <div>
-                    {coursesLoading ? (
-                        <div className={styles['courses-box']}>
-                            <div style={{ padding: 12 }}>
-                                <div className={mainStyles['loader']}>
-                                    <div className={mainStyles['spinner']}></div>
+                <div className={styles["main-block"]}>
+                    <div style={{width:"100%"}}>
+                        {coursesLoading ? (
+                            <div className={styles['courses-box']}>
+                                <div style={{ padding: 12 }}>
+                                    <div className={mainStyles['loader']}>
+                                        <div className={mainStyles['spinner']}></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ) : coursesError ? (
-                        <div className={styles['courses-box']}>
-                            <div style={{ padding: 12 }}>
-                                <p className={textStyles["text-center"]} style={{ padding: "14px 0", fontSize: 14 }}>{coursesError}</p>
+                        ) : coursesError ? (
+                            <div className={styles['courses-box']}>
+                                <div style={{ padding: 12 }}>
+                                    <p className={textStyles["text-center"]} style={{ padding: "14px 0", fontSize: 14 }}>{coursesError}</p>
+                                </div>
                             </div>
-                        </div>
-                    ) : (
-                        <div>
-                            {activeCourses && (
-                                <div className={styles['courses-box']}>
-                                    <div style={{ padding: 12 }}>
-                                        <div className={styles["custom-row"]} style={{ marginBottom: 8 }}>
-                                            <p style={{ fontSize: 24 }}>Aktif <span className={textStyles["font-bold"]}>kursların </span><span style={{ fontSize: 16, fontStyle: "italic", fontWeight: 400 }}>(Öğrenci kabul ediyor)</span></p>
-                                            <div className={styles["mini-decoration"]}></div>
+                        ) : (
+                            <div>
+                                {activeCourses && (
+                                    <div className={styles['courses-box']}>
+                                        <div style={{ padding: 12 }}>
+                                            <div className={styles["custom-row"]} style={{ marginBottom: 8 }}>
+                                                <p style={{ fontSize: 24 }}>Aktif <span className={textStyles["font-bold"]}>kursların </span><span style={{ fontSize: 16, fontStyle: "italic", fontWeight: 400 }}>(Öğrenci kabul ediyor)</span></p>
+                                                <div className={styles["mini-decoration"]}></div>
+                                            </div>
+                                            {activeCourses.length > 0 ? (
+                                                <div>
+                                                    {activeCourses.map((item) => (
+                                                        <CourseCard key={item.id} item={item} />
+                                                    ))}
+                                                </div>
+                                            ) : (
+                                                <div style={{ padding: 12 }}>
+                                                    <p className={textStyles["text-center"]} style={{ padding: "14px 0", fontSize: 14 }}>Henüz aktif kursun yok.<br /><span className={classNames(textStyles["text-underline"], textStyles["font-bold"])}>Şimdi yeni bir kurs ekle</span></p>
+                                                </div>
+                                            )}
                                         </div>
-                                        {activeCourses.length > 0 ? (
+                                    </div>
+                                )}
+                                {(inactiveCourses && inactiveCourses.length) > 0 && (
+                                    <div className={styles['courses-box']} style={{marginTop:24}}>
+                                        <div style={{ padding: 12 }}>
+                                            <div className={styles["custom-row"]} style={{ marginBottom: 8 }}>
+                                                <p style={{ fontSize: 24 }}>Pasif <span className={textStyles["font-bold"]}>kursların </span><span style={{ fontSize: 16, fontStyle: "italic", fontWeight: 400 }}>(Öğrenci kabul etmiyor)</span></p>
+                                                <div className={styles["mini-decoration"]} style={{backgroundColor:"var(--secondary-color-2)"}}></div>
+                                            </div>
                                             <div>
-                                                {activeCourses.map((item) => (
+                                                {inactiveCourses.map((item) => (
                                                     <CourseCard key={item.id} item={item} />
                                                 ))}
                                             </div>
-                                        ) : (
-                                            <div style={{ padding: 12 }}>
-                                                <p className={textStyles["text-center"]} style={{ padding: "14px 0", fontSize: 14 }}>Henüz aktif kursun yok.<br /><span className={classNames(textStyles["text-underline"], textStyles["font-bold"])}>Şimdi yeni bir kurs ekle</span></p>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            )}
-                            {(inactiveCourses && inactiveCourses.length) > 0 && (
-                                <div className={styles['courses-box']} style={{marginTop:24}}>
-                                    <div style={{ padding: 12 }}>
-                                        <div className={styles["custom-row"]} style={{ marginBottom: 8 }}>
-                                            <p style={{ fontSize: 24 }}>Pasif <span className={textStyles["font-bold"]}>kursların </span><span style={{ fontSize: 16, fontStyle: "italic", fontWeight: 400 }}>(Öğrenci kabul etmiyor)</span></p>
-                                            <div className={styles["mini-decoration"]} style={{backgroundColor:"var(--secondary-color-2)"}}></div>
-                                        </div>
-                                        <div>
-                                            {inactiveCourses.map((item) => (
-                                                <CourseCard key={item.id} item={item} />
-                                            ))}
                                         </div>
                                     </div>
-                                </div>
-                            )}
-                        </div>
-                    )}
+                                )}
+                            </div>
+                        )}
+                    </div>
+                    <div className={styles["button-menu"]}>
+                        {buttonMenu.map((item, index) => (
+                            <Link to={item.path} key={index} className={classNames(styles["button"],)} style={{backgroundColor :(location.pathname === item.path ? "var(--secondary-color-2)": "")}}>
+                                <div className={styles["button-sign"]} style={{ backgroundColor:(location.pathname === item.path ? "var(--primary-color-1)" : item.decC ) }}></div>
+                                <p style={{color:(location.pathname === item.path ? "var(--primary-color-1)":"")}}>{item.text} <br className={styles["mobile-button-text"]} /><span>{item.boldText}</span></p>
+                                <img className={styles["button-icon"]} style={{filter:(location.pathname === item.path ? "brightness(50)" :"")}} src={item.img} alt="add" />
+                            </Link>
+                        ))}
+                    </div>
                 </div>
             )}
         </div>

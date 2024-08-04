@@ -15,6 +15,15 @@
     width: 100%;
 }
 
+.main-block{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+    gap: 24px;
+}
+
 .courses-box {
     width: 100%;
     justify-content: center;
@@ -64,7 +73,89 @@
     height: min-content;
     align-items: end;
 }
+
+.button-menu{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 12px;
+}
+
+.button{
+    border-radius: 12px;
+    background-color: var(--primary-color-1);
+    color: var(--secondary-color-2);
+    text-align: end;
+    width: 128px;
+    height: 80px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 12px;
+    text-decoration: none;
+}
+.button.active{
+    background-color: var(--secondary-color-2);
+}
+
+.button.active p{
+    color: var(--primary-color-1);
+}
+
+.button p{
+    font-size: 16px;
+}
+
+.button-sign{
+    width: 28px;
+    height: 8px;
+    border-radius: 50px;
+    background-color: var(--secondary-color-2);
+}
+
+.button-icon{
+    height: 16px;
+    width: auto;
+    align-self: end;
+
+}
 @media (max-width: 820px) {
+
+    .main-block{
+        flex-direction: column-reverse;
+    }
+
+    .button-menu{
+        background-color: var(--primary-color-1);
+        align-items: center;
+        gap: 6px;
+        width: calc(100% - 12px);
+        padding: 6px;
+        border-radius: 20px;
+    }
+
+    .button{
+        background-color: var(--secondary-color-1);
+        width: calc(100% - 24px);
+        height: 36px;
+        flex-direction: row;
+        border-radius: 50px;
+        align-items: center;
+        padding: 0 12px;
+    }
+
+    .button-sign{
+        width: 8px;
+    }
+
+    .mobile-button-text{
+        display: none;
+    }
+
+    .button-icon{
+        align-self: center;
+    }
 
     .course-container{
         flex-direction: column;
@@ -82,5 +173,8 @@
     .price-button{
         flex-direction: column;
         align-items: center;
+    }
+    .button p{
+        font-size: 14px;
     }
 }
