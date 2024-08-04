@@ -5,7 +5,6 @@ import Options from "./components/Options";
 import MyCourses from "./components/MyCourses";
 
 const Profile = () => {
-
     const profileOptions = [
         { name: "Kurslarım", path: "/profile/my-courses" },
         { name: "İstatistiklerim", path: "/profile/my-statistics" },
@@ -20,7 +19,7 @@ const Profile = () => {
             <Options options={profileOptions} title="Profilin" />
             <Routes>
                 <Route path="my-courses" element={<MyCourses />} />
-                <Route path="/" element={<Navigate to="my-courses" />} /> {}
+                <Route path="*" element={<Navigate to="my-courses" />} />
             </Routes>
         </div>
     );

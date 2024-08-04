@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import mainStyles from "../../css/Main.module.css";
-import textStyles from "../../css/Text.module.css";
-import styles from "../css/TrainerCourses.module.css";
-import classNames from "classnames";
+import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import Endpoints from "../../../constants/Endpoints";
-import {Link, useLocation} from "react-router-dom";
+import classNames from "classnames";
+import styles from "../css/TrainerCourses.module.css";
+import textStyles from "../../css/Text.module.css";
+import mainStyles from "../../css/Main.module.css";
 
 const TrainerCourses = () => {
     const [user, setUser] = useState(null);
@@ -13,7 +12,6 @@ const TrainerCourses = () => {
     const [inactiveCourses, setInactiveCourses] = useState([]);
     const [coursesError, setCoursesError] = useState(null);
     const [coursesLoading, setCoursesLoading] = useState(false);
-    const location = useLocation();
 
     useEffect(() => {
         const fetchTeacherCourses = async (userId) => {
@@ -68,20 +66,10 @@ const TrainerCourses = () => {
         </div>
     );
 
-    const buttonMenu = [
-        {img: "/icon/start.png", decC:"" ,text : "Kurslarını", boldText: "görüntüle",path: "/profile/trainer/my-courses"},
-        {img: "/icon/add.png", decC:"var(--yellow-color-1)" ,text : "Yeni", boldText: "kurs ekle",path: "/profile/trainer/my-courses/add-course"},
-        {img: "/icon/wait.png", decC:"var(--green-color-1)",text : "Onay bekleyen", boldText: "kursların",path: "/profile/trainer/my-courses/approval"},
-        {img: "/icon/search.png",decC:"var(--orange-color-1)",text : "Kurslarını",boldText: "öne çıkar",path: "/profile/trainer/my-courses/stand-out"},
-        {img: "/icon/people.png", decC:"var(--grey-color-1)", text :"Sözleşmeni", boldText: "incele",path: "/profile/trainer/my-courses/aggrement"},
-    ];
-
-
     return (
         <div>
             {user && (
-                <div className={styles["main-block"]}>
-                    <div style={{width:"100%"}}>
+                <div style={{width:"100%"}}>
                         {coursesLoading ? (
                             <div className={styles['courses-box']}>
                                 <div style={{ padding: 12 }}>
@@ -137,16 +125,6 @@ const TrainerCourses = () => {
                             </div>
                         )}
                     </div>
-                    <div className={styles["button-menu"]}>
-                        {buttonMenu.map((item, index) => (
-                            <Link to={item.path} key={index} className={classNames(styles["button"],)} style={{backgroundColor :(location.pathname === item.path ? "var(--secondary-color-2)": "")}}>
-                                <div className={styles["button-sign"]} style={{ backgroundColor:(location.pathname === item.path ? "var(--primary-color-1)" : item.decC ) }}></div>
-                                <p style={{color:(location.pathname === item.path ? "var(--primary-color-1)":"")}}>{item.text} <br className={styles["mobile-button-text"]} /><span>{item.boldText}</span></p>
-                                <img className={styles["button-icon"]} style={{filter:(location.pathname === item.path ? "brightness(50)" :"")}} src={item.img} alt="add" />
-                            </Link>
-                        ))}
-                    </div>
-                </div>
             )}
         </div>
     );
