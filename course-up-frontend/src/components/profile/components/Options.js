@@ -35,7 +35,7 @@ const Options = ({ options, title }) => {
                     <Link
                         key={index}
                         to={option.path}
-                        className={classNames(styles["text-button"], { [styles.active]: location.pathname === option.path })}
+                        className={classNames(styles["text-button"], { [styles.active]: location.pathname.includes(option.path) })}
                     >
                         {option.name}
                     </Link>

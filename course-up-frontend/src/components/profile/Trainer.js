@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Header from "../home/components/Header";
 import Options from "./components/Options";
 import {Navigate, Route, Routes} from "react-router-dom";
-import TrainerCourses from "./components/TrainerCourses";
+import TrainerCoursesPanel from "./components/TrainerCoursesPanel";
 import TrainerForm from "./components/TrainerForm";
 
 const Trainer = () => {
@@ -19,7 +19,7 @@ const Trainer = () => {
     }, []);
 
     const profileOptions = [
-        { name: "Kurslarım", path: "/profile/trainer/my-courses" },
+        { name: "Kurslarım", path: "/profile/trainer/my-course" },
         { name: "İstatistiklerim", path: "/profile/trainer/my-statistics" },
         { name: "Ödemelerim", path: "/profile/trainer/my-payments" },
         { name: "Ayarlarım", path: "/profile/trainer/my-settings" }
@@ -33,25 +33,23 @@ const Trainer = () => {
                     <div>
                         <Options options={profileOptions} title="Eğitmen Panelin" />
                         <Routes>
-                            <Route path="my-courses" element={<TrainerCourses />} />
-                            <Route path="/" element={<Navigate to="my-courses" />} /> {}
+                            <Route path="my-course/*" element={<TrainerCoursesPanel />} />
+                            <Route path="*" element={<Navigate to="my-course" />} />
                         </Routes>
                     </div>
                 ) : (
                     <div>
                         <Routes>
                             <Route path="be-trainer" element={<TrainerForm />} />
-                            <Route path="/" element={<Navigate to="be-trainer" />} /> {}
+                            <Route path="*" element={<Navigate to="be-trainer" />} />
                         </Routes>
                     </div>
                 )
-            ): (
+            ) : (
                 <div>
                     <p>Giriş yapmadan erişim</p>
                 </div>
-            )
-            }
-
+            )}
         </div>
     );
 };
