@@ -1,6 +1,6 @@
 package com.example.courseup.service;
 
-import com.example.courseup.model.DTO.PopularCoursesDTO;
+import com.example.courseup.model.DTO.AllCoursesDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,7 +30,7 @@ public class JsonUpdateService {
     @Scheduled(fixedRate = 12 * 60 * 60 * 1000) // 12 hours
     public void updateJsonFile() {
         try {
-            List<PopularCoursesDTO> topCourses = courseService.getTopPopularCourses();
+            List<AllCoursesDTO> topCourses = courseService.getTopPopularCourses();
             File file = new File(jsonFilePath);
             objectMapper.writeValue(file, topCourses);
             System.out.println("JSON dosyası başarıyla güncellendi.");

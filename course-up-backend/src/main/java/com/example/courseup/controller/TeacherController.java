@@ -1,5 +1,6 @@
 package com.example.courseup.controller;
 
+import com.example.courseup.model.DTO.AllCoursesDTO;
 import com.example.courseup.model.Teacher;
 import com.example.courseup.model.User;
 import com.example.courseup.service.TeacherService;
@@ -65,5 +66,11 @@ public class TeacherController {
     @GetMapping("/is-teacher/{userId}")
     public boolean checkIsTeacher(@PathVariable Long userId) {
         return teacherService.checkIsTeacher(userId);
+    }
+
+    @Operation(summary = "Get teacher courses by userId")
+    @GetMapping("/courses/{userId}")
+    public List<AllCoursesDTO> getTeacherCourses(@PathVariable Long userId) {
+        return teacherService.getTeacherCourses(userId);
     }
 }
