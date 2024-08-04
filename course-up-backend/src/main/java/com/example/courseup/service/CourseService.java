@@ -3,7 +3,7 @@ package com.example.courseup.service;
 import com.example.courseup.model.Course;
 import com.example.courseup.model.CourseComments;
 import com.example.courseup.model.DTO.CourseCommentsDTO;
-import com.example.courseup.model.DTO.PopularCoursesDTO;
+import com.example.courseup.model.DTO.AllCoursesDTO;
 import com.example.courseup.model.User;
 import com.example.courseup.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,14 +57,14 @@ public class CourseService {
         return courseRepository.findNumberOfCourseReviewers(courseId);
     }
 
-    public List<PopularCoursesDTO> getTopPopularCourses() {
+    public List<AllCoursesDTO> getTopPopularCourses() {
         List<Course> courses = courseRepository.findTopCoursesByPopularity();
         return courses.stream()
                 .map(course -> {
                     Integer students = getNumberOfCourseStudents(course.getId());
                     Double rating = getCourseRating(course.getId());
                     Integer reviews = getNumberOfCourseReviewers(course.getId());
-                    return new PopularCoursesDTO(course, students, rating, reviews);
+                    return new AllCoursesDTO(course, students, rating, reviews);
                 })
                 .collect(Collectors.toList());
     }

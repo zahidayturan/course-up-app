@@ -1,7 +1,7 @@
 package com.example.courseup.service;
 
 import com.example.courseup.model.Course;
-import com.example.courseup.model.DTO.PopularCoursesDTO;
+import com.example.courseup.model.DTO.AllCoursesDTO;
 import com.example.courseup.model.DTO.TraineeDTO;
 import com.example.courseup.model.DTO.UserCoursesDTO;
 import com.example.courseup.model.Trainee;

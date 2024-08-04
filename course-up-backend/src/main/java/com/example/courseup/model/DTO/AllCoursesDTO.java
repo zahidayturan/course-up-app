@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 @Data
-public class PopularCoursesDTO {
+public class AllCoursesDTO {
     private Long id;
     private String name;
     private String instructor;
@@ -21,7 +21,7 @@ public class PopularCoursesDTO {
     private Double discountedPrice;
     private String image;
 
-    public PopularCoursesDTO(Course course, Integer students, Double rating, Integer reviews) {
+    public AllCoursesDTO(Course course, Integer students, Double rating, Integer reviews) {
         this.id = course.getId();
         this.name = course.getName();
         this.instructor = course.getTeacher().getUser().getName() + " " + course.getTeacher().getUser().getSurname();

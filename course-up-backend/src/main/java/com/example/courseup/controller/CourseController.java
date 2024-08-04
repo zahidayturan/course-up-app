@@ -1,7 +1,7 @@
 package com.example.courseup.controller;
 
 import com.example.courseup.model.Course;
-import com.example.courseup.model.DTO.PopularCoursesDTO;
+import com.example.courseup.model.DTO.AllCoursesDTO;
 import com.example.courseup.service.CourseService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +55,7 @@ public class CourseController {
 
     @Operation(summary = "Get 6 popular course")
     @GetMapping("/popular-courses")
-    public List<PopularCoursesDTO> getTopPopularCourses() {
+    public List<AllCoursesDTO> getTopPopularCourses() {
         return courseService.getTopPopularCourses();
     }
 }
