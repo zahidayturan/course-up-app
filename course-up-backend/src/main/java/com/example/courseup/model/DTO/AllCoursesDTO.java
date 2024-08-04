@@ -13,6 +13,7 @@ public class AllCoursesDTO {
     private String instructor;
     private String description;
     private Integer duration;
+    private Integer stage;
     private Integer students;
     private Double rating;
     private Integer reviews;
@@ -20,6 +21,7 @@ public class AllCoursesDTO {
     private Double discount;
     private Double discountedPrice;
     private String image;
+    private boolean isActive;
 
     public AllCoursesDTO(Course course, Integer students, Double rating, Integer reviews) {
         this.id = course.getId();
@@ -27,6 +29,7 @@ public class AllCoursesDTO {
         this.instructor = course.getTeacher().getUser().getName() + " " + course.getTeacher().getUser().getSurname();
         this.description = course.getDescription();
         this.duration = course.getTotalDuration();
+        this.stage = course.getTotalStages();
         this.students = students;
         this.rating = rating;
         this.reviews = reviews;
@@ -34,6 +37,7 @@ public class AllCoursesDTO {
         this.discount = course.getDiscount();
         this.discountedPrice = calculateDiscountedPrice(course.getPrice(), course.getDiscount());
         this.image = course.getImage();
+        this.isActive = course.getIs_active();
     }
 
     private Double calculateDiscountedPrice(Double originalPrice, Double discount) {

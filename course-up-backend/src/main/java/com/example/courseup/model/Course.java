@@ -1,6 +1,5 @@
 package com.example.courseup.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -33,6 +32,8 @@ public class Course {
     private Integer totalStages;
     private Integer totalDuration;
     private String image;
+    private Boolean is_active;
+
 
     @OneToMany(mappedBy = "course")
     @JsonManagedReference

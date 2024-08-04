@@ -75,7 +75,7 @@
 }
 
 .course-container:hover{
-    box-shadow: rgba(0, 0, 0, 0.24) 0 0px 8px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0 0 8px;
 }
 
 .course-img{
