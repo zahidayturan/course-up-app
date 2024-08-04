@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from "../css/TrainerCourses.module.css";
+import styles from "../css/TrainerCoursePanel.module.css";
 import {Navigate, Route, Routes} from "react-router-dom";
 import TrainerCourseOptions from "./TrainerCourseOptions";
 import TrainerCourses from "./TrainerCourses";
