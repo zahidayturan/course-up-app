@@ -10,6 +10,8 @@ const TrainerAddCourse = () => {
     const [courseImage, setCourseImage] = useState(null);
     const [courseSubtitles, setCourseSubtitles] = useState([]);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [coursePrice, setCoursePrice] = useState('');
+    const [courseDiscount, setCourseDiscount] = useState('');
 
     const handleFileChange = (event) => {
         setCourseImage(event.target.files[0]);
@@ -105,6 +107,16 @@ const TrainerAddCourse = () => {
                                         </div>
                                     )}
                                 </div>
+                            </div>
+                        </div>
+                        <div className={style["custom-row"]} style={{justifyContent:"start"}}>
+                            <div className={style["title-and-input"]}>
+                                <p>Kursun Fiyatı (₺) <span style={{ color: "var(--orange-color-1)" }}>*</span></p>
+                                <input type="number" id="course-price" placeholder="Kursun fiyatını yazınız" value={coursePrice} min={1} max={99999} onChange={(e) => setCoursePrice(e.target.value)} required/>
+                            </div>
+                            <div className={style["title-and-input"]}>
+                                <p>Kursun İndirim Oranı (%)</p>
+                                <input type="number" id="course-discount" placeholder="Kursun indirim oranını yazınız" min={0} max={100} value={courseDiscount} onChange={(e) => setCourseDiscount(e.target.value)}/>
                             </div>
                         </div>
                     </div>

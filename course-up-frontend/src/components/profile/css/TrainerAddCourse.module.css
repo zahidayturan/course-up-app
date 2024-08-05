@@ -53,6 +53,7 @@
 input{
     height: 40px;
     border-radius: 4px;
+    field-sizing: content;
 }
 
 textarea, select{
@@ -97,6 +98,7 @@ input[type="file"] {
 
 input[type="checkbox"] {
     width: 16px;
+    cursor: pointer;
 }
 
 .custom-file-upload {
