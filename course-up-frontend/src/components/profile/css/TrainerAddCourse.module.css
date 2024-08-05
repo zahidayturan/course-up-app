@@ -141,6 +141,7 @@ input[type="checkbox"] {
     display: flex;
     align-items: center;
     padding: 0 8px;
+    font-size: 14px;
 }
 
 .dropdown-content{
@@ -185,6 +186,12 @@ input[type="checkbox"] {
 
 .new-episode:hover{
     background-color: var(--grey-color-1);
+}
+
+.remove-icon{
+    height: 12px;
+    cursor: pointer;
+    margin-top: 4px;
 }
 
 @media (max-width: 744px) {
