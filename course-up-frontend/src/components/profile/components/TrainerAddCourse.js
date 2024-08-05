@@ -43,6 +43,12 @@ const TrainerAddCourse = () => {
         updateSectionsWithSubtitles(courseSubtitles);
     }, [courseSubtitles]);
 
+    useEffect(() => {
+        if(sections.length === 0){
+            addSection();
+        }
+    }, []);
+
     const handleSectionFileChange = (index, event) => {
         const file = event.target.files[0];
         setSections(prevSections => {
@@ -115,6 +121,7 @@ const TrainerAddCourse = () => {
             console.error('Error submitting the form', error);
         }
     };
+
 
     return (
         <div className={style["add-box"]}>
@@ -194,7 +201,7 @@ const TrainerAddCourse = () => {
                     <div style={{height:"content-box",display:"flex",flexDirection:"column",alignItems:"center",gap:2}}>
                         <span>{index+1}.</span>
                         <div className={style["line"]} style={{height:"100%"}}></div>
-                        <img  onClick={() => removeSection(index)} className={style["remove-icon"]} src="/icon/close.png" alt="remove-section"/>
+                        {(index!==0) && <img onClick={() => removeSection(index)} className={style["remove-icon"]} src="/icon/close.png" alt="remove-section"/>}
                     </div>
                     <div style={{display:"flex",flexDirection:"column",width:"100%"}}>
                         <div className={style["custom-row"]} >
@@ -229,8 +236,20 @@ const TrainerAddCourse = () => {
                         ))}
                     </div>
                 </div>))}
-                <p onClick={addSection} className={style["new-episode"]}>Yeni bölüm ekle</p>
-                <button type="submit" className={style["form-button"]}>Onaya Gönder</button>
+                <button onClick={addSection} className={style["new-episode"]}>Yeni bölüm ekle</button>
+                <div className={style["custom-row"]} style={{marginTop:32,alignItems:"end",gap:32,marginBottom:0}}>
+                    <div className={style["info-box"]}>
+                        <p>Hesaplanan<br/><span>Toplam Süre</span><br/><br/>0 dk</p>
+                        <p>Hesaplanan<br/><span>Fiyat</span><br/><br/>0 ₺</p>
+                    </div>
+                    <div className={style["custom-column"]} style={{alignItems:"end"}}>
+                        <p style={{fontWeight:"normal",fontSize:14,textAlign:"end"}}>Girdiğiniz bilgiler incelemeye alınacaktır. Eğitmen panelinden onayda olan kurslar bölümünde durumunu takip edebilirsiniz.</p>
+                        <button type="submit" className={style["form-button"]}>Onaya Gönder</button>
+                    </div>
+
+                </div>
+
+
             </form>
         </div>
     );
