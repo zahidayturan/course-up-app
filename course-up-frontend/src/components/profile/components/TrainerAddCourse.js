@@ -72,7 +72,7 @@ const TrainerAddCourse = () => {
                                 </div>
                             </div>
                             <div className={style["image-input"]} style={{ backgroundImage: courseImage ? `url(${URL.createObjectURL(courseImage)})` : 'none' }}>
-                                {!courseImage && (<p style={{fontWeight:"normal"}}>Kursun<br /><span>kapak resmini </span><span style={{ color: "var(--orange-color-1)" }}>*</span><br />yükleyiniz.</p>)}
+                                {!courseImage && (<p style={{fontWeight:"normal",fontSize:15}}>Kursun<br /><span>kapak resmini </span><span style={{ color: "var(--orange-color-1)" }}>*</span><br />yükleyiniz.</p>)}
                                 <label className={style["custom-file-upload"]}>{courseImage ? "Kaldır" : "Resim Seç"}
                                     <input type="file" accept="image/png, image/jpeg" id="course-img" onChange={handleFileChange} required/>
                                 </label>
@@ -121,6 +121,44 @@ const TrainerAddCourse = () => {
                         </div>
                     </div>
                 </div>
+                <p style={{ fontWeight: "bold", fontSize: 18 ,marginBottom:4}}>Kursun Bölümleri</p>
+                <div className={style["line-and-section"]}>
+                    <div style={{height:"content-box",display:"flex",flexDirection:"column",alignItems:"center",gap:2}}>
+                        <span>1.</span>
+                        <div className={style["line"]} style={{height:"100%"}}></div>
+                    </div>
+                    <div style={{display:"flex",flexDirection:"column",width:"100%"}}>
+                        <div className={style["custom-row"]}>
+                            <div className={style["title-and-input"]} style={{flex:1}}>
+                                <p>Bölüm Adı <span style={{ color: "var(--orange-color-1)" }}>*</span></p>
+                                <textarea style={{height:20}} placeholder="Bölümün adını yazınız" required/>
+                            </div>
+                            <div className={style["title-and-input"]}  style={{flex:1}}>
+                                <p>Bölüm Açıklaması <span style={{ color: "var(--orange-color-1)" }}>*</span></p>
+                                <textarea style={{height:20}} placeholder="Bölümün açıklamasını yazınız" required/>
+                            </div>
+                            <div className={style["title-and-input"]} >
+                                <p>Bölüm Videosu <span style={{ color: "var(--orange-color-1)" }}>*</span></p>
+                                <div className={style["episode-input"]}>
+                                    {!courseImage && (<p style={{fontWeight:"normal",fontSize:14}}>Videoyu yükleyiniz</p>)}
+                                    <label className={style["custom-file-upload"]}>{courseImage ? "Kaldır" : "Video Seç"}
+                                        <input type="file" accept="video/mp4" id="course-img" onChange={handleFileChange} required/>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={style["title-and-input"]} style={{flexDirection:"row",alignItems:"center",marginBottom:6}}>
+                            <p>1.bölüm İngilizce altyazı dosyası</p>
+                            <div className={style["episode-input"]}>
+                                {!courseImage && (<p style={{fontWeight:"normal",fontSize:14}}>Altyazıyı yükleyiniz</p>)}
+                                <label className={style["custom-file-upload"]}>{courseImage ? "Kaldır" : "Dosya Seç"}
+                                    <input type="file" accept=".vtt ,.srt" id="course-img" onChange={handleFileChange} required/>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p className={style["new-episode"]}>Yeni bölüm ekle</p>
                 <button type="submit" className={style["form-button"]}>Onaya Gönder</button>
             </form>
         </div>
