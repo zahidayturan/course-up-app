@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import axios from 'axios';
 import Endpoints from "../../constants/Endpoints";
 import styles from "./css/CourseDetail.module.css";
 import mainStyles from "../css/Main.module.css";
 import textStyles from "../css/Text.module.css";
 import Header from "../home/components/Header";
+import RatingStars from "./RatingStars";
 
 const CourseDetail = () => {
     const { id } = useParams();
@@ -26,22 +27,20 @@ const CourseDetail = () => {
                 }
             } catch (error) {
                 setCourseError('Kurs yüklenirken bir hata oluştu');
-                navigate('/home');
             } finally {
                 setLoading(false);
             }
         };
 
+        fetchCourseDetail(id);
+
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
             const parsedUser = JSON.parse(storedUser);
             setUser(parsedUser);
-            fetchCourseDetail(id);
         } else {
             console.log('No user data or course data found in localStorage');
             setCourseError('Kurs yüklenirken bir hata oluştu');
-            setLoading(false);
-            navigate('/home');
         }
     }, [id, navigate]);
 
@@ -65,8 +64,27 @@ const CourseDetail = () => {
                 ) : (
                     <div className={styles['course-box']}>
                         <div style={{ padding: 12 }}>
-                            <h1>{course.name}</h1>
-                            <p>{course.description}</p>
+                            <p style={{fontSize:15,marginBottom:12,textUnderlineOffset:4}}>Kurslar/<Link to={`/category`} style={{color:"var(--secondary-color-2)"}}>Kategoriler</Link>/<Link to={`/category/${course.category}`} style={{color:"var(--secondary-color-2)"}}>{course.category}</Link></p>
+                            <div className={styles["custom-row"]}>
+                                <img className={styles["course-img"]} src={course.image} alt={course.name} />
+                                <div className="">
+                                    <h1>{course.name}</h1>
+                                    <p>Eiğtmen: {course.instructor}</p>
+                                    <div className={styles["course-info-box"]}>
+                                        <div><span>{course.duration} Saat</span><p>Eğitim<br/>Süresi</p></div>
+                                        <div><span>{course.students}</span><p>Kayıtlı<br/>Öğrenci</p></div>
+                                        <div><p style={{fontSize:12}}><span style={{fontSize:15}}>{course.rating} </span>({course.reviews} kişi)</p><p>Kurs Puanı</p><RatingStars rating={course.rating}/></div>
+                                    </div>
+
+                                </div>
+                                <div className="">
+                                    <p>{course.originalPrice} ₺</p>
+                                    <p>{course.discountedPrice} ₺</p>
+                                    <p>%{course.discount} indirim</p>
+                                </div>
+
+                            </div>
+
                         </div>
                     </div>
                 )

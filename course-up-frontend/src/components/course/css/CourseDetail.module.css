@@ -5,3 +5,36 @@
     background-color: var(--primary-color-1);
     border-radius: 8px;
 }
+
+.course-img{
+    width: 540px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 24px;
+}
+
+.custom-row{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.course-info-box{
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.course-info-box div{
+    background-color: var(--secondary-color-1);
+    height: 88px;
+    width: 144px;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}

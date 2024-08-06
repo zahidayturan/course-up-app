@@ -1,13 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react';
-import styles from '../css/Courses.module.css';
+import styles from '../css/PopularCourses.module.css';
 import textStyles from '../../css/Text.module.css';
 import classNames from "classnames";
 import axios from "axios";
 import Endpoints from "../../../constants/Endpoints";
 import mainStyles from '../../css/Main.module.css';
 import {Link} from "react-router-dom";
+import RatingStars from "../../course/RatingStars";
 
-const Courses = () => {
+const PopularCourses = () => {
     const containerRef = useRef(null);
     const [isAtStart, setIsAtStart] = useState(true);
     const [isAtEnd, setIsAtEnd] = useState(false);
@@ -167,8 +168,8 @@ const Courses = () => {
                                         <p className={textStyles["text-small"]}>{course.duration} Saat Eğitim Süresi - {course.students} öğrenci</p>
                                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "end", width: "100%" }}>
                                             <div>
-                                                <p className={textStyles["text-small"]}>{course.rating} <span style={{ fontSize: 12 }}>({course.reviews}) kişi</span></p>
-                                                <p>* * * * *</p>
+                                                <p className={textStyles["text-small"]} style={{marginBottom:4}}>{course.rating} <span style={{ fontSize: 12 }}>({course.reviews}) kişi</span></p>
+                                                <RatingStars rating={course.rating} size={12}/>
                                             </div>
                                             <div style={{ textAlign: "end" }}>
                                                 <p className={textStyles["text-small"]} style={{ textDecoration: "line-through" }}>{course.originalPrice} ₺</p>
@@ -198,4 +199,4 @@ const Courses = () => {
     );
 };
 
-export default Courses;
+export default PopularCourses;
