@@ -68,6 +68,16 @@
     background-color: var(--green-color-1);
 }
 
+.trainer-info{
+    padding: 12px;
+    background-color: var(--secondary-color-1);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 35%;
+}
+
 @media (max-width: 744px) {
     .custom-row{
         flex-direction: column;
@@ -96,5 +106,9 @@
     .course-info-box div{
         border-radius: 16px;
         font-size: 14px;
+    }
+
+    .trainer-info{
+        width: calc(100% - 24px);
     }
 }

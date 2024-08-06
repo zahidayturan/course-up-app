@@ -93,6 +93,23 @@ const CourseDetail = () => {
                                     <div className={styles["basket-button"]}><img src="/icon/basket.png" height={12} style={{filter:"brightness(100)",marginRight:6}} alt="add to basket"/> Sepete Ekle</div>
                                 </div>
                             </div>
+                            <h3 style={{marginTop:16}}>Kurs Hakkında</h3>
+                            <p>{course.description}</p>
+                            <div className={styles["custom-row"]} style={{marginTop:24}}>
+                                <div>
+                                    <h3>Kursun Bölümleri</h3>
+                                    <p>{course.stage}</p>
+                                </div>
+                                <div className={styles["trainer-info"]}>
+                                    <p style={{fontWeight:"bold"}}>Eğitmen Hakkında</p>
+                                    <p style={{textAlign:"end",fontWeight:"bold"}}>{course.instructor}</p>
+                                    <p style={{textAlign:"end"}}>Eğitmen Açıklaması</p>
+                                    <p>Eğitmen İstatistikleri</p>
+                                </div>
+                            </div>
+
+
+                            <h3 style={{marginTop:16}}>Kursun Yorumları</h3>
                         </div>
                     </div>
                 )
