@@ -13,7 +13,8 @@ const Endpoints = {
     ONGOING_COURSES: `${API_BASE_URL}/trainee/active/user`,
     POPULAR_COURSES: `${API_BASE_URL}/api/json/popular-courses`,
     TEACHER_SAVE: `${API_BASE_URL}/teacher`,
-    TEACHER_COURSES: `${API_BASE_URL}/teacher/courses`
+    TEACHER_COURSES: `${API_BASE_URL}/teacher/courses`,
+    COURSE_DETAIL: `${API_BASE_URL}/course`
 };
 
 export default Endpoints;

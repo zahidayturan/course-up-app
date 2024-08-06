@@ -5,6 +5,7 @@ import classNames from "classnames";
 import axios from "axios";
 import Endpoints from "../../../constants/Endpoints";
 import mainStyles from '../../css/Main.module.css';
+import {Link} from "react-router-dom";
 
 const Courses = () => {
     const containerRef = useRef(null);
@@ -149,30 +150,35 @@ const Courses = () => {
                         <div><p>{error}</p></div>
                     ) : courses.length > 0 ? (
                         courses.map((course) => (
-                            <div key={course.id} className={styles["course-container"]}>
-                                <div className={styles["discount-text"]}>
-                                    <span className={textStyles["font-bold"]}>% {course.discount}</span> indirim
-                                </div>
-                                <img className={styles["course-img"]} src={course.image} alt={course.name} />
-                                <div className={styles["text-column"]}>
-                                    <div>
-                                        <p className={textStyles["font-bold"]} style={{ fontSize: 18 }}>{course.name}</p>
-                                        <p className={classNames(textStyles["font-italic"], textStyles["text-small"])}>Eğitmen: {course.instructor}</p>
-                                    </div>
-                                    <p className={textStyles["text-small"]} style={{ textAlign: "justify" }}>{course.description}</p>
-                                    <p className={textStyles["text-small"]}>{course.duration} Saat Eğitim Süresi - {course.students} öğrenci</p>
-                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "end", width: "100%" }}>
+                            <Link to={`/course/${course.id}`} key={course.id} style={{textDecoration:"none"}}>
+                                <div key={course.id} className={styles["course-container"]}>
+                                    {course.discount > 0 && (
+                                        <div className={styles["discount-text"]}>
+                                            <span className={textStyles["font-bold"]}>% {course.discount}</span> indirim
+                                        </div>
+                                    )}
+                                    <img className={styles["course-img"]} src={course.image} alt={course.name} />
+                                    <div className={styles["text-column"]}>
                                         <div>
-                                            <p className={textStyles["text-small"]}>{course.rating} <span style={{ fontSize: 12 }}>({course.reviews}) kişi</span></p>
-                                            <p>* * * * *</p>
+                                            <p className={textStyles["font-bold"]} style={{ fontSize: 18 }}>{course.name}</p>
+                                            <p className={classNames(textStyles["font-italic"], textStyles["text-small"])}>Eğitmen: {course.instructor}</p>
                                         </div>
-                                        <div style={{ textAlign: "end" }}>
-                                            <p className={textStyles["text-small"]} style={{ textDecoration: "line-through" }}>{course.originalPrice} ₺</p>
-                                            <p className={textStyles["font-bold"]}>{course.discountedPrice} ₺</p>
+                                        <p className={textStyles["text-small"]} style={{ textAlign: "justify" }}>{course.description}</p>
+                                        <p className={textStyles["text-small"]}>{course.duration} Saat Eğitim Süresi - {course.students} öğrenci</p>
+                                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "end", width: "100%" }}>
+                                            <div>
+                                                <p className={textStyles["text-small"]}>{course.rating} <span style={{ fontSize: 12 }}>({course.reviews}) kişi</span></p>
+                                                <p>* * * * *</p>
+                                            </div>
+                                            <div style={{ textAlign: "end" }}>
+                                                <p className={textStyles["text-small"]} style={{ textDecoration: "line-through" }}>{course.originalPrice} ₺</p>
+                                                <p className={textStyles["font-bold"]}>{course.discountedPrice} ₺</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </Link>
+
                         ))
                     ) : (
                         <div><p>Popüler kurs bulunamadı.</p></div>

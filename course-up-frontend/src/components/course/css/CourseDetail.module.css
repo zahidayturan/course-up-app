@@ -1,0 +1,7 @@
+.course-box {
+    margin-top: 24px;
+    width: 100%;
+    justify-content: center;
+    background-color: var(--primary-color-1);
+    border-radius: 8px;
+}
