@@ -8,6 +8,7 @@ import ResetPassword from "./components/auth/ResetPassword";
 import NotFound from "./components/404";
 import Profile from "./components/profile/Profile";
 import Trainer from "./components/profile/Trainer";
+import CourseDetail from "./components/course/CourseDetail";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/home" element={<Home />} />
                     <Route path="/profile/*" element={<Profile />} />
                     <Route path="/profile/trainer/*" element={<Trainer />} />
+                    <Route path="/course/:id" element={<CourseDetail />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>

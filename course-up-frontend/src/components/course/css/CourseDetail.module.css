@@ -1,0 +1,114 @@
+.course-box {
+    margin-top: 24px;
+    width: 100%;
+    height: max-content;
+    justify-content: center;
+    background-color: var(--primary-color-1);
+    border-radius: 8px;
+}
+
+.course-img{
+    width: 504px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.custom-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.course-info-box{
+    display: flex;
+    gap: 18px;
+    align-items: center;
+}
+
+.course-info-box div{
+    background-color: var(--secondary-color-1);
+    height: 88px;
+    width: 136px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.course-title{
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.price-and-button{
+    display: flex;
+    align-items: end;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.basket-button{
+    width: max-content;
+    border-radius: 50px;
+    background-color: var(--secondary-color-2);
+    padding: 8px 16px;
+    color: var(--primary-color-1);
+    cursor: pointer;
+    text-align: center;
+    align-items: center;
+}
+
+.basket-button:hover{
+    background-color: var(--green-color-1);
+}
+
+.trainer-info{
+    padding: 12px;
+    background-color: var(--secondary-color-1);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 35%;
+}
+
+@media (max-width: 744px) {
+    .custom-row{
+        flex-direction: column;
+    }
+
+    .course-img{
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+    }
+
+    .price-and-button{
+        flex-direction: row-reverse;
+    }
+
+    .course-title{
+        width: 100%;
+    }
+
+    .course-info-box{
+        gap: 4px;
+        width: content-box;
+        justify-content: space-between;
+    }
+
+    .course-info-box div{
+        border-radius: 16px;
+        font-size: 14px;
+    }
+
+    .trainer-info{
+        width: calc(100% - 24px);
+    }
+}

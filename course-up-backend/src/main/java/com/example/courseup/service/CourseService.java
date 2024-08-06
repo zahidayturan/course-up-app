@@ -69,4 +69,12 @@ public class CourseService {
                 .collect(Collectors.toList());
     }
 
+    public AllCoursesDTO getCourseDetails(Long id) {
+        Course course = findById(id).orElseThrow(() -> new IllegalArgumentException("Course not found with id: " + id));
+        Integer students = getNumberOfCourseStudents(course.getId());
+        Double rating = getCourseRating(course.getId());
+        Integer reviews = getNumberOfCourseReviewers(course.getId());
+        return new AllCoursesDTO(course, students, rating, reviews);
+    }
+
 }

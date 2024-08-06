@@ -12,6 +12,9 @@ public class AllCoursesDTO {
     private String name;
     private String instructor;
     private String description;
+    private String category;
+    private String language;
+    private  String subtitles;
     private Integer duration;
     private Integer stage;
     private Integer students;
@@ -28,6 +31,9 @@ public class AllCoursesDTO {
         this.name = course.getName();
         this.instructor = course.getTeacher().getUser().getName() + " " + course.getTeacher().getUser().getSurname();
         this.description = course.getDescription();
+        this.category = course.getCategory();
+        this.language = course.getLanguage();
+        this.subtitles = course.getSubtitles();
         this.duration = course.getTotalDuration();
         this.stage = course.getTotalStages();
         this.students = students;

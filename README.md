@@ -4,10 +4,9 @@
 
 New Generation Online Course Platform
 
-<p align="center">
+ <img src="courseup-brand.png" width=100% />
 
- <img src="courseup-brand.png" width=100% height=100% />
-</p>
+ <img src="courseup-brand-2.png" width=100% />
 
 ### Installation
 ```sh

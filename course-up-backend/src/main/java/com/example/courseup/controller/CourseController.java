@@ -25,8 +25,8 @@ public class CourseController {
 
     @Operation(summary = "Get course by Id")
     @GetMapping("/{id}")
-    public Optional<Course> findById(@PathVariable Long id) {
-        return courseService.findById(id);
+    public AllCoursesDTO findById(@PathVariable Long id) {
+        return courseService.getCourseDetails(id);
     }
 
     @Operation(summary = "Save a new course")
