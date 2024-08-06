@@ -13,7 +13,7 @@ const RatingStars = ({ rating, size = 16 }) => {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'row',height:"min-content" }}>
+        <div style={{ display: 'flex', flexDirection: 'row',height:"min-content", width:"min-content" }}>
             {[0, 1, 2, 3, 4].map((index) => (
                 <div key={index} style={{ position: 'relative', width: size, height: size }}>
                     <svg

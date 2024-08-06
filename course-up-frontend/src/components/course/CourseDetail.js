@@ -66,25 +66,33 @@ const CourseDetail = () => {
                         <div style={{ padding: 12 }}>
                             <p style={{fontSize:15,marginBottom:12,textUnderlineOffset:4}}>Kurslar/<Link to={`/category`} style={{color:"var(--secondary-color-2)"}}>Kategoriler</Link>/<Link to={`/category/${course.category}`} style={{color:"var(--secondary-color-2)"}}>{course.category}</Link></p>
                             <div className={styles["custom-row"]}>
-                                <img className={styles["course-img"]} src={course.image} alt={course.name} />
-                                <div className="">
-                                    <h1>{course.name}</h1>
-                                    <p>Eiğtmen: {course.instructor}</p>
-                                    <div className={styles["course-info-box"]}>
-                                        <div><span>{course.duration} Saat</span><p>Eğitim<br/>Süresi</p></div>
-                                        <div><span>{course.students}</span><p>Kayıtlı<br/>Öğrenci</p></div>
-                                        <div><p style={{fontSize:12}}><span style={{fontSize:15}}>{course.rating} </span>({course.reviews} kişi)</p><p>Kurs Puanı</p><RatingStars rating={course.rating}/></div>
+                                <div style={{display:"flex",flexDirection:"row",gap:18,flexWrap:"wrap"}}>
+                                    <img className={styles["course-img"]} src={course.image} alt={course.name} />
+                                    <div className={styles["course-title"]}>
+                                        <div>
+                                            <h1>{course.name}</h1>
+                                            <p style={{height:19,fontStyle:"italic"}}>Eğitmen: {course.instructor}</p>
+                                        </div>
+                                        <div className={styles["course-info-box"]}>
+                                            <div><span>{course.duration} Saat</span><p>Eğitim<br/>Süresi</p></div>
+                                            <div><span>{course.students}</span><p>Kayıtlı<br/>Öğrenci</p></div>
+                                            <div><p style={{fontSize:12}}><span style={{fontSize:15}}>{course.rating} </span>({course.reviews} kişi)</p><p>Kurs Puanı</p><RatingStars rating={course.rating}/></div>
+                                        </div>
+                                        <div>
+                                            <p><span>Video Dili: </span>{course.language}</p>
+                                            <p><span>Altyazı Desteği: </span>{course.subtitles}</p>
+                                        </div>
                                     </div>
-
                                 </div>
-                                <div className="">
-                                    <p>{course.originalPrice} ₺</p>
-                                    <p>{course.discountedPrice} ₺</p>
-                                    <p>%{course.discount} indirim</p>
+                                <div className={styles["price-and-button"]}>
+                                    <div style={{textAlign:"end"}}>
+                                        <p style={{textDecoration:"line-through",fontSize:20}}>{course.originalPrice} ₺</p>
+                                        <p style={{fontWeight:"bold",fontSize:26}}>{course.discountedPrice} ₺</p>
+                                        <p style={{color:"var(--orange-color-1)",fontSize:18}}>%{course.discount} indirim</p>
+                                    </div>
+                                    <div className={styles["basket-button"]}><img src="/icon/basket.png" height={12} style={{filter:"brightness(100)",marginRight:6}} alt="add to basket"/> Sepete Ekle</div>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                 )
