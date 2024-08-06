@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const RatingStars = ({ rating, size }) => {
+const RatingStars = ({ rating, size = 16 }) => {
     const getStarPercentage = (index) => {
         if (rating >= index + 1) {
             return 100;
@@ -51,10 +51,6 @@ const RatingStars = ({ rating, size }) => {
 RatingStars.propTypes = {
     rating: PropTypes.number.isRequired,
     size: PropTypes.number,
-};
-
-RatingStars.defaultProps = {
-    size: 16,
 };
 
 export default RatingStars;
