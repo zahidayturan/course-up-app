@@ -41,9 +41,17 @@ public class CourseCommentController {
         courseCommentsService.deleteById(id);
     }
 
-    @GetMapping("/all")
+    @Operation(summary = "All course comments")
+    @GetMapping("/all-comments")
     public List<CourseCommentsDTO> getAllCourseComments() {
-        return courseCommentsService.getAllCourseComments();
+        /*return courseCommentsService.getAllCourseComments();*/
+        return null;
+    }
+
+    @Operation(summary = "Course comments by courseId")
+    @GetMapping("/all/{id}")
+    public List<CourseCommentsDTO> getAllCourseCommentsByCourseId(@PathVariable Long id) {
+        return courseCommentsService.getAllCourseCommentsByCourseId(id);
     }
 
 }

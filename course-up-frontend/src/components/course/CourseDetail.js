@@ -7,7 +7,6 @@ import mainStyles from "../css/Main.module.css";
 import textStyles from "../css/Text.module.css";
 import Header from "../home/components/Header";
 import RatingStars from "./RatingStars";
-import classNames from "classnames";
 
 const CourseDetail = () => {
     const { id } = useParams();

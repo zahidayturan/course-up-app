@@ -7,17 +7,13 @@ import lombok.Data;
 public class CourseCommentsDTO {
 
     private Long id;
-
-    private CourseDTO course;
-
-    private TraineeDTO trainee;
-
+    private Long courseId;
+    private String owner;
     private String comments;
-
     public CourseCommentsDTO(CourseComments courseComments) {
         this.id = courseComments.getId();
-        this.course = new CourseDTO(courseComments.getCourse());
-        this.trainee = new TraineeDTO(courseComments.getTrainee());
+        this.courseId = courseComments.getCourse().getId();
+        this.owner = courseComments.getTrainee().getStudent().getUser().getName() +" "+courseComments.getTrainee().getStudent().getUser().getSurname();
         this.comments = courseComments.getComments();
     }
 

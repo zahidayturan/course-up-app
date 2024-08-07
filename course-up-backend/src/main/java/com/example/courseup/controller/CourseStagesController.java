@@ -1,9 +1,7 @@
 package com.example.courseup.controller;
 
 import com.example.courseup.model.CourseStages;
-import com.example.courseup.model.DTO.CourseCommentsDTO;
 import com.example.courseup.model.DTO.CourseStagesDTO;
-import com.example.courseup.repository.CourseStagesRepository;
 import com.example.courseup.service.CourseStagesService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
