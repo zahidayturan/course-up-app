@@ -1,14 +1,14 @@
 package com.example.courseup.service;
 
 import com.example.courseup.model.Course;
-import com.example.courseup.model.CourseComments;
-import com.example.courseup.model.DTO.CourseCommentsDTO;
 import com.example.courseup.model.DTO.AllCoursesDTO;
-import com.example.courseup.model.User;
 import com.example.courseup.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -43,7 +43,6 @@ public class CourseService {
         return courseRepository.findCoursesByCategory(categoryName);
     }
 
-
     public double getCourseRating(Long courseId) {
         Double rating = courseRepository.findCourseRating(courseId);
         return rating != null ? rating : 0.0;
@@ -58,7 +57,7 @@ public class CourseService {
     }
 
     public List<AllCoursesDTO> getTopPopularCourses() {
-        List<Course> courses = courseRepository.findTopCoursesByPopularity();
+        List<Course> courses = findTopCoursesByPopularity();
         return courses.stream()
                 .map(course -> {
                     Integer students = getNumberOfCourseStudents(course.getId());
@@ -67,6 +66,15 @@ public class CourseService {
                     return new AllCoursesDTO(course, students, rating, reviews);
                 })
                 .collect(Collectors.toList());
+    }
+
+    public List<Course> findTopCoursesByPopularity() {
+        Pageable topSix = PageRequest.of(0, 6);
+        List<Long> topCourseIds = courseRepository.findTopCourseIdsByPopularity(topSix);
+        if (topCourseIds.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return courseRepository.findCoursesWithStagesByIds(topCourseIds);
     }
 
     public AllCoursesDTO getCourseDetails(Long id) {

@@ -1,6 +1,7 @@
 package com.example.courseup.repository;
 
 import com.example.courseup.model.Course;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,8 +16,11 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     @Query("SELECT c FROM Course c WHERE c.category = :categoryName")
     List<Course> findCoursesByCategory(@Param("categoryName") String  categoryName);
 
-    @Query(value = "SELECT c FROM Course c LEFT JOIN FETCH c.courseStages WHERE c.is_active = true AND c.id IN (SELECT course.id FROM Trainee GROUP BY course.id ORDER BY COUNT(course.id) DESC LIMIT 6)")
-    List<Course> findTopCoursesByPopularity();
+    @Query("SELECT t.course.id FROM Trainee t GROUP BY t.course.id ORDER BY COUNT(t.course.id) DESC")
+    List<Long> findTopCourseIdsByPopularity(Pageable pageable);
+
+    @Query("SELECT DISTINCT c FROM Course c LEFT JOIN FETCH c.courseStages WHERE c.is_active = true AND c.id IN :ids")
+    List<Course> findCoursesWithStagesByIds(@Param("ids") List<Long> ids);
 
     @Query("SELECT COUNT(t) FROM Trainee t WHERE t.course.id = :courseId")
     Integer findNumberOfCourseStudents(@Param("courseId") Long courseId);
