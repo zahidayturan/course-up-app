@@ -30,6 +30,10 @@ const CourseDetail = () => {
     const [isTeacherMenuOpen, setIsTeacherMenuOpen] = useState(false);
     const navigate = useNavigate();
 
+    const [openStages, setOpenStages] = useState({});
+
+
+
     useEffect(() => {
         const fetchCourseDetail = async (courseId) => {
             try {
@@ -52,7 +56,8 @@ const CourseDetail = () => {
             try {
                 const response = await axios.get(`${Endpoints.COURSE_STAGES}/${courseId}`);
                 if (response.data) {
-                    setCourseStages(response.data);
+                    const sortedStages = response.data.sort((a, b) => a.episode - b.episode);
+                    setCourseStages(sortedStages);
                     console.log("Course stages set");
                 }
             } catch (error) {
@@ -61,6 +66,7 @@ const CourseDetail = () => {
                 setCourseStagesLoading(false);
             }
         };
+
 
         fetchCourseDetail(id);
 
@@ -93,6 +99,13 @@ const CourseDetail = () => {
 
     const toggleTeacherMenu = () => {
         setIsTeacherMenuOpen(!isTeacherMenuOpen);
+    };
+
+    const toggleStagesMenu = (index) => {
+        setOpenStages(prevState => ({
+            ...prevState,
+            [index]: !prevState[index]
+        }));
     };
 
     return (
@@ -144,7 +157,7 @@ const CourseDetail = () => {
                                     <div className={styles["basket-button"]}><img src="/icon/basket.png" height={12} style={{filter:"brightness(100)",marginRight:6}} alt="add to basket"/> Sepete Ekle</div>
                                 </div>
                             </div>
-                            <h3 style={{marginTop:16}}>Kurs Hakkında</h3>
+                            <h3 style={{marginTop:24}}>Kurs Hakkında</h3>
                             <p>{course.description}</p>
                             <div className={styles["custom-row"]} style={{marginTop:24,width:"100%",gap:24}}>
                                 <div className={styles["stages-row"]} style={{backgroundColor:"var(--secondary-color-1)",borderRadius:8,padding:12}}>
@@ -157,11 +170,29 @@ const CourseDetail = () => {
                                                     <p className={textStyles["text-center"]}>{teacherError}</p>
                                                 ) :  (
                                                     <div style={{flexDirection:"column",display:"flex",gap:8,marginTop:8}}>{courseStages.map((item,index) => {
-                                                            return (
-                                                                <div className={styles["stages-container"]}>
-                                                                    <p style={{fontWeight:"bold",fontSize:15}}>{index+1} - {item.name}</p>
-                                                                    <p style={{fontSize:13}}>{item.description}</p>
-                                                                    <p style={{fontStyle:"italic",fontSize:14}}>{item.duration} dakika</p>
+                                                        const isOpen = openStages[index];
+                                                        return (
+                                                                <div className={styles["stages-container"]} key={index}>
+                                                                    <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
+                                                                        <p style={{fontSize:15,fontWeight:600}}>{index+1} - {item.name} <span style={{fontSize: 14,fontWeight:"normal" }}>{item.duration} dakika</span></p>
+                                                                        <div style={{display:"flex",gap:6}}>
+                                                                            {index !==0 && (
+                                                                                <div className={styles["show-button"]} style={{backgroundColor:"var(--orange-color-1)"}}>
+                                                                                    <img  src="/icon/lock.png" alt="lock"/>
+                                                                                </div>
+                                                                            )}
+                                                                            <div className={styles["show-button"]} onClick={() => toggleStagesMenu(index)}>
+                                                                                <img style={{ transform: isOpen ? 'rotate(90deg)' : 'rotate(-90deg)'}} src="/icon/arrow.png" alt="toggle"/>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    {isOpen && (
+                                                                        <div>
+                                                                            <p style={{ fontSize: 14 }}>{item.description}</p>
+                                                                            {index !==0 && (<p style={{ fontSize: 13,fontStyle:"italic",marginTop:4}}>Bu içeriği izleyebilmek için satın almalısınız</p>)}
+                                                                        </div>
+                                                                    )}
                                                                 </div>
                                                             );
                                                         })}
