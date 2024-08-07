@@ -17,8 +17,8 @@ public class CourseStages {
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     @JsonBackReference
     private Course course;
-
     private String name;
     private String description;
-    private Integer duration;
+    private Integer episode;
+    private Double duration;
 }

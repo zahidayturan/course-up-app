@@ -9,6 +9,8 @@ import NotFound from "./components/404";
 import Profile from "./components/profile/Profile";
 import Trainer from "./components/profile/Trainer";
 import CourseDetail from "./components/course/CourseDetail";
+import AllCategory from "./components/course/AllCategory";
+import OneCategory from "./components/course/OneCategory";
 
 function App() {
     return (
@@ -24,6 +26,8 @@ function App() {
                     <Route path="/profile/*" element={<Profile />} />
                     <Route path="/profile/trainer/*" element={<Trainer />} />
                     <Route path="/course/:id" element={<CourseDetail />} />
+                    <Route path="/category" element={<AllCategory/>} />
+                    <Route path="/category/:name" element={<OneCategory/>} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>

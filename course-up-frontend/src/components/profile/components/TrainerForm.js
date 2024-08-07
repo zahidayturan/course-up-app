@@ -137,8 +137,8 @@ const TrainerForm = () => {
                         <li>Bu sözleşme, tarafların tamamını bağlayıcı niteliktedir.</li>
                     </ul>
                     <form onSubmit={handleSubmit} style={{marginTop:16}}>
-                        <div style={{display:"flex",flexDirection:"row",width:"100%",gap:6}}>
-                            <input style={{width:24}}
+                        <div style={{display:"flex",flexDirection:"row",width:"100%",gap:6,alignItems:"center"}}>
+                            <input style={{width:22}}
                                    type="checkbox"
                                    id="form-check"
                                    name="form-check"

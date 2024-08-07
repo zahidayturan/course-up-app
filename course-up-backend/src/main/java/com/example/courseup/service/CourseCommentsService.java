@@ -4,6 +4,8 @@ import com.example.courseup.model.CourseComments;
 import com.example.courseup.model.DTO.CourseCommentsDTO;
 import com.example.courseup.repository.CourseCommentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,5 +40,14 @@ public class CourseCommentsService {
                 .map(CourseCommentsDTO::new)
                 .collect(Collectors.toList());
     }
+
+    public List<CourseCommentsDTO> getCourseCommentsWithPagination(Long courseId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        List<CourseComments> comments = courseCommentsRepository.findByCourseId(courseId, pageable);
+        return comments.stream()
+                .map(CourseCommentsDTO::new)
+                .collect(Collectors.toList());
+    }
+
 
 }

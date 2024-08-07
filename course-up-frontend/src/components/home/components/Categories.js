@@ -1,20 +1,19 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from '../css/Categories.module.css';
 import textStyles from '../../css/Text.module.css';
 import classNames from "classnames";
 import {Link} from "react-router-dom";
 
 const Categories = () => {
-    const categories = [
-        { name: "Tasarım", path: "/" },
-        { name: "Kişisel Gelişim", path: "/" },
-        { name: "Yazılım ve Bilişim Teknolojileri", path: "/" },
-        { name: "Fotoğrafçılık", path: "/" },
-        { name: "Müzik", path: "/" },
-        { name: "Dijital Pazarlama", path: "/" },
-        { name: "Girişimcilik", path: "/" },
-        { name: "Finans", path: "/" },
-    ];
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        fetch('/json/categories.json')
+            .then(response => response.json())
+            .then(data => setCategories(data))
+            .catch(error => console.error('Error fetching categories:', error));
+    }, []);
+
     return (
         <div className={styles["custom-row"]}>
             <div className={styles["category-names"]}>
@@ -23,7 +22,7 @@ const Categories = () => {
                         {category.name}
                     </Link>
                 ))}
-                <Link to={"/"} className={classNames(styles["text-button"],styles["all"])}>
+                <Link to={"/category"} className={classNames(styles["text-button"],styles["all"])}>
                     Tüm Kategoriler
                 </Link>
             </div>

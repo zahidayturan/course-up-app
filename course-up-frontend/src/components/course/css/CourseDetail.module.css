@@ -71,11 +71,40 @@
 .trainer-info{
     padding: 12px;
     background-color: var(--secondary-color-1);
-    border-radius: 12px;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     gap: 6px;
-    width: 35%;
+    min-width: 30%;
+    height: max-content;
+}
+
+.show-button{
+    height: 24px;
+    width: 24px;
+    background-color: var(--secondary-color-2);
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.show-button img {
+    width: 50%;
+}
+
+.stages-row{
+    width: 100%;
+}
+
+.all-comments{
+    width: calc(100% - 12px);
+}
+.stages-container{
+    background-color: var(--primary-color-1);
+    border-radius: 8px;
+    padding: 8px;
 }
 
 @media (max-width: 744px) {
@@ -108,7 +137,12 @@
         font-size: 14px;
     }
 
-    .trainer-info{
+    .trainer-info ,.stages-row{
         width: calc(100% - 24px);
     }
+
+    .mobile-reverse{
+        flex-direction: column-reverse;
+    }
+
 }

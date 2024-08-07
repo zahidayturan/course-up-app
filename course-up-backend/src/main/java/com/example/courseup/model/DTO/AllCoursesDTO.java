@@ -10,7 +10,9 @@ import java.math.RoundingMode;
 public class AllCoursesDTO {
     private Long id;
     private String name;
-    private String instructor;
+
+    private Long teacherId;
+    private String teacher;
     private String description;
     private String category;
     private String language;
@@ -29,7 +31,8 @@ public class AllCoursesDTO {
     public AllCoursesDTO(Course course, Integer students, Double rating, Integer reviews) {
         this.id = course.getId();
         this.name = course.getName();
-        this.instructor = course.getTeacher().getUser().getName() + " " + course.getTeacher().getUser().getSurname();
+        this.teacherId = course.getTeacher().getId();
+        this.teacher = course.getTeacher().getUser().getName() + " " + course.getTeacher().getUser().getSurname();
         this.description = course.getDescription();
         this.category = course.getCategory();
         this.language = course.getLanguage();

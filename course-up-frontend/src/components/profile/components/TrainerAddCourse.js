@@ -91,6 +91,26 @@ const TrainerAddCourse = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        if (!courseImage) {
+            alert("Lütfen kursun kapak resmini yükleyiniz.");
+            return;
+        }
+
+        for (let i = 0; i < sections.length; i++) {
+            const section = sections[i];
+            if (!section.videoFile) {
+                alert(`Lütfen ${i + 1}. bölümün videosunu yükleyiniz.`);
+                return;
+            }
+            for (let j = 0; j < section.subtitles.length; j++) {
+                const subtitle = section.subtitles[j];
+                if (!subtitle.file) {
+                    alert(`Lütfen ${i + 1}. bölüm için ${subtitle.language} altyazı dosyasını yükleyiniz.`);
+                    return;
+                }
+            }
+        }
+
         const formData = new FormData();
         formData.append('courseName', courseName);
         formData.append('courseDescription', courseDescription);
@@ -123,6 +143,10 @@ const TrainerAddCourse = () => {
     };
 
 
+    const totalPrice = (100 > courseDiscount > 0)
+        ? Number((Number(coursePrice) * (1 - courseDiscount / 100)).toFixed(2))
+        : Number(Number(coursePrice).toFixed(2));
+
     return (
         <div className={style["add-box"]}>
             <form onSubmit={handleSubmit}>
@@ -148,7 +172,7 @@ const TrainerAddCourse = () => {
                             <div className={style["image-input"]} style={{ backgroundImage: courseImage ? `url(${URL.createObjectURL(courseImage)})` : 'none' }}>
                                 {!courseImage && (<p style={{fontWeight:"normal",fontSize:15}}>Kursun<br /><span>kapak resmini </span><span style={{ color: "var(--orange-color-1)" }}>*</span><br />yükleyiniz.</p>)}
                                 <label className={style["custom-file-upload"]}>{courseImage ? "Kaldır" : "Resim Seç"}
-                                    <input type="file" accept="image/png, image/jpeg" id="course-img" onChange={handleFileChange} required/>
+                                    <input type="file" name="course-img" accept="image/png, image/jpeg" id="course-img" onChange={handleFileChange}/>
                                 </label>
                             </div>
                         </div>
@@ -186,11 +210,11 @@ const TrainerAddCourse = () => {
                         <div className={style["custom-row"]} style={{justifyContent:"start"}}>
                             <div className={style["title-and-input"]}>
                                 <p>Kursun Fiyatı (₺) <span style={{ color: "var(--orange-color-1)" }}>*</span></p>
-                                <input type="number" id="course-price" placeholder="Kursun fiyatını giriniz" value={coursePrice} onChange={(e) => setCoursePrice(e.target.value)} required/>
+                                <input type="number" id="course-price" placeholder="Kursun fiyatını giriniz" min={1} maxLength={9999} value={coursePrice} onChange={(e) => setCoursePrice(e.target.value)} required/>
                             </div>
                             <div className={style["title-and-input"]}>
                                 <p>İndirim Oranı (%)</p>
-                                <input type="number" id="course-discount" placeholder="İndirim oranını giriniz" value={courseDiscount} onChange={(e) => setCourseDiscount(e.target.value)}/>
+                                <input type="number" id="course-discount" placeholder="İndirim oranını giriniz" min={0} maxLength={100} value={courseDiscount} onChange={(e) => setCourseDiscount(e.target.value)}/>
                             </div>
                         </div>
                     </div>
@@ -218,7 +242,7 @@ const TrainerAddCourse = () => {
                                 <div className={style["episode-input"]}>
                                     <p style={{fontWeight:"normal",fontSize:14}}>{!sections[index].videoFile ?"Videoyu yükleyiniz" :"Videoyu yüklediniz"}</p>
                                     <label className={style["custom-file-upload"]}>{sections[index].videoFile ? "Kaldır" : "Video Seç"}
-                                        <input type="file" accept="video/mp4" onChange={(e) => handleSectionFileChange(index, e)} required/>
+                                        <input type="file" accept="video/mp4" onChange={(e) => handleSectionFileChange(index, e)}/>
                                     </label>
                                 </div>
                             </div>
@@ -229,22 +253,22 @@ const TrainerAddCourse = () => {
                             <div className={style["episode-input"]}>
                                 {!courseImage && (<p style={{fontWeight:"normal",fontSize:14}}>Altyazıyı yükleyiniz</p>)}
                                 <label className={style["custom-file-upload"]}>{courseImage ? "Kaldır" : "Dosya Seç"}
-                                    <input type="file" accept=".vtt"  onChange={(e) => handleSectionSubtitleFileChange(index, subtitleIndex, e)} required/>
+                                    <input type="file" accept=".vtt"  onChange={(e) => handleSectionSubtitleFileChange(index, subtitleIndex, e)}/>
                                 </label>
                             </div>
                         </div>
                         ))}
                     </div>
                 </div>))}
-                <button onClick={addSection} className={style["new-episode"]}>Yeni bölüm ekle</button>
+                <button type={"button"} onClick={addSection} className={style["new-episode"]}>Yeni bölüm ekle</button>
                 <div className={style["custom-row"]} style={{marginTop:32,alignItems:"end",gap:32,marginBottom:0}}>
                     <div className={style["info-box"]}>
                         <p>Hesaplanan<br/><span>Toplam Süre</span><br/><br/>0 dk</p>
-                        <p>Hesaplanan<br/><span>Fiyat</span><br/><br/>0 ₺</p>
+                        <p>Hesaplanan<br/><span>Fiyat</span><br/><br/>{totalPrice} ₺</p>
                     </div>
                     <div className={style["custom-column"]} style={{alignItems:"end"}}>
                         <p style={{fontWeight:"normal",fontSize:14,textAlign:"end"}}>Girdiğiniz bilgiler incelemeye alınacaktır. Eğitmen panelinden onayda olan kurslar bölümünde durumunu takip edebilirsiniz.</p>
-                        <button type="submit" className={style["form-button"]}>Onaya Gönder</button>
+                        <button type={"submit"} className={style["form-button"]}>Onaya Gönder</button>
                     </div>
 
                 </div>

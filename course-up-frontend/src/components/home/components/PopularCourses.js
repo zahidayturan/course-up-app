@@ -162,7 +162,7 @@ const PopularCourses = () => {
                                     <div className={styles["text-column"]}>
                                         <div>
                                             <p className={textStyles["font-bold"]} style={{ fontSize: 18 }}>{course.name}</p>
-                                            <p className={classNames(textStyles["font-italic"], textStyles["text-small"])}>Eğitmen: {course.instructor}</p>
+                                            <p className={classNames(textStyles["font-italic"], textStyles["text-small"])}>Eğitmen: {course.teacher}</p>
                                         </div>
                                         <p className={textStyles["text-small"]} style={{ textAlign: "justify" }}>{course.description}</p>
                                         <p className={textStyles["text-small"]}>{course.duration} Saat Eğitim Süresi - {course.students} öğrenci</p>
