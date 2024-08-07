@@ -8,7 +8,6 @@ import textStyles from "../css/Text.module.css";
 import Header from "../home/components/Header";
 import RatingStars from "./RatingStars";
 import CourseComments from "./CourseComments";
-import classNames from "classnames";
 
 const CourseDetail = () => {
     const { id } = useParams();
@@ -230,11 +229,14 @@ const CourseDetail = () => {
                                     )}
                                 </div>
                             </div>
-                            <h3 style={{marginTop:16}}>Kursun Yorumları</h3>
-                            <div className={styles["all-comments"]}>
-                                <CourseComments courseId={course.id}/>
-                            </div>
-
+                            {course && (
+                                <div>
+                                    <h3 style={{marginTop:16}}>Kursun Yorumları</h3>
+                                    <div className={styles["all-comments"]}>
+                                        <CourseComments courseId={course.id}/>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
                 )
