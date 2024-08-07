@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from "../home/components/Header";
 import { useNavigate } from "react-router-dom";
+import styles from "./css/AllCategory.module.css"
 
 const AllCategory = () => {
 
@@ -21,15 +22,19 @@ const AllCategory = () => {
     return (
         <div>
             <Header/>
-            <h2>Tüm Kategoriler</h2>
-            {categories.map((category) => (
-                <button key={category.path} onClick={() => handleCategoryClick(category.path)}>
-                    {category.name}
-                </button>
-            ))}
+            <h2 style={{marginTop:24}}>Tüm Kategoriler</h2>
+            <div className={styles["flex-box"]}>
+                {categories.map((category) => (
+                    <div className={styles["basic-category-box"]}>
+                        <button className={styles["category-button"]} key={category.path} onClick={() => handleCategoryClick(category.path)}>
+                            {category.name}
+                        </button>
+                    </div>
+                ))}
+            </div>
+
         </div>
     );
 };
 
 export default AllCategory;
-
