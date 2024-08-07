@@ -78,6 +78,21 @@
     width: 35%;
 }
 
+.show-button{
+    height: 24px;
+    width: 24px;
+    background-color: var(--secondary-color-2);
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.show-button img {
+    width: 50%;
+}
+
 @media (max-width: 744px) {
     .custom-row{
         flex-direction: column;

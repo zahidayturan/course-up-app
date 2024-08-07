@@ -56,13 +56,14 @@ public class TeacherService {
     public TeacherDTO getTeacherInfo(Long id) {
         return findById(id)
                 .map(teacher -> {
-                    Integer numberOfStudents = getNumberOfTeacherStudents(id);
+                    Integer numberOfCourses = getNumberOfTeacherCourses(id);
+                    int numberOfStudents = numberOfCourses > 0 ? getNumberOfTeacherStudents(id) : 0;
                     double rating = numberOfStudents > 0 ? getNumberOfTeacherRatings(id) : 0.0;
                     return new TeacherDTO(
                             teacher,
                             rating,
                             numberOfStudents,
-                            getNumberOfTeacherCourses(id)
+                            numberOfCourses
                     );
                 })
                 .orElse(null);

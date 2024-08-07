@@ -14,6 +14,10 @@ const CourseDetail = () => {
     const [courseError, setCourseError] = useState(null);
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
+    const [teacher, setTeacher] = useState(null);
+    const [teacherLoading, setTeacherLoading] = useState(false);
+    const [teacherError, setTeacherError] = useState(null);
+    const [isTeacherMenuOpen, setIsTeacherMenuOpen] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -41,7 +45,29 @@ const CourseDetail = () => {
         } else {
             console.log('No user data or course data found in localStorage');
         }
-    }, [id, navigate]);
+
+        if (isTeacherMenuOpen && !teacher && course.teacherId) {
+            fetchTeacherDetail(course.teacherId);
+        }
+    }, [id, navigate, isTeacherMenuOpen, teacher]);
+
+
+    const fetchTeacherDetail = async (teacherId) => {
+        try {
+            setTeacherLoading(true);
+            const response = await axios.get(`${Endpoints.TEACHER_DETAIL}/${teacherId}`);
+            setTeacher(response.data);
+            console.log("Teacher data set");
+        } catch (error) {
+            setTeacherError('Eğitmen yüklenirken bir hata oluştu');
+        } finally {
+            setTeacherLoading(false);
+        }
+    };
+
+    const toggleTeacherMenu = () => {
+        setIsTeacherMenuOpen(!isTeacherMenuOpen);
+    };
 
     return (
         <div>
@@ -100,10 +126,31 @@ const CourseDetail = () => {
                                     <p>{course.stage}</p>
                                 </div>
                                 <div className={styles["trainer-info"]}>
-                                    <p style={{fontWeight:"bold"}}>Eğitmen Hakkında</p>
-                                    <p style={{textAlign:"end",fontWeight:"bold"}}>{course.teacher.name} {course.teacher.surname}</p>
-                                    <p style={{textAlign:"end"}}>Eğitmen Açıklaması</p>
-                                    <p>Eğitmen İstatistikleri</p>
+                                    <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
+                                        <p style={{fontWeight:"bold"}}>Eğitmen Hakkında</p>
+                                        <div className={styles["show-button"]} onClick={toggleTeacherMenu}>
+                                            <img style={{ transform: isTeacherMenuOpen ? 'rotate(90deg)' : 'rotate(-90deg)'}} src="/icon/arrow.png" alt=""/>
+                                        </div>
+                                    </div>
+                                    {isTeacherMenuOpen && (
+                                        <div>
+                                            <p style={{textAlign:"end",fontWeight:"bold",fontSize:20}}>{course.teacher}</p>
+                                            <div>
+                                                {teacherLoading ? (
+                                                    <div className={mainStyles['loader']}>
+                                                        <div className={mainStyles['spinner']}></div>
+                                                    </div>
+                                                ) : teacherError ? (
+                                                    <p className={textStyles["text-center"]} style={{ padding: "14px 0", fontSize: 14 }}>{teacherError}</p>
+                                                ) : teacher && (
+                                                    <div style={{textAlign:"end"}}>
+                                                        <p>{teacher.description}</p>
+                                                        <p style={{fontWeight:600}}>{teacher.students} Öğrenci - {teacher.rating} Eğitmen Puanı - {teacher.courses} Kurs</p>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 
