@@ -48,10 +48,13 @@ public class CourseCommentController {
         return null;
     }
 
-    @Operation(summary = "Course comments by courseId")
+    @Operation(summary = "Course comments by courseId with pagination")
     @GetMapping("/all/{id}")
-    public List<CourseCommentsDTO> getAllCourseCommentsByCourseId(@PathVariable Long id) {
-        return courseCommentsService.getAllCourseCommentsByCourseId(id);
+    public List<CourseCommentsDTO> getAllCourseCommentsByCourseId(
+            @PathVariable Long id,
+            @RequestParam int page,
+            @RequestParam int size) {
+        return courseCommentsService.getCourseCommentsWithPagination(id, page, size);
     }
 
 }
