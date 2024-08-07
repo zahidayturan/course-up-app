@@ -8,6 +8,7 @@ import textStyles from "../css/Text.module.css";
 import Header from "../home/components/Header";
 import RatingStars from "./RatingStars";
 import CourseComments from "./CourseComments";
+import OneCategory from "./OneCategory";
 
 const CourseDetail = () => {
     const { id } = useParams();
@@ -32,7 +33,18 @@ const CourseDetail = () => {
 
     const [openStages, setOpenStages] = useState({});
 
+    const [categories, setCategories] = useState([]);
+    useEffect(() => {
+        fetch('/json/categories.json')
+            .then(response => response.json())
+            .then(data => setCategories(data))
+            .catch(error => console.error('Error fetching categories:', error));
+    }, []);
 
+    const handleCategoryClick = (name) => {
+        const category = categories.find(cat => cat.name === name);
+        navigate(category.path);
+    };
 
     useEffect(() => {
         const fetchCourseDetail = async (courseId) => {
@@ -128,7 +140,7 @@ const CourseDetail = () => {
                 ) : (
                     <div className={styles['course-box']}>
                         <div style={{ padding: 12 }}>
-                            <p style={{fontSize:15,marginBottom:12,textUnderlineOffset:4}}>Kurslar/<Link to={`/category`} style={{color:"var(--secondary-color-2)"}}>Kategoriler</Link>/<Link to={`/category/${course.category}`} style={{color:"var(--secondary-color-2)"}}>{course.category}</Link></p>
+                            <p style={{fontSize:15,marginBottom:12,textUnderlineOffset:4}}>Kurslar/<Link to={`/category`} style={{color:"var(--secondary-color-2)"}}>Kategoriler</Link>/<span onClick={() => handleCategoryClick(course.category)} style={{color:"var(--secondary-color-2)",fontWeight:"normal",textDecoration:"underline",cursor:"pointer"}}>{course.category}</span></p>
                             <div className={styles["custom-row"]}>
                                 <div style={{display:"flex",flexDirection:"row",gap:18,flexWrap:"wrap"}}>
                                     <img className={styles["course-img"]} src={course.image} alt={course.name} />

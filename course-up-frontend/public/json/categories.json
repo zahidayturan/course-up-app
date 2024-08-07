@@ -1,0 +1,10 @@
+[
+  { "name": "Tasarım", "path": "/category/design" },
+  { "name": "Kişisel Gelişim", "path": "/category/personal-development" },
+  { "name": "Yazılım ve Bilişim", "path": "/category/development" },
+  { "name": "Fotoğraf ve Video", "path": "/category/photography-and-video" },
+  { "name": "Müzik", "path": "/category/music" },
+  { "name": "Dijital Pazarlama", "path": "/category/digital-marketing" },
+  { "name": "Sağlık ve Fitness", "path": "/category/health-and-fitness" },
+  { "name": "Finans ve Muhasebe", "path": "/category/finance-and-accounting" }
+]
