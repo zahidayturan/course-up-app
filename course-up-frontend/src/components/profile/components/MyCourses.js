@@ -87,7 +87,7 @@ const MyCourses = () => {
                                                     <div className={styles["text-info"]}>
                                                         <div>
                                                             <p className={textStyles["font-bold"]}>{item.name}</p>
-                                                            <p className={classNames(textStyles["text-small"], textStyles["font-italic"])}>Eğitmen: {item.instructor}</p>
+                                                            <p className={classNames(textStyles["text-small"], textStyles["font-italic"])}>Eğitmen: {item.teacher}</p>
                                                         </div>
                                                         <p className={textStyles["text-small"]} style={{width:"100%"}}>{item.description}</p>
                                                         <div className={textStyles["text-small"]}>

@@ -2,6 +2,7 @@ package com.example.courseup.service;
 
 import com.example.courseup.model.Course;
 import com.example.courseup.model.DTO.AllCoursesDTO;
+import com.example.courseup.model.DTO.TeacherDTO;
 import com.example.courseup.model.Teacher;
 import com.example.courseup.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,34 @@ public class TeacherService {
                 })
                 .collect(Collectors.toList());
     }
+
+    public TeacherDTO getTeacherInfo(Long id) {
+        return findById(id)
+                .map(teacher -> {
+                    Integer numberOfStudents = getNumberOfTeacherStudents(id);
+                    double rating = numberOfStudents > 0 ? getNumberOfTeacherRatings(id) : 0.0;
+                    return new TeacherDTO(
+                            teacher,
+                            rating,
+                            numberOfStudents,
+                            getNumberOfTeacherCourses(id)
+                    );
+                })
+                .orElse(null);
+    }
+
+    public double getNumberOfTeacherRatings(Long id) {
+        Double rating = teacherRepository.findTeacherRating(id);
+        return rating != null ? rating : 0.0;
+    }
+
+    public Integer getNumberOfTeacherStudents(Long id) {
+        return teacherRepository.findNumberOfTeacherStudents(id);
+    }
+
+    public Integer getNumberOfTeacherCourses(Long id) {
+        return teacherRepository.findNumberOfTeacherCourses(id);
+    }
+
 
 }

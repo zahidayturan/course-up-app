@@ -40,7 +40,6 @@ const CourseDetail = () => {
             setUser(parsedUser);
         } else {
             console.log('No user data or course data found in localStorage');
-            setCourseError('Kurs yüklenirken bir hata oluştu');
         }
     }, [id, navigate]);
 
@@ -71,7 +70,7 @@ const CourseDetail = () => {
                                     <div className={styles["course-title"]}>
                                         <div>
                                             <h1>{course.name}</h1>
-                                            <p style={{height:19,fontStyle:"italic"}}>Eğitmen: {course.instructor}</p>
+                                            <p style={{height:19,fontStyle:"italic"}}>Eğitmen: {course.teacher}</p>
                                         </div>
                                         <div className={styles["course-info-box"]}>
                                             <div><span>{course.duration} Saat</span><p>Eğitim<br/>Süresi</p></div>
@@ -102,7 +101,7 @@ const CourseDetail = () => {
                                 </div>
                                 <div className={styles["trainer-info"]}>
                                     <p style={{fontWeight:"bold"}}>Eğitmen Hakkında</p>
-                                    <p style={{textAlign:"end",fontWeight:"bold"}}>{course.instructor}</p>
+                                    <p style={{textAlign:"end",fontWeight:"bold"}}>{course.teacher.name} {course.teacher.surname}</p>
                                     <p style={{textAlign:"end"}}>Eğitmen Açıklaması</p>
                                     <p>Eğitmen İstatistikleri</p>
                                 </div>
