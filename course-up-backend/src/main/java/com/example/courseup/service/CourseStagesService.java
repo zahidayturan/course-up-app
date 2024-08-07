@@ -42,4 +42,11 @@ public class CourseStagesService {
                 .collect(Collectors.toList());
     }
 
+    public List<CourseStagesDTO> getAllCourseStagesByCourseId(Long courseId) {
+        List<CourseStages> stages = courseStagesRepository.findByCourseId(courseId);
+        return stages.stream()
+                .map(CourseStagesDTO::new)
+                .collect(Collectors.toList());
+    }
+
 }

@@ -6,11 +6,17 @@ import lombok.Data;
 @Data
 public class CourseStagesDTO {
 
-    private CourseStages courseStages;
-    private CourseDTO course;
+    private Long id;
+    private String name;
+    private String description;
+    private Integer episodeNumber;
+    private Double duration;
 
     public CourseStagesDTO(CourseStages courseStages) {
-        this.courseStages = courseStages;
-        this.course = new CourseDTO(courseStages.getCourse());
+        this.id = courseStages.getId();
+        this.name = courseStages.getName();
+        this.description = courseStages.getDescription();
+        this.episodeNumber = courseStages.getEpisode();
+        this.duration = courseStages.getDuration();
     }
 }

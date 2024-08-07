@@ -42,9 +42,15 @@ public class CourseStagesController {
         courseStagesService.deleteById(id);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/all-stages")
     public List<CourseStagesDTO> getAllCourseStages() {
-        return courseStagesService.getAllCourseStages();
+        //return courseStagesService.getAllCourseStages();
+        return null;
+    }
+    @Operation(summary = "Get all course stage by CourseId")
+    @GetMapping("/all/{id}")
+    public List<CourseStagesDTO> getAllCourseStagesByCourseId(@PathVariable Long id) {
+        return courseStagesService.getAllCourseStagesByCourseId(id);
     }
 
 }
