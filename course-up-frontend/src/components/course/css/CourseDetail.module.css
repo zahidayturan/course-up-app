@@ -98,6 +98,9 @@
     width: 100%;
 }
 
+.all-comments{
+    width: calc(100% - 12px);
+}
 .stages-container{
     background-color: var(--primary-color-1);
     border-radius: 8px;
@@ -137,4 +140,9 @@
     .trainer-info ,.stages-row{
         width: calc(100% - 24px);
     }
+
+    .mobile-reverse{
+        flex-direction: column-reverse;
+    }
+
 }

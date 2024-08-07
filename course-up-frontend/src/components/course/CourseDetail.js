@@ -7,6 +7,8 @@ import mainStyles from "../css/Main.module.css";
 import textStyles from "../css/Text.module.css";
 import Header from "../home/components/Header";
 import RatingStars from "./RatingStars";
+import CourseComments from "./CourseComments";
+import classNames from "classnames";
 
 const CourseDetail = () => {
     const { id } = useParams();
@@ -172,7 +174,7 @@ const CourseDetail = () => {
                                                         const isOpen = openStages[index];
                                                         return (
                                                                 <div className={styles["stages-container"]} key={index}>
-                                                                    <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
+                                                                    <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between",alignItems:"center"}}>
                                                                         <p style={{fontSize:15,fontWeight:600}}>{index+1} - {item.name} <span style={{fontSize: 14,fontWeight:"normal" }}>{item.duration} dakika</span></p>
                                                                         <div style={{display:"flex",gap:6}}>
                                                                             {index !==0 && (
@@ -228,9 +230,11 @@ const CourseDetail = () => {
                                     )}
                                 </div>
                             </div>
-
-
                             <h3 style={{marginTop:16}}>Kursun Yorumları</h3>
+                            <div className={styles["all-comments"]}>
+                                <CourseComments courseId={course.id}/>
+                            </div>
+
                         </div>
                     </div>
                 )
