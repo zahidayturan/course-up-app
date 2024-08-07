@@ -71,11 +71,12 @@
 .trainer-info{
     padding: 12px;
     background-color: var(--secondary-color-1);
-    border-radius: 12px;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     gap: 6px;
-    width: 35%;
+    min-width: 30%;
+    height: max-content;
 }
 
 .show-button{
@@ -91,6 +92,16 @@
 
 .show-button img {
     width: 50%;
+}
+
+.stages-row{
+    width: 100%;
+}
+
+.stages-container{
+    background-color: var(--primary-color-1);
+    border-radius: 8px;
+    padding: 8px;
 }
 
 @media (max-width: 744px) {
@@ -125,5 +136,6 @@
 
     .trainer-info{
         width: calc(100% - 24px);
+        margin-top: 24px;
     }
 }

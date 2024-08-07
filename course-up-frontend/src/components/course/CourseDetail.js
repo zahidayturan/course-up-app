@@ -7,16 +7,26 @@ import mainStyles from "../css/Main.module.css";
 import textStyles from "../css/Text.module.css";
 import Header from "../home/components/Header";
 import RatingStars from "./RatingStars";
+import classNames from "classnames";
 
 const CourseDetail = () => {
     const { id } = useParams();
+
     const [course, setCourse] = useState(null);
     const [courseError, setCourseError] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const [courseStages, setCourseStages] = useState(null);
+    const [courseStagesLoading, setCourseStagesLoading] = useState(true);
+    const [courseStagesError, setCourseStagesError] = useState(null);
+
+
     const [user, setUser] = useState(null);
+
     const [teacher, setTeacher] = useState(null);
     const [teacherLoading, setTeacherLoading] = useState(false);
     const [teacherError, setTeacherError] = useState(null);
+
     const [isTeacherMenuOpen, setIsTeacherMenuOpen] = useState(false);
     const navigate = useNavigate();
 
@@ -26,6 +36,8 @@ const CourseDetail = () => {
                 const response = await axios.get(`${Endpoints.COURSE_DETAIL}/${courseId}`);
                 if (response.data) {
                     setCourse(response.data);
+                    console.log("Course detail set");
+                    await fetchCourseStages(id);
                 } else {
                     navigate('/home');
                 }
@@ -33,6 +45,20 @@ const CourseDetail = () => {
                 setCourseError('Kurs yüklenirken bir hata oluştu');
             } finally {
                 setLoading(false);
+            }
+        };
+
+        const fetchCourseStages = async (courseId) => {
+            try {
+                const response = await axios.get(`${Endpoints.COURSE_STAGES}/${courseId}`);
+                if (response.data) {
+                    setCourseStages(response.data);
+                    console.log("Course stages set");
+                }
+            } catch (error) {
+                setCourseStagesError('Kurs bölümleri yüklenirken bir hata oluştu');
+            } finally {
+                setCourseStagesLoading(false);
             }
         };
 
@@ -99,7 +125,7 @@ const CourseDetail = () => {
                                             <p style={{height:19,fontStyle:"italic"}}>Eğitmen: {course.teacher}</p>
                                         </div>
                                         <div className={styles["course-info-box"]}>
-                                            <div><span>{course.duration} Saat</span><p>Eğitim<br/>Süresi</p></div>
+                                            <div><span>{(course.duration/60).toFixed(2)} Saat</span><p>Eğitim<br/>Süresi</p></div>
                                             <div><span>{course.students}</span><p>Kayıtlı<br/>Öğrenci</p></div>
                                             <div><p style={{fontSize:12}}><span style={{fontSize:15}}>{course.rating} </span>({course.reviews} kişi)</p><p>Kurs Puanı</p><RatingStars rating={course.rating}/></div>
                                         </div>
@@ -120,10 +146,29 @@ const CourseDetail = () => {
                             </div>
                             <h3 style={{marginTop:16}}>Kurs Hakkında</h3>
                             <p>{course.description}</p>
-                            <div className={styles["custom-row"]} style={{marginTop:24}}>
-                                <div>
+                            <div className={styles["custom-row"]} style={{marginTop:24,width:"100%",gap:24}}>
+                                <div className={styles["stages-row"]} style={{backgroundColor:"var(--secondary-color-1)",borderRadius:8,padding:12}}>
                                     <h3>Kursun Bölümleri</h3>
-                                    <p>{course.stage}</p>
+                                    {courseStages && (
+                                            <div>
+                                                {courseStagesLoading ? (
+                                                    <div className={mainStyles['loader']}><div className={mainStyles['spinner']}></div></div>
+                                                ) : courseStagesError ? (
+                                                    <p className={textStyles["text-center"]}>{teacherError}</p>
+                                                ) :  (
+                                                    <div style={{flexDirection:"column",display:"flex",gap:8,marginTop:8}}>{courseStages.map((item,index) => {
+                                                            return (
+                                                                <div className={styles["stages-container"]}>
+                                                                    <p style={{fontWeight:"bold",fontSize:15}}>{index+1} - {item.name}</p>
+                                                                    <p style={{fontSize:13}}>{item.description}</p>
+                                                                    <p style={{fontStyle:"italic",fontSize:14}}>{item.duration} dakika</p>
+                                                                </div>
+                                                            );
+                                                        })}
+                                                    </div>
+                                                )}
+                                            </div>
+                                    )}
                                 </div>
                                 <div className={styles["trainer-info"]}>
                                     <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
