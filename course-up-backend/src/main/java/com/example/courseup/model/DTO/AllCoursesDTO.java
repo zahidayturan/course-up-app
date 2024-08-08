@@ -25,7 +25,7 @@ public class AllCoursesDTO {
     private Double originalPrice;
     private Double discount;
     private Double discountedPrice;
-    private String image;
+    private String imageId;
     private boolean isActive;
 
     public AllCoursesDTO(Course course, Integer students, Double rating, Integer reviews) {
@@ -45,7 +45,7 @@ public class AllCoursesDTO {
         this.originalPrice = course.getPrice();
         this.discount = course.getDiscount();
         this.discountedPrice = calculateDiscountedPrice(course.getPrice(), course.getDiscount());
-        this.image = course.getImage();
+        this.imageId = course.getImageId();
         this.isActive = course.getIs_active();
     }
 

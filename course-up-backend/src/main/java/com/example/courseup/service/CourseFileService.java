@@ -1,7 +1,6 @@
 package com.example.courseup.service;
 
 import com.example.courseup.model.CourseFileI;
-import com.example.courseup.repository.CourseFileIRepository;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.FileContent;
 import com.google.api.client.http.HttpRequestInitializer;
@@ -27,29 +26,6 @@ import java.util.Optional;
 
 @Service
 public class CourseFileService {
-
-    @Autowired
-    private CourseFileIRepository courseFileIRepository;
-
-    public List<CourseFileI> findAll() {
-        return courseFileIRepository.findAll();
-    }
-
-    public Optional<CourseFileI> findById(Long id) {
-        return courseFileIRepository.findById(id);
-    }
-
-
-    public CourseFileI save(CourseFileI courseFileI) {
-        return courseFileIRepository.save(courseFileI);
-    }
-
-    public void deleteById(Long id) {
-        courseFileIRepository.deleteById(id);
-    }
-
-
-
     @Value("${google.drive.folder_id}")
     private String driveFolderId;
 
@@ -101,7 +77,7 @@ public class CourseFileService {
             fileMetaData.setName(file.getName());
             fileMetaData.setParents(Collections.singletonList(driveFolderId));
 
-            FileContent mediaContent = new FileContent("image/jpeg", file);
+            FileContent mediaContent = new FileContent("image/jpeg, image/png", file);
 
             com.google.api.services.drive.model.File uploadedFile = drive.files()
                     .create(fileMetaData, mediaContent)
@@ -112,12 +88,48 @@ public class CourseFileService {
             System.out.println(imageUrl);
 
             courseFileI.setId(uploadedFile.getId());
-            save(courseFileI);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
         return courseFileI;
+    }
+
+    public CourseFileI updateImageOnDrive(String fileId, File newFile) {
+        try {
+            Drive drive = createDriveService();
+
+            com.google.api.services.drive.model.File fileMetaData = new com.google.api.services.drive.model.File();
+            fileMetaData.setName(newFile.getName());
+
+            FileContent mediaContent = new FileContent("image/jpeg, image/png", newFile);
+
+            com.google.api.services.drive.model.File updatedFile = drive.files()
+                    .update(fileId, fileMetaData, mediaContent)
+                    .setFields("id")
+                    .execute();
+
+            String imageUrl = "https://drive.google.com/uc?export=view&id=" + updatedFile.getId();
+            System.out.println("Updated Image URL: " + imageUrl);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void deleteFileFromDrive(String fileId) throws IOException, GeneralSecurityException {
+        Drive drive = createDriveService();
+        drive.files().delete(fileId).execute();
+    }
+
+    public String getFileUrlById(String fileId) throws IOException, GeneralSecurityException {
+        Drive drive = createDriveService();
+        com.google.api.services.drive.model.File file = drive.files().get(fileId)
+                .setFields("webViewLink")
+                .execute();
+        return file.getWebViewLink();
     }
 
     private Drive createDriveService() throws GeneralSecurityException, IOException {

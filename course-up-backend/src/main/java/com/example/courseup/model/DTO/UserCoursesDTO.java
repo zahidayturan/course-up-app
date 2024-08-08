@@ -24,7 +24,7 @@ public class UserCoursesDTO {
     private String description;
     private Integer duration;
     private Integer stage;
-    private String image;
+    private String imageId;
 
     public UserCoursesDTO(Course course, Trainee trainee) {
         this.id = trainee.getId();
@@ -39,7 +39,7 @@ public class UserCoursesDTO {
         this.description = course.getDescription();
         this.duration = course.getTotalDuration();
         this.stage = course.getTotalStages();
-        this.image = course.getImage();
+        this.imageId = course.getImageId();
     }
 
 }
