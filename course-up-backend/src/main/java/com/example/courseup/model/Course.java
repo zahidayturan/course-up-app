@@ -31,7 +31,9 @@ public class Course {
     private String subtitles;
     private Integer totalStages;
     private Integer totalDuration;
+
     private String image;
+
     private Boolean is_active;
 
 

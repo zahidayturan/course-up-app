@@ -1,6 +1,7 @@
 package com.example.courseup.service;
 
-import com.example.courseup.model.CourseFile;
+import com.example.courseup.model.CourseFileI;
+import com.example.courseup.repository.CourseFileIRepository;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.FileContent;
 import com.google.api.client.http.HttpRequestInitializer;
@@ -11,6 +12,7 @@ import com.google.api.services.drive.DriveScopes;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.GoogleCredentials;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +22,33 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CourseFileService {
+
+    @Autowired
+    private CourseFileIRepository courseFileIRepository;
+
+    public List<CourseFileI> findAll() {
+        return courseFileIRepository.findAll();
+    }
+
+    public Optional<CourseFileI> findById(Long id) {
+        return courseFileIRepository.findById(id);
+    }
+
+
+    public CourseFileI save(CourseFileI courseFileI) {
+        return courseFileIRepository.save(courseFileI);
+    }
+
+    public void deleteById(Long id) {
+        courseFileIRepository.deleteById(id);
+    }
+
+
 
     @Value("${google.drive.folder_id}")
     private String driveFolderId;
@@ -66,8 +92,8 @@ public class CourseFileService {
     }
 
 
-    public CourseFile uploadImageToDrive(File file) {
-        CourseFile courseFile = new CourseFile();
+    public CourseFileI uploadImageToDrive(File file) {
+        CourseFileI courseFileI = new CourseFileI();
         try {
             Drive drive = createDriveService();
 
@@ -83,19 +109,15 @@ public class CourseFileService {
                     .execute();
 
             String imageUrl = "https://drive.google.com/uc?export=view&id=" + uploadedFile.getId();
-            System.out.println("IMAGE URL: " + imageUrl);
+            System.out.println(imageUrl);
 
-            file.delete();
+            courseFileI.setId(uploadedFile.getId());
+            save(courseFileI);
 
-            courseFile.setStatus(200);
-            courseFile.setMessage("Image Successfully Uploaded To Drive");
-            courseFile.setUrl(imageUrl);
         } catch (Exception e) {
             e.printStackTrace();
-            courseFile.setStatus(500);
-            courseFile.setMessage("Failed to upload image to Drive: " + e.getMessage());
         }
-        return courseFile;
+        return courseFileI;
     }
 
     private Drive createDriveService() throws GeneralSecurityException, IOException {
