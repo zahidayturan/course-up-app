@@ -14,12 +14,12 @@ const Register = () => {
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
     const [isEmailValid, setIsEmailValid] = useState(false);
     const [loading, setLoading] = useState(false);
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-    const [confirmPassword, setConfirmPassword] = useState('');
 
     const navigate = useNavigate();
 
@@ -28,7 +28,6 @@ const Register = () => {
         setLoading(true);
         try {
             const response = await axios.get(`${Endpoints.CHECK_EMAIL}/${email}`);
-
             if (response.status === 200) {
                 setIsEmailValid(true);
                 setMessage('');
@@ -54,6 +53,7 @@ const Register = () => {
         }
         setLoading(true);
         try {
+            console.log(password);
             const response = await axios.post(Endpoints.REGISTER, {
                 name,
                 surname,
@@ -89,6 +89,7 @@ const Register = () => {
         setName('');
         setSurname('');
         setPassword('');
+        setConfirmPassword('');
         setMessage('');
     };
 
@@ -107,9 +108,9 @@ const Register = () => {
 
                     {!formSubmitted && !isEmailValid ? (
                         <form className={styles['registration-form']} onSubmit={handleEmailSubmit}>
-                            <label htmlFor="email"></label>
+                            <label htmlFor="email" className="visually-hidden">E-Posta</label>
                             <input
-                                type="text"
+                                type="email"
                                 id="email"
                                 name="email"
                                 value={email}
@@ -117,6 +118,7 @@ const Register = () => {
                                 placeholder="E-Posta adresiniz"
                                 required
                                 className={styles['input']}
+                                style={{fontSize:16}}
                                 autoComplete="email"
                             />
                             <p></p>
@@ -128,18 +130,18 @@ const Register = () => {
                     ) : !formSubmitted ? (
                         <form className={styles['registration-form']} onSubmit={handleRegisterSubmit}>
                             <p className={classNames(styles['go-back'], textStyles['text-underline'])} onClick={handleGoBack}>Geri Dön</p>
-                            <label htmlFor="email"></label>
                             <input
-                                type="text"
+                                type="email"
                                 id="email"
                                 name="email"
                                 value={email}
                                 readOnly
                                 placeholder="E-Posta adresiniz"
                                 className={classNames(styles['input'], styles['readOnly'])}
+                                autoComplete={"email"}
+                                style={{fontSize:16}}
                                 required
                             />
-                            <label htmlFor="name"></label>
                             <input
                                 type="text"
                                 id="name"
@@ -149,9 +151,10 @@ const Register = () => {
                                 placeholder="Adınız"
                                 minLength={2}
                                 className={styles['input']}
+                                autoComplete={"username"}
+                                style={{fontSize:16}}
                                 required
                             />
-                            <label htmlFor="surname"></label>
                             <input
                                 type="text"
                                 id="surname"
@@ -161,9 +164,10 @@ const Register = () => {
                                 placeholder="Soyadınız"
                                 minLength={2}
                                 className={styles['input']}
+                                autoComplete={"username"}
+                                style={{fontSize:16}}
                                 required
                             />
-                            <label htmlFor="password"></label>
                             <div className={styles['input-and-icon']}>
                                 <input
                                     type={showPassword ? "text" : "password"}
@@ -175,10 +179,11 @@ const Register = () => {
                                     minLength={4}
                                     required
                                     className={styles['input']}
+                                    style={{fontSize:16}}
+                                    autoComplete="new-password"
                                 />
-                                <p onClick={(e) => setShowPassword(!showPassword)} className={styles['toggle-password']}>{showPassword ? "gizle" : "göster"}</p>
+                                <p onClick={() => setShowPassword(!showPassword)} className={styles['toggle-password']}>{showPassword ? "gizle" : "göster"}</p>
                             </div>
-                            <label htmlFor="confirmPassword"></label>
                             <input
                                 type={showPassword ? "text" : "password"}
                                 id="confirmPassword"
@@ -189,6 +194,8 @@ const Register = () => {
                                 minLength={4}
                                 required
                                 className={styles['input']}
+                                style={{fontSize:16}}
+                                autoComplete="new-password"
                             />
                             <p></p>
                             <button type="submit" className={styles['button']}>
