@@ -14,7 +14,7 @@ public class CourseCommentsDTO {
     public CourseCommentsDTO(CourseComments courseComments) {
         this.id = courseComments.getId();
         this.courseId = courseComments.getCourse().getId();
-        this.owner = courseComments.getTrainee().getStudent().getUser().getName() +" "+courseComments.getTrainee().getStudent().getUser().getSurname();
+        this.owner = courseComments.getTrainee().getUser().getName() +" "+courseComments.getTrainee().getUser().getSurname();
         this.comments = courseComments.getComments();
         this.rating = courseComments.getTrainee().getCoursePoint();
     }

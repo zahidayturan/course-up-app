@@ -21,4 +21,5 @@ public class CourseStages {
     private String description;
     private Integer episode;
     private Double duration;
+    private String videoId;
 }

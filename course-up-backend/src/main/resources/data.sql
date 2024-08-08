@@ -6,12 +6,6 @@ INSERT INTO "user" (name, surname, email, password, joining_date) VALUES
 ('Bob', 'Brown', 'bob@example.com', '$2a$10$h.m5v59FONvSx/WtZg93rerEsWHfjVlWYRZJfxMhk52zih4J6FiYe', '2023-04-01'),
 ('Charlie', 'Davis', 'charlie@example.com', '$2a$10$h.m5v59FONvSx/WtZg93rerEsWHfjVlWYRZJfxMhk52zih4J6FiYe', '2023-05-01');
 
--- Students
-INSERT INTO student (user_id) VALUES
-(1),
-(2),
-(3);
-
 -- Teachers
 INSERT INTO teacher (user_id, description) VALUES
 (4, 'Experienced Math Teacher'),
@@ -31,7 +25,7 @@ INSERT INTO course_stages (course_id, name, description, duration) VALUES
 (2, 'Dynamics', 'Introduction to dynamics', 5);
 
 -- Trainees
-INSERT INTO trainee (student_id, course_id, current_duration, current_stages, course_point, is_finished) VALUES
+INSERT INTO trainee (user_id, course_id, current_duration, current_stages, course_point, is_finished) VALUES
 (1, 1, 20, 3, 95, true),
 (2, 2, 4, 1, 101, false),
 (3, 1, 10, 2, 101, false);

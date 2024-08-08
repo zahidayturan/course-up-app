@@ -18,9 +18,9 @@ public class Trainee {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonIgnore
-    private Student student;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "id")

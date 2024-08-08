@@ -9,10 +9,10 @@ import java.util.List;
 
 public interface TraineeRepository extends JpaRepository<Trainee, Long> {
 
-    @Query("SELECT t FROM Trainee t WHERE t.student.user.id = :userId")
+    @Query("SELECT t FROM Trainee t WHERE t.user.id = :userId")
     List<Trainee> findTraineeByUserId(@Param("userId") Long userId);
 
-    @Query("SELECT t FROM Trainee t JOIN t.student s WHERE t.isFinished = false AND s.user.id = :userId")
+    @Query("SELECT t FROM Trainee t JOIN t.user u WHERE t.isFinished = false AND u.id = :userId")
     List<Trainee> findActiveTraineeByUserId(@Param("userId") Long userId);
 
 

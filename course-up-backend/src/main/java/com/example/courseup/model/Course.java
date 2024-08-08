@@ -1,12 +1,10 @@
 package com.example.courseup.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import java.util.List;
 
 @Entity
 @Data
@@ -26,23 +24,12 @@ public class Course {
     private String category;
     private Double price;
     private Double discount;
-    private String level;
     private String language;
     private String subtitles;
     private Integer totalStages;
     private Integer totalDuration;
 
-    private String image;
+    private String imageId;
 
     private Boolean is_active;
-
-
-    @OneToMany(mappedBy = "course")
-    @JsonManagedReference
-    private List<CourseStages> courseStages;
-
-    @OneToMany(mappedBy = "course")
-    @JsonIgnore
-    private List<CourseComments> courseComments;
-
 }

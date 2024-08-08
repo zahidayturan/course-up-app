@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
-    @Query("SELECT c FROM Course c JOIN Trainee t ON c.id = t.course.id JOIN Student s ON t.student.id = s.id WHERE s.user.id = :userId")
+    @Query("SELECT c FROM Course c JOIN Trainee t ON c.id = t.course.id JOIN User u ON t.user.id = u.id WHERE u.id = :userId")
     List<Course> findCoursesByUserId(@Param("userId") Long userId);
 
     @Query("SELECT c FROM Course c WHERE c.category = :categoryName")
@@ -19,8 +19,9 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     @Query("SELECT t.course.id FROM Trainee t GROUP BY t.course.id ORDER BY COUNT(t.course.id) DESC")
     List<Long> findTopCourseIdsByPopularity(Pageable pageable);
 
-    @Query("SELECT DISTINCT c FROM Course c LEFT JOIN FETCH c.courseStages WHERE c.is_active = true AND c.id IN :ids")
+    @Query("SELECT DISTINCT c FROM Course c WHERE c.is_active = true AND c.id IN :ids")
     List<Course> findCoursesWithStagesByIds(@Param("ids") List<Long> ids);
+
 
     @Query("SELECT COUNT(t) FROM Trainee t WHERE t.course.id = :courseId")
     Integer findNumberOfCourseStudents(@Param("courseId") Long courseId);

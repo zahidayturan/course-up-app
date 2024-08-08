@@ -158,7 +158,13 @@ const PopularCourses = () => {
                                             <span className={textStyles["font-bold"]}>% {course.discount}</span> indirim
                                         </div>
                                     )}
-                                    <img className={styles["course-img"]} src={course.image} alt={course.name} />
+                                    {course.image ?
+                                        (<img className={styles["course-img"]} src={course.image} alt={course.name} />) :
+                                        (<div style={{height:200}}>
+
+                                        </div>)
+                                    }
+
                                     <div className={styles["text-column"]}>
                                         <div>
                                             <p className={textStyles["font-bold"]} style={{ fontSize: 18 }}>{course.name}</p>

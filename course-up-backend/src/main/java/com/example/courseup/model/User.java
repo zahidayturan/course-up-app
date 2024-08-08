@@ -18,11 +18,7 @@ public class User {
     private Long id;
     private String name;
     private String surname;
-
-    @JsonIgnore
     private String email;
-
-    @JsonIgnore
     private String password;
 
     @Column(name = "joining_date")
@@ -37,14 +33,14 @@ public class User {
 
     @OneToOne(mappedBy = "user")
     @JsonIgnore
-    private Student student;
-
-    @OneToOne(mappedBy = "user")
-    @JsonIgnore
     private Teacher teacher;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Basket> baskets;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Trainee> trainee;
 }
 
