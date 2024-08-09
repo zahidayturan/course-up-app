@@ -17,7 +17,8 @@ const Endpoints = {
     COURSE_DETAIL: `${API_BASE_URL}/course`,
     COURSE_STAGES: `${API_BASE_URL}/course-stages/all`,
     COURSE_COMMENTS: `${API_BASE_URL}/course-comments/all`,
-    TEACHER_DETAIL: `${API_BASE_URL}/teacher/get`
+    TEACHER_DETAIL: `${API_BASE_URL}/teacher/get`,
+    COURSE_IMAGE: `${API_BASE_URL}/course-files`,
 };
 
 export default Endpoints;

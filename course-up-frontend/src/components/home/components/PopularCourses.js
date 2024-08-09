@@ -15,7 +15,7 @@ const PopularCourses = () => {
     const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const scrollSpeed = 3; // Kaydırma hızını buradan ayarlayabilirsiniz
+    const scrollSpeed = 3;
 
     useEffect(() => {
         const fetchCourses = async () => {
@@ -158,13 +158,7 @@ const PopularCourses = () => {
                                             <span className={textStyles["font-bold"]}>% {course.discount}</span> indirim
                                         </div>
                                     )}
-                                    {course.image ?
-                                        (<img className={styles["course-img"]} src={course.image} alt={course.name} />) :
-                                        (<div style={{height:200}}>
-
-                                        </div>)
-                                    }
-
+                                    <ImageDisplay fileId={course.imageId} />
                                     <div className={styles["text-column"]}>
                                         <div>
                                             <p className={textStyles["font-bold"]} style={{ fontSize: 18 }}>{course.name}</p>
@@ -206,3 +200,31 @@ const PopularCourses = () => {
 };
 
 export default PopularCourses;
+
+
+const ImageDisplay = ({ fileId }) => {
+    const [imageUrl, setImageUrl] = useState('');
+
+    useEffect(() => {
+        const fetchImage = async () => {
+            try {
+                const response = await axios.get(`${Endpoints.COURSE_IMAGE}/${fileId}`, { responseType: 'blob' });
+                const imageBlob = response.data;
+                const imageUrl = URL.createObjectURL(imageBlob);
+                console.log(imageUrl);
+                setImageUrl(imageUrl);
+            } catch (error) {
+                console.error("Error fetching image:", error);
+            }
+        };
+
+        fetchImage();
+    }, [fileId]);
+
+    return (
+        <div style={{width:"100%"}}>
+            {imageUrl ? (<img className={styles["course-img"]} src={imageUrl} alt="Course" />) : (<img style={{objectFit:"contain"}} className={styles["course-img"]} src="/logo/courseup-l-v1.png" alt="Course" />)}
+        </div>
+    );
+};
+

@@ -11,18 +11,18 @@ import com.google.api.services.drive.DriveScopes;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.GoogleCredentials;
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.core.io.ByteArrayResource;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import org.springframework.core.io.Resource;
 
 @Service
 public class CourseFileService {
@@ -138,6 +138,16 @@ public class CourseFileService {
                 GoogleNetHttpTransport.newTrustedTransport(),
                 JSON_FACTORY,
                 requestInitializer
-        ).build();
+        ).setApplicationName("CourseUpApp").build();
+    }
+
+    public Resource downloadFileFromDrive(String fileId) throws IOException, GeneralSecurityException {
+        Drive drive = createDriveService();
+        com.google.api.services.drive.model.File file = drive.files().get(fileId).execute();
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        drive.files().get(fileId).executeMediaAndDownloadTo(outputStream);
+
+        return new ByteArrayResource(outputStream.toByteArray());
     }
 }
