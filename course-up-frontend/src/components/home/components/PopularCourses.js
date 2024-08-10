@@ -118,6 +118,8 @@ const PopularCourses = () => {
         };
     }, []);
 
+    const bName = process.env.REACT_APP_S3_BUCKET_NAME;
+
     return (
         <div>
             <div className={styles["mobile-title-and-row"]}>
@@ -158,7 +160,9 @@ const PopularCourses = () => {
                                             <span className={textStyles["font-bold"]}>% {course.discount}</span> indirim
                                         </div>
                                     )}
-                                    <ImageDisplay fileId={course.imageId} />
+                                    <div style={{width:"100%"}}>
+                                        {course.imageId ? (<img className={styles["course-img"]} src={`https://${bName}.s3.amazonaws.com/${course.imageId}`} alt="Course" />) : (<img style={{objectFit:"contain"}} className={styles["course-img"]} src="/logo/courseup-l-v1.png" alt="Course" />)}
+                                    </div>
                                     <div className={styles["text-column"]}>
                                         <div>
                                             <p className={textStyles["font-bold"]} style={{ fontSize: 18 }}>{course.name}</p>
@@ -200,31 +204,3 @@ const PopularCourses = () => {
 };
 
 export default PopularCourses;
-
-
-const ImageDisplay = ({ fileId }) => {
-    const [imageUrl, setImageUrl] = useState('');
-
-    useEffect(() => {
-        const fetchImage = async () => {
-            try {
-                const response = await axios.get(`${Endpoints.COURSE_IMAGE}/${fileId}`, { responseType: 'blob' });
-                const imageBlob = response.data;
-                const imageUrl = URL.createObjectURL(imageBlob);
-                console.log(imageUrl);
-                setImageUrl(imageUrl);
-            } catch (error) {
-                console.error("Error fetching image:", error);
-            }
-        };
-
-        fetchImage();
-    }, [fileId]);
-
-    return (
-        <div style={{width:"100%"}}>
-            {imageUrl ? (<img className={styles["course-img"]} src={imageUrl} alt="Course" />) : (<img style={{objectFit:"contain"}} className={styles["course-img"]} src="/logo/courseup-l-v1.png" alt="Course" />)}
-        </div>
-    );
-};
-

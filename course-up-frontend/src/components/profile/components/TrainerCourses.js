@@ -39,9 +39,11 @@ const TrainerCourses = () => {
         }
     }, []);
 
+    const bName = process.env.REACT_APP_S3_BUCKET_NAME;
+
     const CourseCard = ({ item }) => (
         <div className={classNames(styles["course-container"],styles["custom-row"])} style={{height:"100%",alignItems:"center"}}>
-            <img className={styles["course-img"]} src={item.image} alt={item.name} />
+            {item.imageId ? (<img className={styles["course-img"]} src={`https://${bName}.s3.amazonaws.com/${item.imageId}`} alt={item.name} />) : (<img style={{objectFit:"contain"}} className={styles["course-img"]} src="/logo/courseup-l-v1.png" alt="Course" />)}
             <div className={styles["custom-column"]}>
                 <div style={{ display: "flex", flexDirection: "column" }}>
                     <p className={textStyles["font-bold"]}>{item.name}</p>

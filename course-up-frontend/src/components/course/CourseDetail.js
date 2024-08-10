@@ -120,6 +120,8 @@ const CourseDetail = () => {
         }));
     };
 
+    const bName = process.env.REACT_APP_S3_BUCKET_NAME;
+
     return (
         <div>
             <Header />
@@ -143,7 +145,7 @@ const CourseDetail = () => {
                             <p style={{fontSize:15,marginBottom:12,textUnderlineOffset:4}}>Kurslar/<Link to={`/category`} style={{color:"var(--secondary-color-2)"}}>Kategoriler</Link>/<span onClick={() => handleCategoryClick(course.category)} style={{color:"var(--secondary-color-2)",fontWeight:"normal",textDecoration:"underline",cursor:"pointer"}}>{course.category}</span></p>
                             <div className={styles["custom-row"]}>
                                 <div style={{display:"flex",flexDirection:"row",gap:18,flexWrap:"wrap"}}>
-                                    <img className={styles["course-img"]} src={course.image} alt={course.name} />
+                                    {course.imageId ? (<img className={styles["course-img"]} src={`https://${bName}.s3.amazonaws.com/${course.imageId}`} alt={course.name} />) : (<img style={{objectFit:"contain"}} className={styles["course-img"]} src="/logo/courseup-l-v1.png" alt="Course" />)}
                                     <div className={styles["course-title"]}>
                                         <div>
                                             <h1>{course.name}</h1>
