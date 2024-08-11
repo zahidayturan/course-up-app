@@ -12,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -23,9 +25,18 @@ public class S3Service {
     @Autowired
     private AmazonS3 s3Client;
 
+    private static final Map<String, String> MIME_TYPE_TO_EXTENSION = new HashMap<>();
 
+    static {
+        MIME_TYPE_TO_EXTENSION.put("image/jpeg", ".jpg");
+        MIME_TYPE_TO_EXTENSION.put("image/png", ".png");
+        MIME_TYPE_TO_EXTENSION.put("video/mp4", ".mp4");
+        MIME_TYPE_TO_EXTENSION.put("application/pdf", ".pdf");
+    }
     public String uploadFile(MultipartFile file) throws IOException {
-        String key = UUID.randomUUID() + "_" + LocalDate.now();
+        String mimeType = file.getContentType();
+        String extension = MIME_TYPE_TO_EXTENSION.getOrDefault(mimeType, ".bin");
+        String key = UUID.randomUUID() + "_" + LocalDate.now() + extension;
 
         s3Client.putObject(new PutObjectRequest(bucketName, key, file.getInputStream(), null));
 

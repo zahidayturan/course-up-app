@@ -14,11 +14,15 @@ const Endpoints = {
     POPULAR_COURSES: `${API_BASE_URL}/api/json/popular-courses`,
     TEACHER_SAVE: `${API_BASE_URL}/teacher`,
     TEACHER_COURSES: `${API_BASE_URL}/teacher/courses`,
+    TEACHER_ID: `${API_BASE_URL}/teacher/courses`,
     COURSE_DETAIL: `${API_BASE_URL}/course`,
     COURSE_STAGES: `${API_BASE_URL}/course-stages/all`,
     COURSE_COMMENTS: `${API_BASE_URL}/course-comments/all`,
     TEACHER_DETAIL: `${API_BASE_URL}/teacher/get`,
-    COURSE_IMAGE: `${API_BASE_URL}/course-files`,
+    COURSE_FILE_UPLOAD: `${API_BASE_URL}/course-files/upload`,
+    COURSE_SAVE: `${API_BASE_URL}/course/save`,
+    COURSE_STAGE_SAVE: `${API_BASE_URL}/course-stages/save`
+
 };
 
 export default Endpoints;

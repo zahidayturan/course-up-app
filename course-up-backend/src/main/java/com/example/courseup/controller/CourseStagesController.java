@@ -1,13 +1,18 @@
 package com.example.courseup.controller;
 
+import com.example.courseup.model.Course;
 import com.example.courseup.model.CourseStages;
 import com.example.courseup.model.DTO.CourseStagesDTO;
+import com.example.courseup.model.Teacher;
+import com.example.courseup.service.CourseService;
 import com.example.courseup.service.CourseStagesService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -16,6 +21,9 @@ public class CourseStagesController {
 
     @Autowired
     private CourseStagesService courseStagesService;
+
+    @Autowired
+    private CourseService courseService;
 
     @Operation(summary = "Get all course stages")
     @GetMapping
@@ -30,9 +38,34 @@ public class CourseStagesController {
     }
 
     @Operation(summary = "Save a new course stage")
-    @PostMapping
-    public CourseStages save(@RequestBody CourseStages courseStages) {
-        return courseStagesService.save(courseStages);
+    @PostMapping("/save")
+    public ResponseEntity<String> save(@RequestParam Map<String, String> params) {
+        System.out.println(params);
+        CourseStages courseStage = new CourseStages();
+        courseStage.setName(params.get("title"));
+        courseStage.setDescription(params.get("description"));
+        courseStage.setVideoId(params.get("videoId"));
+
+        try {
+            courseStage.setDuration(Double.valueOf(params.get("duration")));
+            courseStage.setEpisode(Integer.valueOf(params.get("episode")));
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().body("Invalid duration or episode value.");
+        }
+
+        long courseId;
+        try {
+            courseId = Long.parseLong(params.get("courseId"));
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().body("Invalid courseId value.");
+        }
+
+        Course course = courseService.findById(courseId)
+                .orElseThrow(() -> new RuntimeException("Course not found."));
+        courseStage.setCourse(course);
+
+        String courseStageId = courseStagesService.save(courseStage).getId().toString();
+        return ResponseEntity.ok(courseStageId);
     }
 
     @Operation(summary = "Delete course stage by ID")
