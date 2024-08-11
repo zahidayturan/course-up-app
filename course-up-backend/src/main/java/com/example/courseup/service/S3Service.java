@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Service
@@ -24,7 +25,7 @@ public class S3Service {
 
 
     public String uploadFile(MultipartFile file) throws IOException {
-        String key = UUID.randomUUID() + "_" + file.getOriginalFilename();
+        String key = UUID.randomUUID() + "_" + LocalDate.now();
 
         s3Client.putObject(new PutObjectRequest(bucketName, key, file.getInputStream(), null));
 

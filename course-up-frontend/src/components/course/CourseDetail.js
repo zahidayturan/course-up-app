@@ -68,8 +68,9 @@ const CourseDetail = () => {
             try {
                 const response = await axios.get(`${Endpoints.COURSE_STAGES}/${courseId}`);
                 if (response.data) {
-                    const sortedStages = response.data.sort((a, b) => a.episode - b.episode);
+                    const sortedStages = response.data.sort((a, b) => a.episodeNumber - b.episodeNumber);
                     setCourseStages(sortedStages);
+                    console.log(sortedStages);
                     console.log("Course stages set");
                 }
             } catch (error) {
@@ -204,7 +205,7 @@ const CourseDetail = () => {
                                                                     {isOpen && (
                                                                         <div>
                                                                             <p style={{ fontSize: 14 }}>{item.description}</p>
-                                                                            {index !==0 && (<p style={{ fontSize: 13,fontStyle:"italic",marginTop:4}}>Bu içeriği izleyebilmek için satın almalısınız</p>)}
+                                                                            {index !==0 ? (<p style={{ fontSize: 13,fontStyle:"italic",marginTop:4}}>Bu içeriği izleyebilmek için satın almalısınız</p>) : <video width="100%" height="auto" style={{borderRadius:8,marginTop:12}} src={`https://${bName}.s3.amazonaws.com/${item.videoId}`} controls></video>}
                                                                         </div>
                                                                     )}
                                                                 </div>
