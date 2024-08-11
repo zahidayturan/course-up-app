@@ -146,7 +146,7 @@ const Banner = () => {
                             <div style={{padding:12}}>
                                 {title}
                                 {ongoingCourses.map((item) => {
-                                    const percentage = ((item.current_duration / item.duration) * 100).toFixed(0);
+                                    const percentage = item.current_duration !== 0 ? ((item.current_duration / item.duration) * 100).toFixed(0) : "0";
                                     return (
                                         <div key={item.id} className={styles["course-box"]}>
                                             <p className={textStyles["font-bold"]}>{item.name}</p>

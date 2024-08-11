@@ -37,7 +37,7 @@ const MyCourses = () => {
     }, []);
 
     const ProgressBarAndPlayButton = ({ percentage }) => {
-        const backgroundColor = percentage >= 75 ? 'var(--green-color-1)' : percentage >=50 ? 'var(--orange-color-1)' : 'var(--yellow-color-1)';
+        const backgroundColor = percentage >= 75 ? 'var(--green-color-1)' : percentage >=40 ? 'var(--orange-color-1)' : 'var(--yellow-color-1)';
         return (
             <div className={styles["custom-column"]} style={{marginLeft:8}}>
                 <div style={{display:"flex", flexDirection:"column",alignItems:"center"}}>
@@ -80,7 +80,7 @@ const MyCourses = () => {
 
                             <div className={styles["course-grid"]}>
                                 {courses.map((item) => {
-                                    const percentage = ((item.current_duration / item.duration) * 100).toFixed(1);
+                                    const percentage = item.current_duration !== 0 ? ((item.current_duration / item.duration) * 100).toFixed(1) : 0;
                                     return (
                                             <div key={item.id} className={styles["course-container"]}>
                                                 <div className={styles["custom-row"]} style={{height:"100%"}}>
