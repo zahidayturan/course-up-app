@@ -176,7 +176,7 @@ const PopularCourses = () => {
                                                 <RatingStars rating={course.rating} size={12}/>
                                             </div>
                                             <div style={{ textAlign: "end" }}>
-                                                <p className={textStyles["text-small"]} style={{ textDecoration: "line-through" }}>{course.originalPrice} ₺</p>
+                                                {course.discount !== 0 && (<p className={textStyles["text-small"]} style={{ textDecoration: "line-through" }}>{course.originalPrice} ₺</p>)}
                                                 <p className={textStyles["font-bold"]}>{course.discountedPrice} ₺</p>
                                             </div>
                                         </div>

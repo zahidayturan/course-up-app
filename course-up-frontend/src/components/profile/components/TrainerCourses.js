@@ -58,9 +58,9 @@ const TrainerCourses = () => {
                 </div>
                 <div className={classNames(styles["custom-row"],styles["price-button"])}>
                     <div style={{ display: "flex", alignItems: "end", gap: 4 }} >
-                        <p className={textStyles["text-small"]} style={{ textDecoration: "line-through" }}>{item.originalPrice} ₺</p>
+                        {item.discount !== 0 && (<p className={textStyles["text-small"]} style={{ textDecoration: "line-through" }}>{item.originalPrice} ₺</p>)}
                         <p className={textStyles["font-bold"]}>{item.discountedPrice} ₺</p>
-                        <p className={textStyles["text-small"]} style={{ color: "var(--orange-color-1)" }}>%{item.discount} indirim</p>
+                        {item.discount !== 0 && (<p className={textStyles["text-small"]} style={{ color: "var(--orange-color-1)" }}>%{item.discount} indirim</p>)}
                     </div>
                     <p className={styles["text-button"]} style={{backgroundColor: item.active ? "var(--orange-color-1)": "var(--secondary-color-2)"}}>Kurs Düzenleme ve İstatistikler</p>
                 </div>
@@ -90,7 +90,7 @@ const TrainerCourses = () => {
                             <div>
                                 {activeCourses && (
                                     <div className={styles['courses-box']}>
-                                        <div style={{ padding: 12 }}>
+                                        <div style={{ padding: 12}}>
                                             <div className={styles["custom-row"]} style={{ marginBottom: 8 }}>
                                                 <p style={{ fontSize: 24 }}>Aktif <span className={textStyles["font-bold"]}>kursların </span><span style={{ fontSize: 16, fontStyle: "italic", fontWeight: 400 }}>(Öğrenci kabul ediyor)</span></p>
                                                 <div className={styles["mini-decoration"]}></div>

@@ -71,7 +71,6 @@ const TrainerAddCourse = () => {
         if (!file) {
             setSections(prevSections => {
                 const updatedSections = [...prevSections];
-                const oldDuration = updatedSections[index]?.duration || 0;
                 updatedSections[index] = { ...updatedSections[index], videoFile: null, duration: 0 };
                 const newTotalDuration = updatedSections.reduce((acc, section) => acc + (section.duration || 0), 0);
                 setTotalDuration(newTotalDuration);
@@ -194,12 +193,14 @@ const TrainerAddCourse = () => {
             await Promise.all(uploadPromises);
 
             setStep('Tüm bölümler başarıyla yüklendi!');
+            setTimeout(() => {}, 4000);
         } catch (error) {
             console.error('Error submitting the form', error);
             setError('Form gönderilirken bir hata oluştu. Lütfen tekrar deneyiniz.');
             setTimeout(() => {}, 5000);
         } finally {
             setLoading(false);
+            window.location.reload();
         }
     };
 

@@ -165,9 +165,9 @@ const CourseDetail = () => {
                                 </div>
                                 <div className={styles["price-and-button"]}>
                                     <div style={{textAlign:"end"}}>
-                                        <p style={{textDecoration:"line-through",fontSize:20}}>{course.originalPrice} ₺</p>
+                                        {course.discount !== 0 && (<p style={{textDecoration:"line-through",fontSize:20}}>{course.originalPrice} ₺</p>)}
                                         <p style={{fontWeight:"bold",fontSize:26}}>{course.discountedPrice} ₺</p>
-                                        <p style={{color:"var(--orange-color-1)",fontSize:18}}>%{course.discount} indirim</p>
+                                        {course.discount !== 0 && (<p style={{color:"var(--orange-color-1)",fontSize:18}}>%{course.discount} indirim</p>)}
                                     </div>
                                     <div className={styles["basket-button"]}><img src="/icon/basket.png" height={12} style={{filter:"brightness(100)",marginRight:6}} alt="add to basket"/> Sepete Ekle</div>
                                 </div>
