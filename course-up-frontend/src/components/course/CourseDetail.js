@@ -8,7 +8,7 @@ import textStyles from "../css/Text.module.css";
 import Header from "../home/components/Header";
 import RatingStars from "./RatingStars";
 import CourseComments from "./CourseComments";
-import OneCategory from "./OneCategory";
+
 
 const CourseDetail = () => {
     const { id } = useParams();
@@ -34,6 +34,10 @@ const CourseDetail = () => {
     const [openStages, setOpenStages] = useState({});
 
     const [categories, setCategories] = useState([]);
+
+    const [isInWishList, setIsInWishList] = useState(null);
+
+
     useEffect(() => {
         fetch('/json/categories.json')
             .then(response => response.json())
@@ -70,7 +74,6 @@ const CourseDetail = () => {
                 if (response.data) {
                     const sortedStages = response.data.sort((a, b) => a.episodeNumber - b.episodeNumber);
                     setCourseStages(sortedStages);
-                    console.log(sortedStages);
                     console.log("Course stages set");
                 }
             } catch (error) {
@@ -79,7 +82,6 @@ const CourseDetail = () => {
                 setCourseStagesLoading(false);
             }
         };
-
 
         fetchCourseDetail(id);
 
@@ -90,12 +92,29 @@ const CourseDetail = () => {
         } else {
             console.log('No user data or course data found in localStorage');
         }
+    }, [id, navigate]);
 
+    useEffect(() => {
         if (isTeacherMenuOpen && !teacher && course.teacherId) {
             fetchTeacherDetail(course.teacherId);
         }
-    }, [id, navigate, isTeacherMenuOpen, teacher]);
+    }, [isTeacherMenuOpen, teacher]);
 
+    useEffect(() => {
+        const checkWishList = async () => {
+            try {
+                const response = await axios.get(`${Endpoints.CHECK_WISH_LIST}/${id}/${user.id}`);
+                setIsInWishList(response.data);
+                console.log('wish list: ',response.data);
+            } catch (error) {
+                console.error('An unexpected error occurred:', error);
+            }
+        };
+
+        if (user && course) {
+            checkWishList();
+        }
+    }, [user, course, id]);
 
     const fetchTeacherDetail = async (teacherId) => {
         try {
@@ -119,6 +138,21 @@ const CourseDetail = () => {
             ...prevState,
             [index]: !prevState[index]
         }));
+    };
+
+    const addToWishList = async () => {
+        try {
+            const wishListFormData = new FormData();
+            wishListFormData.append('courseId', course.id);
+            wishListFormData.append('userId', user.id);
+            const response = await axios.post(`${Endpoints.ADD_TO_WISH_LIST}`, wishListFormData);
+            if (response.status === 200) {
+                setIsInWishList(true);
+                console.log("Kurs istek listesine eklendi");
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const bName = process.env.REACT_APP_S3_BUCKET_NAME;
@@ -161,6 +195,7 @@ const CourseDetail = () => {
                                             <p><span>Video Dili: </span>{course.language}</p>
                                             <p><span>Altyazı Desteği: </span>{course.subtitles}</p>
                                         </div>
+                                        {(user) && (<p className={textStyles["text-underline"]} style={{color:"var(--orange-color-1)",fontSize:13}} onClick={isInWishList ? null :addToWishList}>{isInWishList ? ("Kurs İstek Listende") : "İstek Listene Ekle"}</p>)}
                                     </div>
                                 </div>
                                 <div className={styles["price-and-button"]}>

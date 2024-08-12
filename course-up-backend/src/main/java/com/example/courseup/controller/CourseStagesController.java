@@ -3,7 +3,6 @@ package com.example.courseup.controller;
 import com.example.courseup.model.Course;
 import com.example.courseup.model.CourseStages;
 import com.example.courseup.model.DTO.CourseStagesDTO;
-import com.example.courseup.model.Teacher;
 import com.example.courseup.service.CourseService;
 import com.example.courseup.service.CourseStagesService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -40,7 +39,6 @@ public class CourseStagesController {
     @Operation(summary = "Save a new course stage")
     @PostMapping("/save")
     public ResponseEntity<String> save(@RequestParam Map<String, String> params) {
-        System.out.println(params);
         CourseStages courseStage = new CourseStages();
         courseStage.setName(params.get("title"));
         courseStage.setDescription(params.get("description"));
