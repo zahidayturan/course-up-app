@@ -4,7 +4,7 @@ import Endpoints from "../../../constants/Endpoints";
 import styles from "../css/UserWishList.module.css";
 import mainStyles from "../../css/Main.module.css";
 import textStyles from "../../css/Text.module.css";
-import classNames from "classnames";
+import {toast} from "react-toastify";
 
 
 const UserWishList = () => {
@@ -12,6 +12,7 @@ const UserWishList = () => {
     const [wishList, setWishList] = useState(null);
     const [wishListError, setWishListError] = useState(null);
     const [wishListLoading, setWishListLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchWishList = async (userId) => {
@@ -39,9 +40,11 @@ const UserWishList = () => {
 
     const deleteCourseFromWishList = async (id) => {
         try {
+            setLoading(true);
             const response = await axios.delete(`${Endpoints.DELETE_FROM_WISH_LIST}/${id}`);
             if (response.status === 204) {
                 console.log('Course successfully removed from wish list');
+                toast.success("İstek listenden kaldırdın");
                 setWishList(wishList.filter(item => item.id !== id));
             }
         } catch (error) {
@@ -50,6 +53,9 @@ const UserWishList = () => {
             } else {
                 console.error('Network error:', error.message);
             }
+            toast.success("Bir hata oluştu");
+        } finally {
+            setLoading(false)
         }
     };
 
@@ -60,7 +66,13 @@ const UserWishList = () => {
     const bName = process.env.REACT_APP_S3_BUCKET_NAME;
 
     return (
+
         <div>
+            {loading && (
+                <div className={mainStyles["loading-overlay"]}>
+                    <div className={mainStyles["main-spinner"]}></div>
+                </div>
+            )}
             {user && (
                 <div className={styles['courses-box']}>
                     {wishListLoading ? (

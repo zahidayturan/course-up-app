@@ -50,4 +50,8 @@ public class BasketService {
         }
     }
 
+    public boolean basketExists(Long courseId, Long userId) {
+        return basketRepository.findByCourseAndUserId(courseId, userId).isPresent();
+    }
+
 }

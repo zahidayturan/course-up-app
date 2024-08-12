@@ -4,8 +4,6 @@ import style from "../css/TrainerAddCourse.module.css";
 import Endpoints from "../../../constants/Endpoints";
 import mainStyles from "../../css/Main.module.css";
 import textStyles from "../../css/Text.module.css";
-import {Link} from "react-router-dom";
-import styles from "../../home/css/Categories.module.css";
 
 const TrainerAddCourse = () => {
     const [courseName, setCourseName] = useState('');

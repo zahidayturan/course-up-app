@@ -25,7 +25,9 @@ const Endpoints = {
     WISH_LIST: `${API_BASE_URL}/course-wish-list/all`,
     CHECK_WISH_LIST: `${API_BASE_URL}/course-wish-list/check`,
     ADD_TO_WISH_LIST: `${API_BASE_URL}/course-wish-list/save`,
-    DELETE_FROM_WISH_LIST: `${API_BASE_URL}/course-wish-list/delete`
+    DELETE_FROM_WISH_LIST: `${API_BASE_URL}/course-wish-list/delete`,
+    ADD_TO_BASKET: `${API_BASE_URL}/basket/save`,
+    CHECK_BASKET: `${API_BASE_URL}/basket/check`,
 
 };
 

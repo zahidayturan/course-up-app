@@ -66,8 +66,8 @@ public class CourseWishListController {
         courseWishList.setCourse(course);
 
         if(!courseWishListService.wishListExists(courseId,userId)){
-            String courseStageId = courseWishListService.save(courseWishList).getId().toString();
-            return ResponseEntity.ok(courseStageId);
+            String wishListId = courseWishListService.save(courseWishList).getId().toString();
+            return ResponseEntity.ok(wishListId);
         } else{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Already on wish list");
         }

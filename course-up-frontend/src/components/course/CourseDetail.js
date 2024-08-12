@@ -8,6 +8,7 @@ import textStyles from "../css/Text.module.css";
 import Header from "../home/components/Header";
 import RatingStars from "./RatingStars";
 import CourseComments from "./CourseComments";
+import {toast} from "react-toastify";
 
 
 const CourseDetail = () => {
@@ -36,6 +37,9 @@ const CourseDetail = () => {
     const [categories, setCategories] = useState([]);
 
     const [isInWishList, setIsInWishList] = useState(null);
+    const [isInBasket, setIsInBasket] = useState(null);
+
+    const [mainLoading, setMainLoading] = useState(false);
 
 
     useEffect(() => {
@@ -116,6 +120,22 @@ const CourseDetail = () => {
         }
     }, [user, course, id]);
 
+    useEffect(() => {
+        const checkBasket = async () => {
+            try {
+                const response = await axios.get(`${Endpoints.CHECK_BASKET}/${id}/${user.id}`);
+                setIsInBasket(response.data);
+                console.log('wish list: ',response.data);
+            } catch (error) {
+                console.error('An unexpected error occurred:', error);
+            }
+        };
+
+        if (user && course) {
+            checkBasket();
+        }
+    }, [user, course, id]);
+
     const fetchTeacherDetail = async (teacherId) => {
         try {
             setTeacherLoading(true);
@@ -142,16 +162,41 @@ const CourseDetail = () => {
 
     const addToWishList = async () => {
         try {
+            setMainLoading(true);
             const wishListFormData = new FormData();
             wishListFormData.append('courseId', course.id);
             wishListFormData.append('userId', user.id);
             const response = await axios.post(`${Endpoints.ADD_TO_WISH_LIST}`, wishListFormData);
             if (response.status === 200) {
                 setIsInWishList(true);
+                toast.success("Kurs istek listene eklendi");
                 console.log("Kurs istek listesine eklendi");
             }
         } catch (error) {
+            toast.success("İşlem başarısız oldu");
             console.log(error);
+        } finally {
+            setMainLoading(false);
+        }
+    };
+
+    const addToBasket = async () => {
+        try {
+            setMainLoading(true);
+            const basketFormData = new FormData();
+            basketFormData.append('courseId', course.id);
+            basketFormData.append('userId', user.id);
+            console.log(basketFormData);
+            const response = await axios.post(`${Endpoints.ADD_TO_BASKET}`, basketFormData);
+            if (response.status === 200) {
+                toast.success("Kurs sepete eklendi");
+                console.log("Kurs sepete eklendi");
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error("Kurs sepete eklenirken bir hata oluştu");
+        } finally {
+            setMainLoading(false);
         }
     };
 
@@ -159,6 +204,11 @@ const CourseDetail = () => {
 
     return (
         <div>
+            {mainLoading && (
+                <div className={mainStyles["loading-overlay"]}>
+                    <div className={mainStyles["main-spinner"]}></div>
+                </div>
+            )}
             <Header />
             {loading ? (
                     <div className={styles['course-box']}>
@@ -195,7 +245,7 @@ const CourseDetail = () => {
                                             <p><span>Video Dili: </span>{course.language}</p>
                                             <p><span>Altyazı Desteği: </span>{course.subtitles}</p>
                                         </div>
-                                        {(user) && (<p className={textStyles["text-underline"]} style={{color:"var(--orange-color-1)",fontSize:13}} onClick={isInWishList ? null :addToWishList}>{isInWishList ? ("Kurs İstek Listende") : "İstek Listene Ekle"}</p>)}
+                                        {(user) && (<p className={textStyles["text-underline"]} style={{color:"var(--orange-color-1)",fontSize:13,width:"max-content"}} onClick={isInWishList ? null :addToWishList}>{isInWishList ? ("Kurs İstek Listende") : "İstek Listene Ekle"}</p>)}
                                     </div>
                                 </div>
                                 <div className={styles["price-and-button"]}>
@@ -204,7 +254,7 @@ const CourseDetail = () => {
                                         <p style={{fontWeight:"bold",fontSize:26}}>{course.discountedPrice} ₺</p>
                                         {course.discount !== 0 && (<p style={{color:"var(--orange-color-1)",fontSize:18}}>%{course.discount} indirim</p>)}
                                     </div>
-                                    <div className={styles["basket-button"]}><img src="/icon/basket.png" height={12} style={{filter:"brightness(100)",marginRight:6}} alt="add to basket"/> Sepete Ekle</div>
+                                    <button className={styles["basket-button"]} disabled={isInBasket} onClick={addToBasket}><img src="/icon/basket.png" height={12} style={{filter:"brightness(100)",marginRight:6}} alt="add to basket"/>{isInBasket ? ("Sepette") : ("Sepete Ekle")} </button>
                                 </div>
                             </div>
                             <h3 style={{marginTop:24}}>Kurs Hakkında</h3>

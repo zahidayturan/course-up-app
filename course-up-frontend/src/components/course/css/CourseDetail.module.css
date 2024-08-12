@@ -54,6 +54,7 @@
 }
 
 .basket-button{
+    border: none;
     width: max-content;
     border-radius: 50px;
     background-color: var(--secondary-color-2);
