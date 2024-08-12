@@ -10,7 +10,6 @@ import java.math.RoundingMode;
 public class AllCoursesDTO {
     private Long id;
     private String name;
-
     private Long teacherId;
     private String teacher;
     private String description;

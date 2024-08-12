@@ -1,5 +1,6 @@
 package com.example.courseup.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ public class Course {
 
     @ManyToOne
     @JoinColumn(name = "teacher_id", referencedColumnName = "id")
-    @JsonManagedReference
+    @JsonIgnore
     private Teacher teacher;
 
     private String name;

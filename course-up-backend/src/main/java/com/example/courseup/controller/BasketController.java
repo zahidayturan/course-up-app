@@ -3,6 +3,7 @@ package com.example.courseup.controller;
 import com.example.courseup.exception.ResourceNotFoundException;
 import com.example.courseup.model.Basket;
 import com.example.courseup.model.Course;
+import com.example.courseup.model.DTO.BasketDTO;
 import com.example.courseup.model.User;
 import com.example.courseup.service.BasketService;
 import com.example.courseup.service.CourseService;
@@ -86,7 +87,7 @@ public class BasketController {
 
     @Operation(summary = "Get all basket by User Id")
     @GetMapping("/user/{userId}")
-    public List<Basket> getBasketByUserId(@PathVariable Long userId) {
+    public List<BasketDTO> getBasketByUserId(@PathVariable Long userId) {
         return basketService.getBasketByUserId(userId);
     }
 
