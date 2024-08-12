@@ -1,16 +1,14 @@
 package com.example.courseup.controller;
 
 import com.example.courseup.model.Course;
-import com.example.courseup.model.CourseStages;
 import com.example.courseup.model.CourseWishList;
-import com.example.courseup.model.DTO.CourseDTO;
-import com.example.courseup.model.DTO.CourseStagesDTO;
 import com.example.courseup.model.DTO.CourseWishListDTO;
 import com.example.courseup.model.User;
 import com.example.courseup.service.CourseService;
 import com.example.courseup.service.CourseWishListService;
 import com.example.courseup.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -84,4 +82,18 @@ public class CourseWishListController {
             return ResponseEntity.ok("false");
         }
     }
+
+    @Operation(summary = "Delete a course from the wish list by ID")
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
+        try {
+            courseWishListService.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } catch (EntityNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
 }

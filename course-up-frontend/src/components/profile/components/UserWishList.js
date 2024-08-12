@@ -37,6 +37,26 @@ const UserWishList = () => {
         }
     }, []);
 
+    const deleteCourseFromWishList = async (id) => {
+        try {
+            const response = await axios.delete(`${Endpoints.DELETE_FROM_WISH_LIST}/${id}`);
+            if (response.status === 204) {
+                console.log('Course successfully removed from wish list');
+                setWishList(wishList.filter(item => item.id !== id));
+            }
+        } catch (error) {
+            if (error.response) {
+                console.error('An unexpected error occurred:', error.message);
+            } else {
+                console.error('Network error:', error.message);
+            }
+        }
+    };
+
+    const handleDelete = (courseId) => {
+        deleteCourseFromWishList(courseId);
+    };
+
     const bName = process.env.REACT_APP_S3_BUCKET_NAME;
 
     return (
@@ -72,7 +92,7 @@ const UserWishList = () => {
                                             {item.discount !== 0 && (<p className={textStyles["text-small"]} style={{ textDecoration: "line-through" }}>{item.originalPrice} ₺</p>)}
                                             <p className={textStyles["font-bold"]}>{item.discountedPrice} ₺</p>
                                             {item.discount > 0 && (<p>% {item.discount} indirim</p>)}
-                                            <p>İstek Listenden Çıkar</p>
+                                            <button className={styles["remove-button"]} onClick={() => handleDelete(item.id)}>İstek Listenden Çıkar</button>
                                         </div>
                                     );
                                 })}
