@@ -28,6 +28,7 @@ const Endpoints = {
     DELETE_FROM_WISH_LIST: `${API_BASE_URL}/course-wish-list/delete`,
     ADD_TO_BASKET: `${API_BASE_URL}/basket/save`,
     CHECK_BASKET: `${API_BASE_URL}/basket/check`,
+    GET_BASKET: `${API_BASE_URL}/basket/user`,
 
 };
 

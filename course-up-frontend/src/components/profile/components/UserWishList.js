@@ -44,7 +44,7 @@ const UserWishList = () => {
             const response = await axios.delete(`${Endpoints.DELETE_FROM_WISH_LIST}/${id}`);
             if (response.status === 204) {
                 console.log('Course successfully removed from wish list');
-                toast.success("İstek listenden kaldırdın");
+                toast.success("İstek listesinden kaldırıldı");
                 setWishList(wishList.filter(item => item.id !== id));
             }
         } catch (error) {

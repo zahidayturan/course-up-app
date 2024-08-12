@@ -15,5 +15,5 @@ public interface BasketRepository extends JpaRepository<Basket, Long> {
     List<Basket> findBasketByUserId(@Param("userId") Long userId);
 
     @Query("SELECT b FROM Basket b WHERE b.course.id = :courseId AND b.user.id = :userId")
-    Optional<Basket> findByCourseAndUserId(@Param("courseId") Long courseId, @Param("userId") Long userId);
+    List<Basket> findByCourseAndUserId(@Param("courseId") Long courseId, @Param("userId") Long userId);
 }

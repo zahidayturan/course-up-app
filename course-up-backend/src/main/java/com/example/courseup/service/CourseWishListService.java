@@ -1,5 +1,6 @@
 package com.example.courseup.service;
 
+import com.example.courseup.model.Basket;
 import com.example.courseup.model.CourseStages;
 import com.example.courseup.model.CourseWishList;
 import com.example.courseup.model.DTO.CourseDTO;
@@ -43,6 +44,7 @@ public class CourseWishListService {
     }
 
     public boolean wishListExists(Long courseId, Long userId) {
-        return courseWishListRepository.findByCourseAndUserId(courseId, userId).isPresent();
+        List<CourseWishList> courseWishLists = courseWishListRepository.findByCourseAndUserId(courseId, userId);
+        return !courseWishLists.isEmpty();
     }
 }

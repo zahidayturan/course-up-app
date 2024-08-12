@@ -15,5 +15,5 @@ public interface CourseWishListRepository extends JpaRepository<CourseWishList, 
 
 
     @Query("SELECT w FROM CourseWishList w WHERE w.course.id = :courseId AND w.user.id = :userId")
-    Optional<CourseWishList> findByCourseAndUserId(@Param("courseId") Long courseId, @Param("userId") Long userId);
+    List<CourseWishList> findByCourseAndUserId(@Param("courseId") Long courseId, @Param("userId") Long userId);
 }
