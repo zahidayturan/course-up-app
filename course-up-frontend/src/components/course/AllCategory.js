@@ -25,8 +25,8 @@ const AllCategory = () => {
             <h2 style={{marginTop:24}}>Tüm Kategoriler</h2>
             <div className={styles["flex-box"]}>
                 {categories.map((category) => (
-                    <div className={styles["basic-category-box"]}>
-                        <button className={styles["category-button"]} key={category.path} onClick={() => handleCategoryClick(category.path)}>
+                    <div key={category.path} className={styles["basic-category-box"]}>
+                        <button className={styles["category-button"]} onClick={() => handleCategoryClick(category.path)}>
                             {category.name}
                         </button>
                     </div>

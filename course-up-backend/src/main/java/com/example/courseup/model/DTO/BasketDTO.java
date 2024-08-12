@@ -1,7 +1,6 @@
 package com.example.courseup.model.DTO;
 
 import com.example.courseup.model.Basket;
-import com.example.courseup.model.Course;
 import lombok.Data;
 
 import java.math.BigDecimal;

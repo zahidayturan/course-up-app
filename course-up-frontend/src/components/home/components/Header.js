@@ -73,11 +73,11 @@ const Header = () => {
                         <p onClick={handleCategoryToggle}>Kategoriler</p>
                         {showCategories && (
                             <div className={styles['dropdown-menu']}>
-                                <Link to="/category/programming">Programlama</Link>
+                                <Link to="/category/development">Yazılım ve Bilişim</Link>
                                 <Link to="/category/design">Tasarım</Link>
-                                <Link to="/category/marketing">Kişisel Gelişim</Link>
-                                <Link to="/category/marketing">Fotoğrafçılık</Link>
-                                <Link to="/category/marketing">Müzik</Link>
+                                <Link to="/category/personal-development">Kişisel Gelişim</Link>
+                                <Link to="/category/photography-and-video">Fotoğraf ve Video</Link>
+                                <Link to="/category/music">Müzik</Link>
                                 <Link to="/category">Tüm Kategoriler</Link>
                             </div>
                         )}
@@ -140,6 +140,7 @@ const Header = () => {
                                             <Link to="/profile/my-comments" className={styles['category-text']}>Yorumlarım</Link>
                                             <Link to="/basket" className={styles['category-text']}>Sepetim</Link>
                                             <Link to="/help" className={styles['category-text']}>Yardım Merkezi</Link>
+                                            <Link to="/category" className={styles['category-text']}>Kategoriler</Link>
                                             <Link to="/profile/trainer" className={styles['category-text']} style={{color:user.teacher ?"var(--orange-color-1)":""}}>{user.teacher ? ("Eğitmen Paneli") : ("Eğitmen Olun")}</Link>
                                             <Link to="/profile/my-settings" className={styles['category-text']}>Ayarlarım</Link>
                                         </div>
@@ -157,9 +158,9 @@ const Header = () => {
                                         <div style={{width:"2px",height:"100%",borderRadius:"30px",backgroundColor:"var(--grey-color-1)"}}></div>
                                         <div>
                                             <p style={{fontWeight:700,fontSize:18,paddingBottom:"4px"}}>Hızlı Menüler</p>
-                                            <Link to="/" className={styles['category-text']}>Kategoriler</Link>
-                                            <Link to="/" className={styles['category-text']}>Sepetim</Link>
-                                            <Link to="/" className={styles['category-text']}>Yardım Merkezi</Link>
+                                            <Link to="/categoru" className={styles['category-text']}>Kategoriler</Link>
+                                            <Link to="/basket" className={styles['category-text']}>Sepetim</Link>
+                                            <Link to="/help" className={styles['category-text']}>Yardım Merkezi</Link>
                                         </div>
                                     </div>
                                 </React.Fragment>
