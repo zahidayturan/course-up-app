@@ -3,10 +3,10 @@ import axios from "axios";
 import Endpoints from "../../../constants/Endpoints";
 import mainStyles from "../../css/Main.module.css";
 import textStyles from "../../css/Text.module.css";
-import styles from "../css/MyCourses.module.css";
+import styles from "../css/UserCourses.module.css";
 import classNames from "classnames";
 
-const MyCourses = () => {
+const UserCourses = () => {
     const [user, setUser] = useState(null);
     const [courses, setCourses] = useState(null);
     const [coursesError, setCoursesError] = useState(null);
@@ -119,4 +119,4 @@ const MyCourses = () => {
     );
 };
 
-export default MyCourses;
+export default UserCourses;

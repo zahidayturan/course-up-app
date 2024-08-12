@@ -2,7 +2,9 @@ package com.example.courseup.service;
 
 import com.example.courseup.model.CourseStages;
 import com.example.courseup.model.CourseWishList;
+import com.example.courseup.model.DTO.CourseDTO;
 import com.example.courseup.model.DTO.CourseStagesDTO;
+import com.example.courseup.model.DTO.CourseWishListDTO;
 import com.example.courseup.repository.CourseWishListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,10 +35,10 @@ public class CourseWishListService {
         courseWishListRepository.deleteById(id);
     }
 
-    public List<CourseStagesDTO> getAllWishListByUserId(Long userId) {
-        List<CourseStages> stages = courseWishListRepository.findByUserId(userId);
-        return stages.stream()
-                .map(CourseStagesDTO::new)
+    public List<CourseWishListDTO> getAllWishListByUserId(Long userId) {
+        List<CourseWishList> courses = courseWishListRepository.findByUserId(userId);
+        return courses.stream()
+                .map(courseWishList -> new CourseWishListDTO(courseWishList.getId(),courseWishList.getCourse()))
                 .collect(Collectors.toList());
     }
 

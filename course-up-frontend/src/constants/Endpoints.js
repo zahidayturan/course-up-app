@@ -22,6 +22,7 @@ const Endpoints = {
     COURSE_FILE_UPLOAD: `${API_BASE_URL}/course-files/upload`,
     COURSE_SAVE: `${API_BASE_URL}/course/save`,
     COURSE_STAGE_SAVE: `${API_BASE_URL}/course-stages/save`,
+    WISH_LIST: `${API_BASE_URL}/course-wish-list/all`,
     CHECK_WISH_LIST: `${API_BASE_URL}/course-wish-list/check`,
     ADD_TO_WISH_LIST: `${API_BASE_URL}/course-wish-list/save`
 

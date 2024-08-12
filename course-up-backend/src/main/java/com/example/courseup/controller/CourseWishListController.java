@@ -3,7 +3,9 @@ package com.example.courseup.controller;
 import com.example.courseup.model.Course;
 import com.example.courseup.model.CourseStages;
 import com.example.courseup.model.CourseWishList;
+import com.example.courseup.model.DTO.CourseDTO;
 import com.example.courseup.model.DTO.CourseStagesDTO;
+import com.example.courseup.model.DTO.CourseWishListDTO;
 import com.example.courseup.model.User;
 import com.example.courseup.service.CourseService;
 import com.example.courseup.service.CourseWishListService;
@@ -33,7 +35,7 @@ public class CourseWishListController {
 
     @Operation(summary = "Get all course wish lists by userId")
     @GetMapping("/all/{userId}")
-    public List<CourseStagesDTO> findAll(@PathVariable Long userId) {
+    public List<CourseWishListDTO> findAll(@PathVariable Long userId) {
         return courseWishListService.getAllWishListByUserId(userId);
     }
 
