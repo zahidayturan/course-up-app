@@ -1,8 +1,10 @@
 package com.example.courseup.service;
 
 import com.example.courseup.model.Course;
+import com.example.courseup.model.CourseStages;
 import com.example.courseup.model.DTO.AllCoursesDTO;
 import com.example.courseup.repository.CourseRepository;
+import com.example.courseup.repository.CourseStagesRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +24,12 @@ public class CourseService {
     @Autowired
     private CourseRepository courseRepository;
 
+    @Autowired
+    private CourseStagesRepository courseStagesRepository;
+
+    @Autowired
+    private S3Service s3Service;
+
     public List<Course> findAll() {
         return courseRepository.findAll();
     }
@@ -35,8 +43,20 @@ public class CourseService {
     }
 
     public void deleteById(Long id) {
+        Course course = findById(id).orElseThrow(() -> new EntityNotFoundException("Course with id " + id + " not found"));
+        if (course.getImageId() != null) {
+            s3Service.deleteFile(course.getImageId());
+        }
+        List<CourseStages> courseStages = courseStagesRepository.findByCourseId(id);
+        courseStages.forEach(stage -> {
+            if (stage.getVideoId() != null) {
+                s3Service.deleteFile(stage.getVideoId());
+            }
+        });
+        courseStagesRepository.deleteByCourseId(id);
         courseRepository.deleteById(id);
     }
+
 
     public Course update(Course course) {
         if (!courseRepository.existsById(course.getId())) {

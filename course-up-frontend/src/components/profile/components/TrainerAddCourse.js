@@ -158,36 +158,25 @@ const TrainerAddCourse = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
         if (!courseImage) {
             alert("Lütfen kursun kapak resmini yükleyiniz.");
             return;
         }
 
-        for (let i = 0; i < sections.length; i++) {
-            const section = sections[i];
-            if (!section.videoFile) {
-                alert(`Lütfen ${i + 1}. bölümün videosunu yükleyiniz.`);
-                return;
-            }
-            for (let j = 0; j < section.subtitles.length; j++) {
-                const subtitle = section.subtitles[j];
-                if (!subtitle.file) {
-                    alert(`Lütfen ${i + 1}. bölüm için ${subtitle.language} altyazı dosyasını yükleyiniz.`);
-                    return;
-                }
-            }
-        }
+        let courseId = null;
 
         try {
             setLoading(true);
+
+            // Kurs Resmi Yükleme
             setStep('Kurs resmi yükleniyor...');
-            setTimeout(() => {}, 2000);
             const imageFormData = new FormData();
             imageFormData.append('file', courseImage);
             const { data: imageId } = await axios.post(Endpoints.COURSE_FILE_UPLOAD, imageFormData);
 
+            // Kurs Kaydetme
             setStep('Kurs kaydediliyor...');
-            setTimeout(() => {}, 2000);
             const courseFormData = new FormData();
             courseFormData.append('courseName', courseName);
             courseFormData.append('courseDescription', courseDescription);
@@ -201,13 +190,16 @@ const TrainerAddCourse = () => {
             courseFormData.append('imageId', imageId);
             courseFormData.append('userId', user.id);
 
-            const { data: courseId } = await axios.post(Endpoints.COURSE_SAVE, courseFormData);
+            const courseResponse = await axios.post(Endpoints.COURSE_SAVE, courseFormData);
+            courseId = courseResponse.data;
 
+            // Videoları ve Bölümleri Yükleme
             const uploadPromises = sections.map(async (section, index) => {
                 setStep(`Video ${index + 1} yükleniyor...`);
                 const videoFormData = new FormData();
                 videoFormData.append('file', section.videoFile);
                 const { data: videoId } = await axios.post(Endpoints.COURSE_FILE_UPLOAD, videoFormData);
+
                 const sectionFormData = new FormData();
                 sectionFormData.append('title', section.title);
                 sectionFormData.append('description', section.description);
@@ -221,26 +213,34 @@ const TrainerAddCourse = () => {
 
             await Promise.all(uploadPromises);
 
+            // Kurs Güncelleme
             setStep('Kurs bilgileri güncelleniyor...');
-            setTimeout(() => {}, 1000);
             const courseUpdateFormData = new FormData();
-            courseUpdateFormData.append('totalStages', (totalDuration/60));
-            courseUpdateFormData.append('totalDuration', sections.length)
-            await axios.post(`${Endpoints.COURSE_UPDATE}/${courseId}`, courseUpdateFormData);
+            courseUpdateFormData.append('courseId', courseId);
+            courseUpdateFormData.append('totalStages', sections.length);
+            courseUpdateFormData.append('totalDuration', totalDuration / 60);
+            await axios.post(Endpoints.COURSE_UPDATE, courseUpdateFormData);
 
-            setStep('Tüm bölümler başarıyla yüklendi!');
-            setTimeout(() => {}, 4000);
             toast.success("Kurs onaya gönderildi");
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+
         } catch (error) {
-            console.error('Error submitting the form', error);
-            setError('Form gönderilirken bir hata oluştu. Lütfen tekrar deneyiniz.');
-            setTimeout(() => {}, 5000);
-            toast.error("Kurs onaya gönderilemedi");
+            console.error('Form gönderilirken bir hata oluştu', error);
+            setTimeout(() => {
+                setError('Form gönderilirken bir hata oluştu. Lütfen tekrar deneyiniz.');
+            }, 3000);
+            setStep('Kurs bilgileri siliniyor...');
+            if (courseId) {
+                await axios.delete(`${Endpoints.COURSE_DELETE}/${courseId}`);
+            }
+            toast.error("Kurs onaya gönderilirken hata oluştu");
         } finally {
             setLoading(false);
-            window.location.reload();
         }
     };
+
 
     const totalPrice = (100 > courseDiscount > 0)
         ? Number((Number(coursePrice) * (1 - courseDiscount / 100)).toFixed(2))
@@ -343,7 +343,7 @@ const TrainerAddCourse = () => {
                                     <div className={style["custom-row"]} style={{justifyContent:"start"}}>
                                         <div className={style["title-and-input"]}>
                                             <p>Kursun Fiyatı (₺) <span style={{ color: "var(--orange-color-1)" }}>*</span></p>
-                                            <input type="number" id="course-price" placeholder="Kursun fiyatını giriniz" min={1} maxLength={9999} value={coursePrice} onChange={(e) => setCoursePrice(e.target.value)} required/>
+                                            <input type="number" step="0.01" id="course-price" placeholder="Kursun fiyatını giriniz" min={1} maxLength={9999} value={coursePrice} onChange={(e) => setCoursePrice(e.target.value)} required/>
                                         </div>
                                         <div className={style["title-and-input"]}>
                                             <p>İndirim Oranı (%)</p>

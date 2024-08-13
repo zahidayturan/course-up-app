@@ -1,6 +1,7 @@
 package com.example.courseup.service;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
@@ -48,5 +49,9 @@ public class S3Service {
         S3ObjectInputStream inputStream = s3Object.getObjectContent();
 
         return IOUtils.toByteArray(inputStream);
+    }
+
+    public void deleteFile(String key) {
+        s3Client.deleteObject(new DeleteObjectRequest(bucketName, key));
     }
 }
