@@ -135,7 +135,7 @@ const Header = () => {
                                         <div>
                                             <p style={{fontWeight:700,fontSize:18,paddingBottom:"4px"}}>Hızlı Menüler</p>
                                             <Link to="/profile/my-courses" className={styles['category-text']}>Kurslarım</Link>
-                                            <Link to="/profile/my-wishlist" className={styles['category-text']}>İstek Listem</Link>
+                                            <Link to="/profile/my-wish-list" className={styles['category-text']}>İstek Listem</Link>
                                             <Link to="/profile/my-statistics" className={styles['category-text']}>İstatistiklerim</Link>
                                             <Link to="/profile/my-comments" className={styles['category-text']}>Yorumlarım</Link>
                                             <Link to="/basket" className={styles['category-text']}>Sepetim</Link>
