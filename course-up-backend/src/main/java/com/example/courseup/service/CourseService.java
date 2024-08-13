@@ -3,6 +3,7 @@ package com.example.courseup.service;
 import com.example.courseup.model.Course;
 import com.example.courseup.model.DTO.AllCoursesDTO;
 import com.example.courseup.repository.CourseRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -35,6 +36,13 @@ public class CourseService {
 
     public void deleteById(Long id) {
         courseRepository.deleteById(id);
+    }
+
+    public Course update(Course course) {
+        if (!courseRepository.existsById(course.getId())) {
+            throw new EntityNotFoundException("Course with id " + course.getId() + " not found");
+        }
+        return courseRepository.save(course);
     }
 
     public List<Course> getCoursesByUserId(Long userId) {
@@ -85,6 +93,50 @@ public class CourseService {
         Double rating = getCourseRating(course.getId());
         Integer reviews = getNumberOfCourseReviewers(course.getId());
         return new AllCoursesDTO(course, students, rating, reviews);
+    }
+
+    public Long parseLong(String value) {
+        try {
+            return value != null ? Long.valueOf(value) : null;
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    public Double parseDouble(String value, Double defaultValue) {
+        try {
+            return value != null ? Double.valueOf(value) : defaultValue;
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
+
+    public Integer parseInteger(String value, Integer defaultValue) {
+        try {
+            return value != null ? Integer.valueOf(value) : defaultValue;
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
+
+    public Boolean parseBoolean(String value, Boolean defaultValue) {
+        return value != null ? Boolean.valueOf(value) : defaultValue;
+    }
+
+    public Long parseLongOneParameter(String value) {
+        try {
+            return value != null ? Long.valueOf(value) : null;
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    public Double parseDoubleOneParameter(String value) {
+        try {
+            return value != null ? Double.valueOf(value) : null;
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 
 }

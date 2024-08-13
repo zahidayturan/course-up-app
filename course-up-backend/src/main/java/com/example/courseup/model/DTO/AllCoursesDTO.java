@@ -16,7 +16,7 @@ public class AllCoursesDTO {
     private String category;
     private String language;
     private  String subtitles;
-    private Integer duration;
+    private Double duration;
     private Integer stage;
     private Integer students;
     private Double rating;

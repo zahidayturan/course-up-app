@@ -28,7 +28,7 @@ public class Course {
     private String language;
     private String subtitles;
     private Integer totalStages;
-    private Integer totalDuration;
+    private Double totalDuration;
 
     private String imageId;
 

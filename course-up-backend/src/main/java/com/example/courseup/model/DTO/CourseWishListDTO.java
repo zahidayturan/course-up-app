@@ -13,6 +13,9 @@ public class CourseWishListDTO {
     private Long courseId;
     private String name;
     private String description;
+    private String teacher;
+    private Double duration;
+    private Integer episode;
     private String imageId;
     private Double originalPrice;
     private Double discount;
@@ -23,6 +26,9 @@ public class CourseWishListDTO {
         this.courseId = course.getId();
         this.name = course.getName();
         this.description = course.getDescription();
+        this.teacher = course.getTeacher().getUser().getName()+" "+course.getTeacher().getUser().getSurname();
+        this.duration = course.getTotalDuration();
+        this.episode = course.getTotalStages();
         this.imageId= course.getImageId();
         this.originalPrice = course.getPrice();
         this.discount = course.getDiscount();

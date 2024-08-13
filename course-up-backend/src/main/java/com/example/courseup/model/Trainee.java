@@ -27,7 +27,7 @@ public class Trainee {
     @JsonManagedReference
     private Course course;
 
-    private Integer currentDuration;
+    private Double currentDuration;
     private Integer currentStages;
     private Double coursePoint;
     private Boolean isFinished;
