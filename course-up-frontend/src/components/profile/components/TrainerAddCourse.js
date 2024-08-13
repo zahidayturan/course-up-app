@@ -4,6 +4,7 @@ import style from "../css/TrainerAddCourse.module.css";
 import Endpoints from "../../../constants/Endpoints";
 import mainStyles from "../../css/Main.module.css";
 import textStyles from "../../css/Text.module.css";
+import {toast} from "react-toastify";
 
 const TrainerAddCourse = () => {
     const [courseName, setCourseName] = useState('');
@@ -207,7 +208,6 @@ const TrainerAddCourse = () => {
                 const videoFormData = new FormData();
                 videoFormData.append('file', section.videoFile);
                 const { data: videoId } = await axios.post(Endpoints.COURSE_FILE_UPLOAD, videoFormData);
-
                 const sectionFormData = new FormData();
                 sectionFormData.append('title', section.title);
                 sectionFormData.append('description', section.description);
@@ -221,12 +221,21 @@ const TrainerAddCourse = () => {
 
             await Promise.all(uploadPromises);
 
+            setStep('Kurs bilgileri güncelleniyor...');
+            setTimeout(() => {}, 1000);
+            const courseUpdateFormData = new FormData();
+            courseUpdateFormData.append('totalStages', (totalDuration/60));
+            courseUpdateFormData.append('totalDuration', sections.length)
+            await axios.post(`${Endpoints.COURSE_UPDATE}/${courseId}`, courseUpdateFormData);
+
             setStep('Tüm bölümler başarıyla yüklendi!');
             setTimeout(() => {}, 4000);
+            toast.success("Kurs onaya gönderildi");
         } catch (error) {
             console.error('Error submitting the form', error);
             setError('Form gönderilirken bir hata oluştu. Lütfen tekrar deneyiniz.');
             setTimeout(() => {}, 5000);
+            toast.error("Kurs onaya gönderilemedi");
         } finally {
             setLoading(false);
             window.location.reload();

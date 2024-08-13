@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/course")
@@ -116,7 +115,7 @@ public class CourseController {
     }
 
     @Operation(summary = "Delete course by ID")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteById(@PathVariable Long id) {
         courseService.deleteById(id);
     }
