@@ -255,12 +255,12 @@ const TrainerAddCourse = () => {
 
     const LoadingScreen = ({ step, error }) => {
         return (
-            <div className={mainStyles["loading-overlay"]}>
+            <div className={mainStyles["loading-overlay"]} style={{textAlign:"center"}}>
                 <h2 style={{color:"var(--secondary-color-2)"}}>{error ? 'Hata Oluştu' : 'Kurs Kaydediliyor'}</h2>
                 <div className={mainStyles["main-spinner"]}></div>
                 <h4>Lütfen Bekleyiniz</h4>
-                <h3 style={{color:"var(--orange-color-1)"}}>Aşama: {step}</h3>
-                {error && <p style={{color:"red"}}>Hata: {error}</p>}
+                <p style={{color:"var(--orange-color-1)",fontSize:18}}><span>Aşama</span><br/>{step}</p>
+                {error && <p style={{color:"red"}}>Hata<br/>{error}</p>}
             </div>
 
         );
@@ -329,8 +329,8 @@ const TrainerAddCourse = () => {
                                         <div className={style["title-and-input"]}>
                                             <p>Kursun Altyazı Dilleri</p>
                                             <div>
-                                                <div  onClick={() => setIsDropdownOpen(!isDropdownOpen)} className={style["subtitle-button"]} >{courseSubtitles.length > 0 ? courseSubtitles.join(", ") : "Varsa altyazı dillerini seçiniz"}</div>
-                                                {isDropdownOpen && (
+                                                <div  onClick={() => setIsDropdownOpen(!isDropdownOpen)} className={style["subtitle-button"]}>{courseSubtitles.length > 0 ? courseSubtitles.join(", ") : "Bu özellik henüz kullanılamaz"}</div>
+                                                {(isDropdownOpen && false) && (
                                                     <div className={style["dropdown-content"]}>
                                                         <label><input type="checkbox" value="tr" checked={courseSubtitles.includes("tr")} onChange={handleSubtitleChange}/>Türkçe</label>
                                                         <label><input type="checkbox" value="en" checked={courseSubtitles.includes("en")} onChange={handleSubtitleChange}/>İngilizce</label>

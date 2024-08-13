@@ -181,22 +181,26 @@ const CourseDetail = () => {
     };
 
     const addToBasket = async () => {
-        try {
-            setMainLoading(true);
-            const basketFormData = new FormData();
-            basketFormData.append('courseId', course.id);
-            basketFormData.append('userId', user.id);
-            console.log(basketFormData);
-            const response = await axios.post(`${Endpoints.ADD_TO_BASKET}`, basketFormData);
-            if (response.status === 200) {
-                toast.success("Kurs sepete eklendi");
-                console.log("Kurs sepete eklendi");
+        if(user){
+            try {
+                setMainLoading(true);
+                const basketFormData = new FormData();
+                basketFormData.append('courseId', course.id);
+                basketFormData.append('userId', user.id);
+                console.log(basketFormData);
+                const response = await axios.post(`${Endpoints.ADD_TO_BASKET}`, basketFormData);
+                if (response.status === 200) {
+                    toast.success("Kurs sepete eklendi");
+                    console.log("Kurs sepete eklendi");
+                }
+            } catch (error) {
+                console.log(error);
+                toast.error("Kurs sepete eklenirken bir hata oluştu");
+            } finally {
+                setMainLoading(false);
             }
-        } catch (error) {
-            console.log(error);
-            toast.error("Kurs sepete eklenirken bir hata oluştu");
-        } finally {
-            setMainLoading(false);
+        }else{
+            toast.error("Sepete ekleyebilmek için giriş yapmalısınız");
         }
     };
 

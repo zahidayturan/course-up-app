@@ -1,0 +1,57 @@
+.item-box{
+    background-color: var(--primary-color-1);
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    display: flex;
+    height: 120px;
+    min-height: 120px;
+    gap: 12px;
+}
+
+.course-img{
+    height: 100%;
+    width: 230px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.remove-button{
+    background-color: var(--grey-color-1);
+    color: var(--secondary-color-2);
+    border: none;
+    border-radius: 10px;
+    padding: 6px 8px;
+    cursor: pointer;
+}
+
+.remove-button:hover{
+    background-color: var(--secondary-color-2);
+    color: var(--secondary-color-1);
+}
+
+.button-and-price{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 0 auto;
+    gap: 6px;
+}
+
+@media (max-width: 744px) {
+    .item-box{
+        flex-direction: column;
+        height: max-content;
+        min-height: max-content;
+    }
+
+    .course-img{
+        height: 50%;
+        max-height: 250px;
+        width: 100%;
+    }
+
+    .button-and-price{
+        flex-direction: column-reverse;
+    }
+}
