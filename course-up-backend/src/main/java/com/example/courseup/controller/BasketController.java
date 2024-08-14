@@ -80,7 +80,7 @@ public class BasketController {
     }
 
     @Operation(summary = "Delete basket by ID")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteById(@PathVariable Long id) {
         basketService.deleteById(id);
     }
