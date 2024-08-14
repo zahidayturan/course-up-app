@@ -170,7 +170,6 @@ const CourseDetail = () => {
             if (response.status === 200) {
                 setIsInWishList(true);
                 toast.success("Kurs istek listene eklendi");
-                console.log("Kurs istek listesine eklendi");
             }
         } catch (error) {
             toast.success("İşlem başarısız oldu");
@@ -190,8 +189,8 @@ const CourseDetail = () => {
                 console.log(basketFormData);
                 const response = await axios.post(`${Endpoints.ADD_TO_BASKET}`, basketFormData);
                 if (response.status === 200) {
+                    setIsInBasket(true);
                     toast.success("Kurs sepete eklendi");
-                    console.log("Kurs sepete eklendi");
                 }
             } catch (error) {
                 console.log(error);

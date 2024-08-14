@@ -53,7 +53,7 @@ const UserWishList = () => {
             } else {
                 console.error('Network error:', error.message);
             }
-            toast.success("Bir hata oluştu");
+            toast.error("Bir hata oluştu");
         } finally {
             setLoading(false)
         }

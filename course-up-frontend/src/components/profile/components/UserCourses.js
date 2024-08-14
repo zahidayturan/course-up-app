@@ -98,7 +98,7 @@ const UserCourses = () => {
                                                         <div className={classNames(styles["custom-row"],styles["course-info"])}>
                                                             <p>Geçirdiğin Süre<br/><span style={{fontWeight:400}}>{item.current_duration} dakika</span></p>
                                                             <p>Kaldığın Bölüm<br/><span  style={{fontWeight:400}}>Bölüm {item.current_stage}</span></p>
-                                                            <p>Başlama Tarihin<br/><span  style={{fontWeight:400}}>{item.started_date}</span></p>
+                                                            <p>Başlama Tarihin<br/><span  style={{fontWeight:400}}>{item.started_date ? item.started_date : "Başlamadın"}</span></p>
                                                         </div>
                                                     </div>
                                                     <ProgressBarAndPlayButton percentage={percentage} />
