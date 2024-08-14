@@ -1,8 +1,5 @@
 package com.example.courseup.service;
 
-import com.example.courseup.model.Course;
-import com.example.courseup.model.DTO.AllCoursesDTO;
-import com.example.courseup.model.DTO.TraineeDTO;
 import com.example.courseup.model.DTO.UserCoursesDTO;
 import com.example.courseup.model.Trainee;
 import com.example.courseup.repository.CourseRepository;
@@ -51,5 +48,10 @@ public class TraineeService {
         return trainees.stream()
                 .map(trainee -> new UserCoursesDTO(trainee.getCourse(), trainee))
                 .collect(Collectors.toList());
+    }
+
+    public boolean trainerExists(Long courseId, Long userId) {
+        List<Trainee> courseTraineeLists = traineeRepository.findByCourseAndUserId(courseId, userId);
+        return !courseTraineeLists.isEmpty();
     }
 }

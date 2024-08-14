@@ -10,6 +10,8 @@ const Endpoints = {
     PASSWORD_RESET_REQ: `${API_BASE_URL}/auth/password-reset`,
     RESET_PASSWORD: `${API_BASE_URL}/auth/reset-password`,
     USER_COURSES: `${API_BASE_URL}/trainee/user`,
+    ADD_TO_USER_COURSE: `${API_BASE_URL}/trainee/save`,
+    CHECK_USER_COURSE: `${API_BASE_URL}/trainee/check`,
     ONGOING_COURSES: `${API_BASE_URL}/trainee/active/user`,
     POPULAR_COURSES: `${API_BASE_URL}/api/json/popular-courses`,
     TEACHER_SAVE: `${API_BASE_URL}/teacher`,

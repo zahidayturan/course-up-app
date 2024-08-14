@@ -93,4 +93,14 @@ public class TraineeController {
     public List<UserCoursesDTO> getActiveCoursesByUserId(@PathVariable Long userId) {
         return traineeService.getActiveTraineeByUserId(userId);
     }
+
+    @Operation(summary = "Check course in trainer")
+    @GetMapping("/check/{courseId}/{userId}")
+    public ResponseEntity<String> checkCourseInTrainer(@PathVariable Long courseId, @PathVariable Long userId) {
+        if (traineeService.trainerExists(courseId, userId)) {
+            return ResponseEntity.ok("true");
+        }else {
+            return ResponseEntity.ok("false");
+        }
+    }
 }

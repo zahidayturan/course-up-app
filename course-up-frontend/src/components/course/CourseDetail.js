@@ -36,6 +36,7 @@ const CourseDetail = () => {
 
     const [categories, setCategories] = useState([]);
 
+    const [isAlreadyExist, setIsAlreadyExist] = useState(null);
     const [isInWishList, setIsInWishList] = useState(null);
     const [isInBasket, setIsInBasket] = useState(null);
 
@@ -109,7 +110,7 @@ const CourseDetail = () => {
             try {
                 const response = await axios.get(`${Endpoints.CHECK_WISH_LIST}/${id}/${user.id}`);
                 setIsInWishList(response.data);
-                console.log('wish list: ',response.data);
+                console.log('wish list');
             } catch (error) {
                 console.error('An unexpected error occurred:', error);
             }
@@ -133,6 +134,22 @@ const CourseDetail = () => {
 
         if (user && course) {
             checkBasket();
+        }
+    }, [user, course, id]);
+
+    useEffect(() => {
+        const checkItAlreadyExists = async () => {
+            try {
+                const response = await axios.get(`${Endpoints.CHECK_USER_COURSE}/${id}/${user.id}`);
+                setIsAlreadyExist(response.data);
+                console.log('already exist');
+            } catch (error) {
+                console.error('An unexpected error occurred:', error);
+            }
+        };
+
+        if (user && course) {
+            checkItAlreadyExists();
         }
     }, [user, course, id]);
 
@@ -186,7 +203,6 @@ const CourseDetail = () => {
                 const basketFormData = new FormData();
                 basketFormData.append('courseId', course.id);
                 basketFormData.append('userId', user.id);
-                console.log(basketFormData);
                 const response = await axios.post(`${Endpoints.ADD_TO_BASKET}`, basketFormData);
                 if (response.status === 200) {
                     setIsInBasket(true);
@@ -257,7 +273,10 @@ const CourseDetail = () => {
                                         <p style={{fontWeight:"bold",fontSize:26}}>{course.discountedPrice} ₺</p>
                                         {course.discount !== 0 && (<p style={{color:"var(--orange-color-1)",fontSize:18}}>%{course.discount} indirim</p>)}
                                     </div>
-                                    <button className={styles["basket-button"]} disabled={isInBasket} onClick={addToBasket}><img src="/icon/basket.png" height={12} style={{filter:"brightness(100)",marginRight:6}} alt="add to basket"/>{isInBasket ? ("Sepette") : ("Sepete Ekle")} </button>
+                                    {isAlreadyExist ?
+                                        <button className={styles["basket-button"]} onClick={() => navigate('/profile')}>Kursa Sahipsin</button>
+                                        : <button className={styles["basket-button"]} disabled={isInBasket} onClick={addToBasket}><img src="/icon/basket.png" height={12} style={{filter:"brightness(100)",marginRight:6}} alt="add to basket"/>{isInBasket ? ("Sepette") : ("Sepete Ekle")} </button>
+                                    }
                                 </div>
                             </div>
                             <h3 style={{marginTop:24}}>Kurs Hakkında</h3>

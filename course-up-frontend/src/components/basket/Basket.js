@@ -4,7 +4,7 @@ import axios from "axios";
 import Endpoints from "../../constants/Endpoints";
 import styles from "./css/Basket.module.css";
 import textStyles from "../css/Text.module.css";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import classNames from "classnames";
 import mainStyles from "../css/Main.module.css";
 import {toast} from "react-toastify";
@@ -18,6 +18,7 @@ const Basket = () => {
     const [loading, setLoading] = useState(false);
     const [couponCode, setCouponCode] = useState('');
     const [couponApplied, setCouponApplied] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchBasket = async (userId) => {
@@ -48,7 +49,6 @@ const Basket = () => {
         try {
             setLoading(true);
             const response = await axios.delete(`${Endpoints.DELETE_FROM_BASKET}/${id}`);
-            console.log(response);
             if (response.status === 200 || response.status === 204) {
                 console.log('Course successfully removed from basket');
                 toast.success("Sepetten kaldırıldı");
@@ -69,6 +69,47 @@ const Basket = () => {
     const handleDelete = (courseId) => {
         deleteFromBasket(courseId);
     };
+
+    const addCourseToTrainee = async () => {
+        if (couponApplied) {
+            try {
+                setLoading(true);
+                let allCoursesAddedSuccessfully = true;
+
+                for (const course of basketCourses) {
+                    const traineeFormData = new FormData();
+                    traineeFormData.append('courseId', course.courseId);
+                    traineeFormData.append('userId', user.id);
+
+                    const response = await axios.post(`${Endpoints.ADD_TO_USER_COURSE}`, traineeFormData);
+
+                    if (response.status === 200) {
+                        toast.success(`${course.name} kursu profiline eklendi`);
+                        await deleteFromBasket(course.id);
+                    } else {
+                        toast.error(`${course.name} kursu eklenirken bir sorun oluştu`);
+                        allCoursesAddedSuccessfully = false;
+                    }
+                }
+                if (allCoursesAddedSuccessfully) {
+                    toast.success(`Profilinize yönlendiriliyorsunuz`);
+                    setTimeout(() => {
+                        navigate('/profile');
+                    }, 4000);
+                }
+            } catch (error) {
+                toast.error("Satın alım işlemi başarısız oldu");
+                console.error('An error occurred:', error);
+            } finally {
+                setCouponCode('');
+                setCouponApplied(false);
+                setLoading(false);
+            }
+        } else {
+            toast.error("Kupon koduna bir şeyler yazın");
+        }
+    };
+
 
     const toggleShowHideMenu = () => {
         setShowHideToggle(!showHideToggle);
@@ -114,8 +155,6 @@ const Basket = () => {
             setCouponApplied(false);
         }
     };
-
-
 
     const bName = process.env.REACT_APP_S3_BUCKET_NAME;
     return (
@@ -210,7 +249,7 @@ const Basket = () => {
                                         <p style={{color:"var(--orange-color-1)"}}>{netTotal.toFixed(2)} ₺</p>
                                     </div>
 
-                                    <button className={styles["payment-button"]}>Ödemeye Geç</button>
+                                    <button onClick={addCourseToTrainee} className={styles["payment-button"]}>{couponApplied ? "Kursları Profiline Ekle" : "Ödemeye Geç" }</button>
                                 </div>
                             </div>
 
