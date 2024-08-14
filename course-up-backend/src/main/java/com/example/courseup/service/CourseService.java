@@ -69,8 +69,16 @@ public class CourseService {
         return courseRepository.findCoursesByUserId(userId);
     }
 
-    public List<Course> getCoursesByCategory(String categoryName) {
-        return courseRepository.findCoursesByCategory(categoryName);
+    public List<AllCoursesDTO> getCoursesByCategory(String categoryName) {
+        List<Course> courses = courseRepository.findCoursesByCategory(categoryName);
+        return courses.stream()
+                .map(course -> {
+                    Integer students = getNumberOfCourseStudents(course.getId());
+                    Double rating = getCourseRating(course.getId());
+                    Integer reviews = getNumberOfCourseReviewers(course.getId());
+                    return new AllCoursesDTO(course, students, rating, reviews);
+                })
+                .collect(Collectors.toList());
     }
 
     public double getCourseRating(Long courseId) {

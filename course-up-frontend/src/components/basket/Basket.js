@@ -179,7 +179,7 @@ const Basket = () => {
                             </div>
                         ) : basketCourses && (
                         <>
-                            <p style={{fontSize:16}}>{basketCourses.length} kurs</p>
+                            <p style={{fontSize:16}}>{basketCourses.length === 0 ? "Boş" : `${basketCourses.length} kurs`}</p>
                             <div className={styles["custom-row"]}>
                                 <div style={{width:"100%"}}>
                                     {basketCourses.map((item) => (
@@ -203,54 +203,56 @@ const Basket = () => {
                                     </div>
                                 ))}
                                 </div>
-                                <div className={styles["basket-summary"]}>
-                                    <p style={{fontSize:20,color:"var(--primary-color-1)",textAlign:"end"}}>Sepet <span style={{color:"var(--orange-color-1)"}}>Özetin</span></p>
-                                    <p style={{fontSize:14,marginBottom:16}}>{basketCourses.length} kurs</p>
+                                {basketCourses.length > 0 && (
+                                    <div className={styles["basket-summary"]}>
+                                        <p style={{fontSize:20,color:"var(--primary-color-1)",textAlign:"end"}}>Sepet <span style={{color:"var(--orange-color-1)"}}>Özetin</span></p>
+                                        <p style={{fontSize:14,marginBottom:16}}>{basketCourses.length} kurs</p>
 
-                                    {showHideToggle === true && (
-                                        basketCourses.map((item) =>(
-                                            <div key={item.id} style={{textAlign:"end",marginBottom:12,display:"flex",gap:12}}>
-                                                <div>
-                                                    <p style={{fontSize:14}}>{item.name}</p>
-                                                    {item.discount > 0 && <p style={{textDecoration:"line-through",fontSize:13}}>{item.originalPrice} ₺</p>}
-                                                    <p style={{fontWeight:600,fontSize:14}}>{item.discountedPrice} ₺</p>
-                                                    {item.discount > 0 && (<p style={{fontStyle:"italic",fontSize:13}}>Kazancınız {item.originalPrice - item.discountedPrice} ₺</p>)}
+                                        {showHideToggle === true && (
+                                            basketCourses.map((item) =>(
+                                                <div key={item.id} style={{textAlign:"end",marginBottom:12,display:"flex",gap:12}}>
+                                                    <div>
+                                                        <p style={{fontSize:14}}>{item.name}</p>
+                                                        {item.discount > 0 && <p style={{textDecoration:"line-through",fontSize:13}}>{item.originalPrice} ₺</p>}
+                                                        <p style={{fontWeight:600,fontSize:14}}>{item.discountedPrice} ₺</p>
+                                                        {item.discount > 0 && (<p style={{fontStyle:"italic",fontSize:13}}>Kazancınız {item.originalPrice - item.discountedPrice} ₺</p>)}
+                                                    </div>
+                                                    <div style={{width:3,height:"content-box",borderRadius:50,backgroundColor:"var(--orange-color-1)"}}></div>
                                                 </div>
-                                                <div style={{width:3,height:"content-box",borderRadius:50,backgroundColor:"var(--orange-color-1)"}}></div>
-                                            </div>
-                                        ))
-                                    )}
+                                            ))
+                                        )}
 
-                                    <button onClick={toggleShowHideMenu} className={styles["show-hide-button"]} style={{borderRadius: setShowHideToggle ? 100 : 4}}>
-                                        {showHideToggle === false && "Kursları Göster"}
-                                        <img style={{height:12, rotate: showHideToggle ? ("90deg"): ("-90deg")}} src="/icon/arrow.png" alt=""/>
-                                    </button>
-
-                                    <form onSubmit={handleApplyCoupon} style={{display:"flex",alignItems:"center",gap:4,margin:"12px 0",width:"100%",justifyContent:"end"}}>
-                                        <input style={{height:32,maxWidth:320,backgroundColor:"white"}} type="text" id="coupon-code" placeholder="Kupon kodunuz varsa yazınız" maxLength="32" value={couponCode} onChange={(e) => setCouponCode(e.target.value)} required/>
-                                        <button type="submit" style={{height:32,width:32,border:"none",backgroundColor:"white",borderRadius:4,cursor:"pointer"}}>
-                                            <img style={{width:18,alignSelf:"center"}} src= { couponApplied ? "/icon/close.png" : "/icon/search.png"} alt="cupon-search"/>
+                                        <button onClick={toggleShowHideMenu} className={styles["show-hide-button"]} style={{borderRadius: setShowHideToggle ? 100 : 4}}>
+                                            {showHideToggle === false && "Kursları Göster"}
+                                            <img style={{height:12, rotate: showHideToggle ? ("90deg"): ("-90deg")}} src="/icon/arrow.png" alt=""/>
                                         </button>
-                                    </form>
 
-                                    <div className={styles["text-row"]} style={{fontSize:15,fontWeight:600}}>
-                                        <p>Toplam</p>
-                                        <p>{totalAmount.toFixed(2)} ₺</p>
-                                    </div>
-                                    <div className={styles["text-row"]} style={{fontSize:15,fontWeight:600,textAlign:"end"}}>
-                                        <p>İndirim</p>
-                                        <p>{couponApplied && (<>Kupon uygulandı<br /></>)}{totalDiscount > 0 ? `-${totalDiscount.toFixed(2)} ₺` : "Uygulanmadı"}</p>
-                                    </div>
-                                    <div className={styles["text-row"]} style={{fontSize:17,fontWeight:"bold"}}>
-                                        <div>
-                                            <p>Net Toplam</p>
-                                            <p style={{fontWeight:"normal",fontSize:12}}>KDV Dahil</p>
+                                        <form onSubmit={handleApplyCoupon} style={{display:"flex",alignItems:"center",gap:4,margin:"12px 0",width:"100%",justifyContent:"end"}}>
+                                            <input style={{height:32,maxWidth:320,backgroundColor:"white"}} type="text" id="coupon-code" placeholder="Kupon kodunuz varsa yazınız" maxLength="32" value={couponCode} onChange={(e) => setCouponCode(e.target.value)} required/>
+                                            <button type="submit" style={{height:32,width:32,border:"none",backgroundColor:"white",borderRadius:4,cursor:"pointer"}}>
+                                                <img style={{width:18,alignSelf:"center"}} src= { couponApplied ? "/icon/close.png" : "/icon/search.png"} alt="cupon-search"/>
+                                            </button>
+                                        </form>
+
+                                        <div className={styles["text-row"]} style={{fontSize:15,fontWeight:600}}>
+                                            <p>Toplam</p>
+                                            <p>{totalAmount.toFixed(2)} ₺</p>
                                         </div>
-                                        <p style={{color:"var(--orange-color-1)"}}>{netTotal.toFixed(2)} ₺</p>
-                                    </div>
+                                        <div className={styles["text-row"]} style={{fontSize:15,fontWeight:600,textAlign:"end"}}>
+                                            <p>İndirim</p>
+                                            <p>{couponApplied && (<>Kupon uygulandı<br /></>)}{totalDiscount > 0 ? `-${totalDiscount.toFixed(2)} ₺` : "Uygulanmadı"}</p>
+                                        </div>
+                                        <div className={styles["text-row"]} style={{fontSize:17,fontWeight:"bold"}}>
+                                            <div>
+                                                <p>Net Toplam</p>
+                                                <p style={{fontWeight:"normal",fontSize:12}}>KDV Dahil</p>
+                                            </div>
+                                            <p style={{color:"var(--orange-color-1)"}}>{netTotal.toFixed(2)} ₺</p>
+                                        </div>
 
-                                    <button onClick={addCourseToTrainee} className={styles["payment-button"]}>{couponApplied ? "Kursları Profiline Ekle" : "Ödemeye Geç" }</button>
-                                </div>
+                                        <button onClick={addCourseToTrainee} className={styles["payment-button"]}>{couponApplied ? "Kursları Profiline Ekle" : "Ödemeye Geç" }</button>
+                                    </div>
+                                )}
                             </div>
 
                         </>
