@@ -128,7 +128,7 @@ public class CourseController {
 
     @Operation(summary = "Get all course by Category Name")
     @GetMapping("/category/{categoryName}")
-    public List<Course> getCoursesByCategory(@PathVariable String categoryName) {
+    public List<AllCoursesDTO> getCoursesByCategory(@PathVariable String categoryName) {
         return courseService.getCoursesByCategory(categoryName);
     }
 
