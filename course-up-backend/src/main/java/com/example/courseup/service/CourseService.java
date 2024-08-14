@@ -1,13 +1,18 @@
 package com.example.courseup.service;
 
 import com.example.courseup.model.Course;
+import com.example.courseup.model.CourseStages;
 import com.example.courseup.model.DTO.AllCoursesDTO;
 import com.example.courseup.repository.CourseRepository;
+import com.example.courseup.repository.CourseStagesRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +23,12 @@ public class CourseService {
 
     @Autowired
     private CourseRepository courseRepository;
+
+    @Autowired
+    private CourseStagesRepository courseStagesRepository;
+
+    @Autowired
+    private S3Service s3Service;
 
     public List<Course> findAll() {
         return courseRepository.findAll();
@@ -32,7 +43,26 @@ public class CourseService {
     }
 
     public void deleteById(Long id) {
+        Course course = findById(id).orElseThrow(() -> new EntityNotFoundException("Course with id " + id + " not found"));
+        if (course.getImageId() != null) {
+            s3Service.deleteFile(course.getImageId());
+        }
+        List<CourseStages> courseStages = courseStagesRepository.findByCourseId(id);
+        courseStages.forEach(stage -> {
+            if (stage.getVideoId() != null) {
+                s3Service.deleteFile(stage.getVideoId());
+            }
+        });
+        courseStagesRepository.deleteByCourseId(id);
         courseRepository.deleteById(id);
+    }
+
+
+    public Course update(Course course) {
+        if (!courseRepository.existsById(course.getId())) {
+            throw new EntityNotFoundException("Course with id " + course.getId() + " not found");
+        }
+        return courseRepository.save(course);
     }
 
     public List<Course> getCoursesByUserId(Long userId) {
@@ -83,6 +113,50 @@ public class CourseService {
         Double rating = getCourseRating(course.getId());
         Integer reviews = getNumberOfCourseReviewers(course.getId());
         return new AllCoursesDTO(course, students, rating, reviews);
+    }
+
+    public Long parseLong(String value) {
+        try {
+            return value != null ? Long.valueOf(value) : null;
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    public Double parseDouble(String value, Double defaultValue) {
+        try {
+            return value != null ? Double.valueOf(value) : defaultValue;
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
+
+    public Integer parseInteger(String value, Integer defaultValue) {
+        try {
+            return value != null ? Integer.valueOf(value) : defaultValue;
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
+
+    public Boolean parseBoolean(String value, Boolean defaultValue) {
+        return value != null ? Boolean.valueOf(value) : defaultValue;
+    }
+
+    public Long parseLongOneParameter(String value) {
+        try {
+            return value != null ? Long.valueOf(value) : null;
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    public Double parseDoubleOneParameter(String value) {
+        try {
+            return value != null ? Double.valueOf(value) : null;
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 
 }

@@ -1,13 +1,19 @@
 package com.example.courseup.controller;
 
+import com.example.courseup.model.Course;
 import com.example.courseup.model.DTO.UserCoursesDTO;
 import com.example.courseup.model.Trainee;
+import com.example.courseup.model.User;
+import com.example.courseup.service.CourseService;
 import com.example.courseup.service.TraineeService;
+import com.example.courseup.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -16,6 +22,12 @@ public class TraineeController {
 
     @Autowired
     private TraineeService traineeService;
+
+    @Autowired
+    private CourseService courseService;
+
+    @Autowired
+    private UserService userService;
 
     @Operation(summary = "Get all trainees")
     @GetMapping
@@ -30,9 +42,37 @@ public class TraineeController {
     }
 
     @Operation(summary = "Save a new trainee")
-    @PostMapping
-    public Trainee save(@RequestBody Trainee trainee) {
-        return traineeService.save(trainee);
+    @PostMapping("/save")
+    public ResponseEntity<String> save(@RequestParam Map<String, String> params) {
+
+        long userId;
+        try {
+            userId = Long.parseLong(params.get("userId"));
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().body("Invalid userId value.");
+        }
+        User user = userService.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found."));
+        long courseId;
+        try {
+            courseId = Long.parseLong(params.get("courseId"));
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().body("Invalid courseId value .");
+        }
+
+        Course course = courseService.findById(courseId)
+                .orElseThrow(() -> new RuntimeException("Course not found."));
+
+        Trainee trainee = new Trainee();
+        trainee.setCourse(course);
+        trainee.setUser(user);
+        trainee.setCoursePoint(0.0);
+        trainee.setCurrentDuration(0.0);
+        trainee.setCurrentStages(1);
+        trainee.setIsFinished(false);
+
+        String traineeId = traineeService.save(trainee).getId().toString();
+        return ResponseEntity.ok(traineeId);
     }
 
     @Operation(summary = "Delete trainee by ID")
@@ -52,5 +92,15 @@ public class TraineeController {
     @GetMapping("/active/user/{userId}")
     public List<UserCoursesDTO> getActiveCoursesByUserId(@PathVariable Long userId) {
         return traineeService.getActiveTraineeByUserId(userId);
+    }
+
+    @Operation(summary = "Check course in trainer")
+    @GetMapping("/check/{courseId}/{userId}")
+    public ResponseEntity<String> checkCourseInTrainer(@PathVariable Long courseId, @PathVariable Long userId) {
+        if (traineeService.trainerExists(courseId, userId)) {
+            return ResponseEntity.ok("true");
+        }else {
+            return ResponseEntity.ok("false");
+        }
     }
 }

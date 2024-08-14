@@ -13,7 +13,7 @@ public class UserCoursesDTO {
     private Long id;
     private LocalDate started_date;
     private LocalDate end_date;
-    private Integer current_duration;
+    private Double current_duration;
     private Integer current_stage;
     private Double course_point;
     private boolean is_finished;
@@ -22,9 +22,9 @@ public class UserCoursesDTO {
     private String name;
     private String instructor;
     private String description;
-    private Integer duration;
+    private Double duration;
     private Integer stage;
-    private String image;
+    private String imageId;
 
     public UserCoursesDTO(Course course, Trainee trainee) {
         this.id = trainee.getId();
@@ -39,7 +39,7 @@ public class UserCoursesDTO {
         this.description = course.getDescription();
         this.duration = course.getTotalDuration();
         this.stage = course.getTotalStages();
-        this.image = course.getImage();
+        this.imageId = course.getImageId();
     }
 
 }

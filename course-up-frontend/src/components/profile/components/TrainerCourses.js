@@ -39,9 +39,11 @@ const TrainerCourses = () => {
         }
     }, []);
 
+    const bName = process.env.REACT_APP_S3_BUCKET_NAME;
+
     const CourseCard = ({ item }) => (
         <div className={classNames(styles["course-container"],styles["custom-row"])} style={{height:"100%",alignItems:"center"}}>
-            <img className={styles["course-img"]} src={item.image} alt={item.name} />
+            {item.imageId ? (<img className={styles["course-img"]} src={`https://${bName}.s3.amazonaws.com/${item.imageId}`} alt={item.name} />) : (<img style={{objectFit:"contain"}} className={styles["course-img"]} src="/logo/courseup-l-v1.png" alt="Course" />)}
             <div className={styles["custom-column"]}>
                 <div style={{ display: "flex", flexDirection: "column" }}>
                     <p className={textStyles["font-bold"]}>{item.name}</p>
@@ -56,9 +58,9 @@ const TrainerCourses = () => {
                 </div>
                 <div className={classNames(styles["custom-row"],styles["price-button"])}>
                     <div style={{ display: "flex", alignItems: "end", gap: 4 }} >
-                        <p className={textStyles["text-small"]} style={{ textDecoration: "line-through" }}>{item.originalPrice} ₺</p>
+                        {item.discount !== 0 && (<p className={textStyles["text-small"]} style={{ textDecoration: "line-through" }}>{item.originalPrice} ₺</p>)}
                         <p className={textStyles["font-bold"]}>{item.discountedPrice} ₺</p>
-                        <p className={textStyles["text-small"]} style={{ color: "var(--orange-color-1)" }}>%{item.discount} indirim</p>
+                        {item.discount !== 0 && (<p className={textStyles["text-small"]} style={{ color: "var(--orange-color-1)" }}>%{item.discount} indirim</p>)}
                     </div>
                     <p className={styles["text-button"]} style={{backgroundColor: item.active ? "var(--orange-color-1)": "var(--secondary-color-2)"}}>Kurs Düzenleme ve İstatistikler</p>
                 </div>
@@ -88,7 +90,7 @@ const TrainerCourses = () => {
                             <div>
                                 {activeCourses && (
                                     <div className={styles['courses-box']}>
-                                        <div style={{ padding: 12 }}>
+                                        <div style={{ padding: 12}}>
                                             <div className={styles["custom-row"]} style={{ marginBottom: 8 }}>
                                                 <p style={{ fontSize: 24 }}>Aktif <span className={textStyles["font-bold"]}>kursların </span><span style={{ fontSize: 16, fontStyle: "italic", fontWeight: 400 }}>(Öğrenci kabul ediyor)</span></p>
                                                 <div className={styles["mini-decoration"]}></div>

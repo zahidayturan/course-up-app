@@ -8,7 +8,8 @@ import textStyles from "../css/Text.module.css";
 import Header from "../home/components/Header";
 import RatingStars from "./RatingStars";
 import CourseComments from "./CourseComments";
-import OneCategory from "./OneCategory";
+import {toast} from "react-toastify";
+
 
 const CourseDetail = () => {
     const { id } = useParams();
@@ -34,6 +35,14 @@ const CourseDetail = () => {
     const [openStages, setOpenStages] = useState({});
 
     const [categories, setCategories] = useState([]);
+
+    const [isAlreadyExist, setIsAlreadyExist] = useState(null);
+    const [isInWishList, setIsInWishList] = useState(null);
+    const [isInBasket, setIsInBasket] = useState(null);
+
+    const [mainLoading, setMainLoading] = useState(false);
+
+
     useEffect(() => {
         fetch('/json/categories.json')
             .then(response => response.json())
@@ -68,7 +77,7 @@ const CourseDetail = () => {
             try {
                 const response = await axios.get(`${Endpoints.COURSE_STAGES}/${courseId}`);
                 if (response.data) {
-                    const sortedStages = response.data.sort((a, b) => a.episode - b.episode);
+                    const sortedStages = response.data.sort((a, b) => a.episodeNumber - b.episodeNumber);
                     setCourseStages(sortedStages);
                     console.log("Course stages set");
                 }
@@ -79,7 +88,6 @@ const CourseDetail = () => {
             }
         };
 
-
         fetchCourseDetail(id);
 
         const storedUser = localStorage.getItem('user');
@@ -89,12 +97,61 @@ const CourseDetail = () => {
         } else {
             console.log('No user data or course data found in localStorage');
         }
+    }, [id, navigate]);
 
+    useEffect(() => {
         if (isTeacherMenuOpen && !teacher && course.teacherId) {
             fetchTeacherDetail(course.teacherId);
         }
-    }, [id, navigate, isTeacherMenuOpen, teacher]);
+    }, [isTeacherMenuOpen, teacher]);
 
+    useEffect(() => {
+        const checkWishList = async () => {
+            try {
+                const response = await axios.get(`${Endpoints.CHECK_WISH_LIST}/${id}/${user.id}`);
+                setIsInWishList(response.data);
+                console.log('wish list');
+            } catch (error) {
+                console.error('An unexpected error occurred:', error);
+            }
+        };
+
+        if (user && course) {
+            checkWishList();
+        }
+    }, [user, course, id]);
+
+    useEffect(() => {
+        const checkBasket = async () => {
+            try {
+                const response = await axios.get(`${Endpoints.CHECK_BASKET}/${id}/${user.id}`);
+                setIsInBasket(response.data);
+                console.log('wish list: ',response.data);
+            } catch (error) {
+                console.error('An unexpected error occurred:', error);
+            }
+        };
+
+        if (user && course) {
+            checkBasket();
+        }
+    }, [user, course, id]);
+
+    useEffect(() => {
+        const checkItAlreadyExists = async () => {
+            try {
+                const response = await axios.get(`${Endpoints.CHECK_USER_COURSE}/${id}/${user.id}`);
+                setIsAlreadyExist(response.data);
+                console.log('already exist');
+            } catch (error) {
+                console.error('An unexpected error occurred:', error);
+            }
+        };
+
+        if (user && course) {
+            checkItAlreadyExists();
+        }
+    }, [user, course, id]);
 
     const fetchTeacherDetail = async (teacherId) => {
         try {
@@ -120,8 +177,57 @@ const CourseDetail = () => {
         }));
     };
 
+    const addToWishList = async () => {
+        try {
+            setMainLoading(true);
+            const wishListFormData = new FormData();
+            wishListFormData.append('courseId', course.id);
+            wishListFormData.append('userId', user.id);
+            const response = await axios.post(`${Endpoints.ADD_TO_WISH_LIST}`, wishListFormData);
+            if (response.status === 200) {
+                setIsInWishList(true);
+                toast.success("Kurs istek listene eklendi");
+            }
+        } catch (error) {
+            toast.success("İşlem başarısız oldu");
+            console.log(error);
+        } finally {
+            setMainLoading(false);
+        }
+    };
+
+    const addToBasket = async () => {
+        if(user){
+            try {
+                setMainLoading(true);
+                const basketFormData = new FormData();
+                basketFormData.append('courseId', course.id);
+                basketFormData.append('userId', user.id);
+                const response = await axios.post(`${Endpoints.ADD_TO_BASKET}`, basketFormData);
+                if (response.status === 200) {
+                    setIsInBasket(true);
+                    toast.success("Kurs sepete eklendi");
+                }
+            } catch (error) {
+                console.log(error);
+                toast.error("Kurs sepete eklenirken bir hata oluştu");
+            } finally {
+                setMainLoading(false);
+            }
+        }else{
+            toast.error("Sepete ekleyebilmek için giriş yapmalısınız");
+        }
+    };
+
+    const bName = process.env.REACT_APP_S3_BUCKET_NAME;
+
     return (
         <div>
+            {mainLoading && (
+                <div className={mainStyles["loading-overlay"]}>
+                    <div className={mainStyles["main-spinner"]}></div>
+                </div>
+            )}
             <Header />
             {loading ? (
                     <div className={styles['course-box']}>
@@ -143,7 +249,7 @@ const CourseDetail = () => {
                             <p style={{fontSize:15,marginBottom:12,textUnderlineOffset:4}}>Kurslar/<Link to={`/category`} style={{color:"var(--secondary-color-2)"}}>Kategoriler</Link>/<span onClick={() => handleCategoryClick(course.category)} style={{color:"var(--secondary-color-2)",fontWeight:"normal",textDecoration:"underline",cursor:"pointer"}}>{course.category}</span></p>
                             <div className={styles["custom-row"]}>
                                 <div style={{display:"flex",flexDirection:"row",gap:18,flexWrap:"wrap"}}>
-                                    <img className={styles["course-img"]} src={course.image} alt={course.name} />
+                                    {course.imageId ? (<img className={styles["course-img"]} src={`https://${bName}.s3.amazonaws.com/${course.imageId}`} alt={course.name} />) : (<img style={{objectFit:"contain"}} className={styles["course-img"]} src="/logo/courseup-l-v1.png" alt="Course" />)}
                                     <div className={styles["course-title"]}>
                                         <div>
                                             <h1>{course.name}</h1>
@@ -158,15 +264,19 @@ const CourseDetail = () => {
                                             <p><span>Video Dili: </span>{course.language}</p>
                                             <p><span>Altyazı Desteği: </span>{course.subtitles}</p>
                                         </div>
+                                        {(user) && (<p className={textStyles["text-underline"]} style={{color:"var(--orange-color-1)",fontSize:13,width:"max-content"}} onClick={isInWishList ? null :addToWishList}>{isInWishList ? ("Kurs İstek Listende") : "İstek Listene Ekle"}</p>)}
                                     </div>
                                 </div>
                                 <div className={styles["price-and-button"]}>
                                     <div style={{textAlign:"end"}}>
-                                        <p style={{textDecoration:"line-through",fontSize:20}}>{course.originalPrice} ₺</p>
+                                        {course.discount !== 0 && (<p style={{textDecoration:"line-through",fontSize:20}}>{course.originalPrice} ₺</p>)}
                                         <p style={{fontWeight:"bold",fontSize:26}}>{course.discountedPrice} ₺</p>
-                                        <p style={{color:"var(--orange-color-1)",fontSize:18}}>%{course.discount} indirim</p>
+                                        {course.discount !== 0 && (<p style={{color:"var(--orange-color-1)",fontSize:18}}>%{course.discount} indirim</p>)}
                                     </div>
-                                    <div className={styles["basket-button"]}><img src="/icon/basket.png" height={12} style={{filter:"brightness(100)",marginRight:6}} alt="add to basket"/> Sepete Ekle</div>
+                                    {isAlreadyExist ?
+                                        <button className={styles["basket-button"]} onClick={() => navigate('/profile')}>Kursa Sahipsin</button>
+                                        : <button className={styles["basket-button"]} disabled={isInBasket} onClick={addToBasket}><img src="/icon/basket.png" height={12} style={{filter:"brightness(100)",marginRight:6}} alt="add to basket"/>{isInBasket ? ("Sepette") : ("Sepete Ekle")} </button>
+                                    }
                                 </div>
                             </div>
                             <h3 style={{marginTop:24}}>Kurs Hakkında</h3>
@@ -202,7 +312,7 @@ const CourseDetail = () => {
                                                                     {isOpen && (
                                                                         <div>
                                                                             <p style={{ fontSize: 14 }}>{item.description}</p>
-                                                                            {index !==0 && (<p style={{ fontSize: 13,fontStyle:"italic",marginTop:4}}>Bu içeriği izleyebilmek için satın almalısınız</p>)}
+                                                                            {index !==0 ? (<p style={{ fontSize: 13,fontStyle:"italic",marginTop:4}}>Bu içeriği izleyebilmek için satın almalısınız</p>) : <video width="100%" height="auto" style={{borderRadius:8,marginTop:12}} src={`https://${bName}.s3.amazonaws.com/${item.videoId}`} controls></video>}
                                                                         </div>
                                                                     )}
                                                                 </div>

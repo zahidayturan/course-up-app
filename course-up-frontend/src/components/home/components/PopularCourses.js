@@ -15,7 +15,7 @@ const PopularCourses = () => {
     const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const scrollSpeed = 3; // Kaydırma hızını buradan ayarlayabilirsiniz
+    const scrollSpeed = 3;
 
     useEffect(() => {
         const fetchCourses = async () => {
@@ -118,6 +118,8 @@ const PopularCourses = () => {
         };
     }, []);
 
+    const bName = process.env.REACT_APP_S3_BUCKET_NAME;
+
     return (
         <div>
             <div className={styles["mobile-title-and-row"]}>
@@ -158,21 +160,23 @@ const PopularCourses = () => {
                                             <span className={textStyles["font-bold"]}>% {course.discount}</span> indirim
                                         </div>
                                     )}
-                                    <img className={styles["course-img"]} src={course.image} alt={course.name} />
+                                    <div style={{width:"100%"}}>
+                                        {course.imageId ? (<img className={styles["course-img"]} src={`https://${bName}.s3.amazonaws.com/${course.imageId}`} alt="Course" />) : (<img style={{objectFit:"contain"}} className={styles["course-img"]} src="/logo/courseup-l-v1.png" alt="Course" />)}
+                                    </div>
                                     <div className={styles["text-column"]}>
                                         <div>
                                             <p className={textStyles["font-bold"]} style={{ fontSize: 18 }}>{course.name}</p>
                                             <p className={classNames(textStyles["font-italic"], textStyles["text-small"])}>Eğitmen: {course.teacher}</p>
                                         </div>
                                         <p className={textStyles["text-small"]} style={{ textAlign: "justify" }}>{course.description}</p>
-                                        <p className={textStyles["text-small"]}>{course.duration} Saat Eğitim Süresi - {course.students} öğrenci</p>
+                                        <p className={textStyles["text-small"]}>{(course.duration/60).toFixed(2)} Saat Eğitim Süresi - {course.students} öğrenci</p>
                                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "end", width: "100%" }}>
                                             <div>
                                                 <p className={textStyles["text-small"]} style={{marginBottom:4}}>{course.rating} <span style={{ fontSize: 12 }}>({course.reviews}) kişi</span></p>
                                                 <RatingStars rating={course.rating} size={12}/>
                                             </div>
                                             <div style={{ textAlign: "end" }}>
-                                                <p className={textStyles["text-small"]} style={{ textDecoration: "line-through" }}>{course.originalPrice} ₺</p>
+                                                {course.discount !== 0 && (<p className={textStyles["text-small"]} style={{ textDecoration: "line-through" }}>{course.originalPrice} ₺</p>)}
                                                 <p className={textStyles["font-bold"]}>{course.discountedPrice} ₺</p>
                                             </div>
                                         </div>

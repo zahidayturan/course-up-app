@@ -3,12 +3,16 @@ package com.example.courseup.service;
 import com.example.courseup.exception.ResourceNotFoundException;
 import com.example.courseup.model.Basket;
 import com.example.courseup.model.Course;
+import com.example.courseup.model.CourseWishList;
+import com.example.courseup.model.DTO.BasketDTO;
+import com.example.courseup.model.DTO.CourseWishListDTO;
 import com.example.courseup.repository.BasketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BasketService {
@@ -32,8 +36,11 @@ public class BasketService {
         basketRepository.deleteById(id);
     }
 
-    public List<Basket> getBasketByUserId(Long userId) {
-        return basketRepository.findBasketByUserId(userId);
+    public List<BasketDTO> getBasketByUserId(Long userId) {
+        List<Basket> basket = basketRepository.findBasketByUserId(userId);
+        return basket.stream()
+                .map(BasketDTO::new)
+                .collect(Collectors.toList());
     }
 
     public Basket updateBasket(Long id, Basket updatedBasket) {
@@ -48,6 +55,11 @@ public class BasketService {
         } else {
             throw new ResourceNotFoundException("Basket with id " + id + " not found");
         }
+    }
+
+    public boolean basketExists(Long courseId, Long userId) {
+        List<Basket> baskets = basketRepository.findByCourseAndUserId(courseId, userId);
+        return !baskets.isEmpty();
     }
 
 }

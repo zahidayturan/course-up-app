@@ -4,6 +4,7 @@ import com.example.courseup.model.DTO.UserDTO;
 import com.example.courseup.model.User;
 import com.example.courseup.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,14 +51,33 @@ public class UserController {
 
     @Operation(summary = "Register User with email check")
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody User user) {
-        if (userService.emailExists(user.getEmail())) {
+    public ResponseEntity<String> registerUser(@RequestBody RegisterRequest newUser) {
+        if (userService.emailExists(newUser.getEmail())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email is already in use");
         }
+        System.out.println(newUser.getName());
+        System.out.println(newUser.getSurname());
+        System.out.println(newUser.getEmail());
+        System.out.println(newUser.getPassword());
+        if (newUser.getPassword() == null || newUser.getPassword().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Password must not be empty");
+        }
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User user = new User();
+        user.setPassword(passwordEncoder.encode(newUser.getPassword()));
+        user.setName(newUser.getName());
+        user.setSurname(newUser.getSurname());
+        user.setEmail(newUser.getEmail());
         userService.save(user);
         return ResponseEntity.ok("User registered successfully");
+    }
+
+    @Data
+    static class RegisterRequest {
+        private String name;
+        private String surname;
+        private String email;
+        private String password;
     }
 
     @Operation(summary = "Get User Info by email")

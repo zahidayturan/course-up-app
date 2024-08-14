@@ -3,10 +3,10 @@ import axios from "axios";
 import Endpoints from "../../../constants/Endpoints";
 import mainStyles from "../../css/Main.module.css";
 import textStyles from "../../css/Text.module.css";
-import styles from "../css/MyCourses.module.css";
+import styles from "../css/UserCourses.module.css";
 import classNames from "classnames";
 
-const MyCourses = () => {
+const UserCourses = () => {
     const [user, setUser] = useState(null);
     const [courses, setCourses] = useState(null);
     const [coursesError, setCoursesError] = useState(null);
@@ -37,7 +37,7 @@ const MyCourses = () => {
     }, []);
 
     const ProgressBarAndPlayButton = ({ percentage }) => {
-        const backgroundColor = percentage >= 75 ? 'var(--green-color-1)' : percentage >=50 ? 'var(--orange-color-1)' : 'var(--yellow-color-1)';
+        const backgroundColor = percentage >= 75 ? 'var(--green-color-1)' : percentage >=40 ? 'var(--orange-color-1)' : 'var(--yellow-color-1)';
         return (
             <div className={styles["custom-column"]} style={{marginLeft:8}}>
                 <div style={{display:"flex", flexDirection:"column",alignItems:"center"}}>
@@ -80,7 +80,7 @@ const MyCourses = () => {
 
                             <div className={styles["course-grid"]}>
                                 {courses.map((item) => {
-                                    const percentage = ((item.current_duration / item.duration) * 100).toFixed(1);
+                                    const percentage = item.current_duration !== 0 ? ((item.current_duration / item.duration) * 100).toFixed(1) : 0;
                                     return (
                                             <div key={item.id} className={styles["course-container"]}>
                                                 <div className={styles["custom-row"]} style={{height:"100%"}}>
@@ -98,7 +98,7 @@ const MyCourses = () => {
                                                         <div className={classNames(styles["custom-row"],styles["course-info"])}>
                                                             <p>Geçirdiğin Süre<br/><span style={{fontWeight:400}}>{item.current_duration} dakika</span></p>
                                                             <p>Kaldığın Bölüm<br/><span  style={{fontWeight:400}}>Bölüm {item.current_stage}</span></p>
-                                                            <p>Başlama Tarihin<br/><span  style={{fontWeight:400}}>{item.started_date}</span></p>
+                                                            <p>Başlama Tarihin<br/><span  style={{fontWeight:400}}>{item.started_date ? item.started_date : "Başlamadın"}</span></p>
                                                         </div>
                                                     </div>
                                                     <ProgressBarAndPlayButton percentage={percentage} />
@@ -119,4 +119,4 @@ const MyCourses = () => {
     );
 };
 
-export default MyCourses;
+export default UserCourses;

@@ -21,6 +21,7 @@
     justify-content: center;
     background-color: var(--primary-color-1);
     border-radius: 8px;
+
 }
 
 .course-container{
@@ -28,6 +29,7 @@
     padding: 8px;
     border-radius: 8px;
     height: 160px;
+    margin-top: 18px;
 }
 
 .mini-decoration{

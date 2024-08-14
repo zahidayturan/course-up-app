@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import java.util.List;
 
 @Entity
 @Data
@@ -18,7 +17,7 @@ public class Course {
 
     @ManyToOne
     @JoinColumn(name = "teacher_id", referencedColumnName = "id")
-    @JsonManagedReference
+    @JsonIgnore
     private Teacher teacher;
 
     private String name;
@@ -26,21 +25,12 @@ public class Course {
     private String category;
     private Double price;
     private Double discount;
-    private String level;
     private String language;
     private String subtitles;
     private Integer totalStages;
-    private Integer totalDuration;
-    private String image;
+    private Double totalDuration;
+
+    private String imageId;
+
     private Boolean is_active;
-
-
-    @OneToMany(mappedBy = "course")
-    @JsonManagedReference
-    private List<CourseStages> courseStages;
-
-    @OneToMany(mappedBy = "course")
-    @JsonIgnore
-    private List<CourseComments> courseComments;
-
 }

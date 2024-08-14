@@ -12,11 +12,14 @@ public class CourseStagesDTO {
     private Integer episodeNumber;
     private Double duration;
 
+    private String videoId;
+
     public CourseStagesDTO(CourseStages courseStages) {
         this.id = courseStages.getId();
         this.name = courseStages.getName();
         this.description = courseStages.getDescription();
         this.episodeNumber = courseStages.getEpisode();
         this.duration = courseStages.getDuration();
+        this.videoId = courseStages.getVideoId();
     }
 }

@@ -7,45 +7,32 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 @Data
-public class AllCoursesDTO {
+public class CourseWishListDTO {
+
     private Long id;
+    private Long courseId;
     private String name;
-    private Long teacherId;
-    private String teacher;
     private String description;
-    private String category;
-    private String language;
-    private  String subtitles;
+    private String teacher;
     private Double duration;
-    private Integer stage;
-    private Integer students;
-    private Double rating;
-    private Integer reviews;
+    private Integer episode;
+    private String imageId;
     private Double originalPrice;
     private Double discount;
     private Double discountedPrice;
-    private String imageId;
-    private boolean isActive;
 
-    public AllCoursesDTO(Course course, Integer students, Double rating, Integer reviews) {
-        this.id = course.getId();
+    public CourseWishListDTO(Long id,Course course) {
+        this.id = id;
+        this.courseId = course.getId();
         this.name = course.getName();
-        this.teacherId = course.getTeacher().getId();
-        this.teacher = course.getTeacher().getUser().getName() + " " + course.getTeacher().getUser().getSurname();
         this.description = course.getDescription();
-        this.category = course.getCategory();
-        this.language = course.getLanguage();
-        this.subtitles = course.getSubtitles();
+        this.teacher = course.getTeacher().getUser().getName()+" "+course.getTeacher().getUser().getSurname();
         this.duration = course.getTotalDuration();
-        this.stage = course.getTotalStages();
-        this.students = students;
-        this.rating = rating;
-        this.reviews = reviews;
+        this.episode = course.getTotalStages();
+        this.imageId= course.getImageId();
         this.originalPrice = course.getPrice();
         this.discount = course.getDiscount();
         this.discountedPrice = calculateDiscountedPrice(course.getPrice(), course.getDiscount());
-        this.imageId = course.getImageId();
-        this.isActive = course.getIs_active();
     }
 
     private Double calculateDiscountedPrice(Double originalPrice, Double discount) {

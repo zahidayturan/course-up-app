@@ -11,6 +11,7 @@ import Trainer from "./components/profile/Trainer";
 import CourseDetail from "./components/course/CourseDetail";
 import AllCategory from "./components/course/AllCategory";
 import OneCategory from "./components/course/OneCategory";
+import Basket from "./components/basket/Basket";
 
 function App() {
     return (
@@ -28,6 +29,7 @@ function App() {
                     <Route path="/course/:id" element={<CourseDetail />} />
                     <Route path="/category" element={<AllCategory/>} />
                     <Route path="/category/:name" element={<OneCategory/>} />
+                    <Route path="/basket" element={<Basket/>} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>

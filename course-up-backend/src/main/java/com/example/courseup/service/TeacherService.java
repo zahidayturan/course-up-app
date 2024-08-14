@@ -82,5 +82,4 @@ public class TeacherService {
         return teacherRepository.findNumberOfTeacherCourses(id);
     }
 
-
 }

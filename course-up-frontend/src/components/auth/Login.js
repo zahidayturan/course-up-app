@@ -63,6 +63,7 @@ const Login = () => {
                                 placeholder="E-Posta adresiniz"
                                 required
                                 className={styles['input']}
+                                style={{fontSize:16}}
                                 autoComplete="email"
                             />
                             <label htmlFor="password"></label>
@@ -77,6 +78,7 @@ const Login = () => {
                                     minLength={4}
                                     required
                                     className={styles['input']}
+                                    style={{fontSize:16}}
                                     autoComplete="current-password"
                                 />
                                 <p onClick={(e) => setShowPassword(!showPassword)} className={styles['toggle-password']}>{showPassword ? "gizle" : "göster"}</p>
