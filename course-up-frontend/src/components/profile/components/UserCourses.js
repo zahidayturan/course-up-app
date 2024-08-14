@@ -91,12 +91,12 @@ const UserCourses = () => {
                                                         </div>
                                                         <p className={textStyles["text-small"]} style={{width:"100%"}}>{item.description}</p>
                                                         <div className={textStyles["text-small"]}>
-                                                            <p><span style={{fontWeight:"bold"}}>Kurs Süresi: </span> {item.duration} dakika</p>
+                                                            <p><span style={{fontWeight:"bold"}}>Kurs Süresi: </span> {(item.duration/60).toFixed(2)} dakika</p>
                                                             <p><span style={{fontWeight:"bold"}}>Bölüm Sayısı: </span> {item.stage} bölüm</p>
                                                         </div>
 
                                                         <div className={classNames(styles["custom-row"],styles["course-info"])}>
-                                                            <p>Geçirdiğin Süre<br/><span style={{fontWeight:400}}>{item.current_duration} dakika</span></p>
+                                                            <p>Geçirdiğin Süre<br/><span style={{fontWeight:400}}>{(item.current_duration/60).toFixed(2)} dakika</span></p>
                                                             <p>Kaldığın Bölüm<br/><span  style={{fontWeight:400}}>Bölüm {item.current_stage}</span></p>
                                                             <p>Başlama Tarihin<br/><span  style={{fontWeight:400}}>{item.started_date ? item.started_date : "Başlamadın"}</span></p>
                                                         </div>

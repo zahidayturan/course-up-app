@@ -50,7 +50,7 @@ const TrainerCourses = () => {
                     <p className={textStyles["text-small"]} style={{ width: "100%" }}>{item.description}</p>
                 </div>
                 <div className={textStyles["text-small"]} style={{margin:"8px 0"}}>
-                    <p><span>Kurs Süresi: </span> {item.duration} dakika</p>
+                    <p><span>Kurs Süresi: </span> {(item.duration/60).toFixed(2)} dakika</p>
                     <p><span>Bölüm Sayısı: </span> {item.stage} bölüm</p>
                     <div style={{height:6}}></div>
                     <p><span>Kayıtlı Öğrenci Sayısı: </span> {item.students} öğrenci</p>
