@@ -51,6 +51,7 @@ Visit http://localhost:3000 in your browser to explore CourseUp.
 
 Running with Docker if u want (Optional)
 ```
+If you encounter any issues during setup, please report an issue. Feel free to adjust any placeholders or specific details as needed!
 
 
 ## How can I support developers?
