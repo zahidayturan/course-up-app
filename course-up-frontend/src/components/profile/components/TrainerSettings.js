@@ -2,7 +2,7 @@ import React from 'react';
 import textStyles from "../../css/Text.module.css";
 
 
-const UserSettings = () => {
+const TrainerSettings = () => {
     return (
         <div>
             <div style={{padding:12}}>
@@ -12,4 +12,4 @@ const UserSettings = () => {
     );
 };
 
-export default UserSettings;
+export default TrainerSettings;
