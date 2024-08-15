@@ -4,6 +4,9 @@ import Options from "./components/Options";
 import {Navigate, Route, Routes} from "react-router-dom";
 import TrainerCoursesPanel from "./components/TrainerCoursesPanel";
 import TrainerForm from "./components/TrainerForm";
+import TrainerStatistics from "./components/TrainerStatistics";
+import TrainerPayments from "./components/TrainerPayments";
+import TrainerSettings from "./components/TrainerSettings";
 
 const Trainer = () => {
 
@@ -34,6 +37,9 @@ const Trainer = () => {
                         <Options options={profileOptions} title="Eğitmen Panelin" />
                         <Routes>
                             <Route path="my-course/*" element={<TrainerCoursesPanel />} />
+                            <Route path="my-statistics" element={<TrainerStatistics />} />
+                            <Route path="my-payments" element={<TrainerPayments />} />
+                            <Route path="my-settings" element={<TrainerSettings />} />
                             <Route path="*" element={<Navigate to="my-course" />} />
                         </Routes>
                     </div>

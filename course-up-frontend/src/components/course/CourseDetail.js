@@ -296,7 +296,7 @@ const CourseDetail = () => {
                                                         return (
                                                                 <div className={styles["stages-container"]} key={index}>
                                                                     <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between",alignItems:"center"}}>
-                                                                        <p style={{fontSize:15,fontWeight:600}}>{index+1} - {item.name} <span style={{fontSize: 14,fontWeight:"normal" }}>{item.duration} dakika</span></p>
+                                                                        <p style={{fontSize:15,fontWeight:600}}>{index+1} - {item.name} <span style={{fontSize: 14,fontWeight:"normal" }}>{(item.duration/60).toFixed(2)} dakika</span></p>
                                                                         <div style={{display:"flex",gap:6}}>
                                                                             {index !==0 && (
                                                                                 <div className={styles["show-button"]} style={{backgroundColor:"var(--orange-color-1)"}}>

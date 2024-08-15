@@ -1,12 +1,14 @@
 package com.example.courseup.repository;
 
 import com.example.courseup.model.Course;
+import com.example.courseup.model.CourseWishList;
 import com.example.courseup.model.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
@@ -23,5 +25,8 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
     @Query("SELECT COUNT(c) FROM Course c WHERE c.teacher.id = :teacherId")
     Integer findNumberOfTeacherCourses(@Param("teacherId") Long teacherId);
+
+    @Query("SELECT t FROM Teacher t WHERE t.user.id = :userId")
+    Optional<Teacher> findByUserId(@Param("userId") Long userId);
 
 }

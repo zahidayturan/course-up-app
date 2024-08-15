@@ -62,7 +62,7 @@ public class CourseController {
             return ResponseEntity.badRequest().body("Invalid userId value.");
         }
 
-        Teacher teacher = teacherService.findById(userId)
+        Teacher teacher = teacherService.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("Teacher not found."));
         course.setTeacher(teacher);
 
@@ -101,7 +101,7 @@ public class CourseController {
 
         course.setTeacher(
                 params.containsKey("userId")
-                        ? teacherService.findById(courseService.parseLong(params.get("userId")))
+                        ? teacherService.findByUserId(courseService.parseLong(params.get("userId")))
                         .orElseThrow(() -> new RuntimeException("Teacher not found."))
                         : oldCourse.getTeacher()
         );
