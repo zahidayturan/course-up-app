@@ -9,9 +9,9 @@
 }
 
 .basic-category-box{
-    width: 280px;
+    width: 300px;
     height: 140px;
-    border-radius: 24px;
+    border-radius: 6px;
     padding: 12px;
     background-color: var(--grey-color-1);
     align-items: center;
@@ -24,7 +24,7 @@
     width: 100%;
     border: none;
     background-color: var(--secondary-color-1);
-    border-radius: 50px;
+    border-radius: 6px;
     padding: 6px 0;
     cursor: pointer;
     font-size: 15px;
@@ -33,5 +33,4 @@
 
 .category-button:hover{
     background-color: var(--yellow-color-1);
-    box-shadow: rgba(0, 0, 0, 0.3) 0 2px 2px;;
 }

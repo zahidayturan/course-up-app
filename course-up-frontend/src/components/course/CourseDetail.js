@@ -264,7 +264,7 @@ const CourseDetail = () => {
                                             <p><span>Video Dili: </span>{course.language}</p>
                                             <p><span>Altyazı Desteği: </span>{course.subtitles}</p>
                                         </div>
-                                        {(user) && (<p className={textStyles["text-underline"]} style={{color:"var(--orange-color-1)",fontSize:13,width:"max-content"}} onClick={isInWishList ? null :addToWishList}>{isInWishList ? ("Kurs İstek Listende") : "İstek Listene Ekle"}</p>)}
+                                        {(user) && (<p className={textStyles["text-underline"]} style={{color:"var(--orange-color-1)",fontSize:13,width:"max-content"}} onClick={ () => isInWishList ? navigate(`/profile/my-wish-list`) :addToWishList}>{isInWishList ? ("Kurs İstek Listende") : "İstek Listene Ekle"}</p>)}
                                     </div>
                                 </div>
                                 <div className={styles["price-and-button"]}>
