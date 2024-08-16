@@ -29,6 +29,7 @@ const AllCategory = () => {
                         <button className={styles["category-button"]} onClick={() => handleCategoryClick(category.path)}>
                             {category.name}
                         </button>
+                        <p style={{fontSize:14,textAlign:"center"}}>{category.description}</p>
                     </div>
                 ))}
             </div>

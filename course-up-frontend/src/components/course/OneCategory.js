@@ -44,7 +44,7 @@ const OneCategory = () => {
                 setCourses(response.data);
                 console.log('Courses set');
             } catch (error) {
-                setCoursesError('Kurslarınız yüklenirken bir hata oluştu');
+                setCoursesError('Kategoriye ait kurslar yüklenirken bir hata oluştu');
             } finally {
                 setCoursesLoading(false);
             }

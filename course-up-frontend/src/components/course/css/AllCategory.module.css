@@ -4,15 +4,20 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 32px;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .basic-category-box{
-    width: 140px;
+    width: 280px;
     height: 140px;
     border-radius: 24px;
     padding: 12px;
     background-color: var(--grey-color-1);
     align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .category-button{
@@ -22,6 +27,8 @@
     border-radius: 50px;
     padding: 6px 0;
     cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
 }
 
 .category-button:hover{
