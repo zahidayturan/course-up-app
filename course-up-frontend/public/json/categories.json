@@ -1,10 +1,42 @@
 [
-  { "name": "Tasarım", "path": "/category/design" },
-  { "name": "Kişisel Gelişim", "path": "/category/personal-development" },
-  { "name": "Yazılım ve Bilişim", "path": "/category/development" },
-  { "name": "Fotoğraf ve Video", "path": "/category/photography-and-video" },
-  { "name": "Müzik", "path": "/category/music" },
-  { "name": "Dijital Pazarlama", "path": "/category/digital-marketing" },
-  { "name": "Sağlık ve Fitness", "path": "/category/health-and-fitness" },
-  { "name": "Finans ve Muhasebe", "path": "/category/finance-and-accounting" }
+  {
+    "name": "Yazılım ve Bilişim",
+    "path": "/category/development",
+    "description": "Kodlama, veri bilimi, ve yapay zeka gibi teknoloji dünyasında kendinizi geliştirmenizi sağlayacak kurslar."
+  },
+  {
+    "name": "Tasarım",
+    "path": "/category/design",
+    "description": "Yaratıcılığınızı geliştirip profesyonel tasarım becerileri kazanabileceğiniz kurslar. Grafik, UI/UX, ve daha fazlası burada."
+  },
+  {
+    "name": "Kişisel Gelişim",
+    "path": "/category/personal-development",
+    "description": "Kişisel hedeflerinizi gerçekleştirmek için gerekli becerileri ve stratejileri öğrenin. Motivasyon, zaman yönetimi ve iletişim becerileri gibi konular."
+  },
+  {
+    "name": "Fotoğraf ve Video",
+    "path": "/category/photography-and-video",
+    "description": "Fotoğrafçılık ve video prodüksiyonunun temellerinden ileri tekniklere kadar her şeyi öğrenin. Yaratıcı projeler için ilham kaynağı."
+  },
+  {
+    "name": "Müzik",
+    "path": "/category/music",
+    "description": "Enstrüman çalmaktan müzik prodüksiyonuna kadar, müziğin her alanında yeteneklerinizi geliştirebileceğiniz dersler."
+  },
+  {
+    "name": "Dijital Pazarlama",
+    "path": "/category/digital-marketing",
+    "description": "İnternet dünyasında pazarlama stratejileri geliştirmek isteyenler için SEO, sosyal medya yönetimi, ve dijital reklamcılık dersleri."
+  },
+  {
+    "name": "Sağlık ve Fitness",
+    "path": "/category/health-and-fitness",
+    "description": "Fiziksel ve zihinsel sağlığınızı geliştirmek için egzersiz, beslenme, ve meditasyon gibi konuları içeren kurslar."
+  },
+  {
+    "name": "Finans ve Muhasebe",
+    "path": "/category/finance-and-accounting",
+    "description": "Kişisel veya kurumsal finans yönetimi, muhasebe uygulamaları ve yatırım stratejileri hakkında bilgi edinebileceğiniz dersler."
+  }
 ]
