@@ -256,7 +256,7 @@ const CourseDetail = () => {
                                             <p style={{height:19,fontStyle:"italic"}}>Eğitmen: {course.teacher}</p>
                                         </div>
                                         <div className={styles["course-info-box"]}>
-                                            <div><span>{(course.duration/60).toFixed(2)} Saat</span><p>Eğitim<br/>Süresi</p></div>
+                                            <div><span>{(course.duration/3600).toFixed(2)} Saat</span><p>Eğitim<br/>Süresi</p></div>
                                             <div><span>{course.students}</span><p>Kayıtlı<br/>Öğrenci</p></div>
                                             <div><p style={{fontSize:12}}><span style={{fontSize:15}}>{course.rating} </span>({course.reviews} kişi)</p><p>Kurs Puanı</p><RatingStars rating={course.rating}/></div>
                                         </div>

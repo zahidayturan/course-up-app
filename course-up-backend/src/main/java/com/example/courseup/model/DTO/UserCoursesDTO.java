@@ -19,6 +19,7 @@ public class UserCoursesDTO {
     private boolean is_finished;
 
     //Course
+    private Long courseId;
     private String name;
     private String instructor;
     private String description;
@@ -34,6 +35,7 @@ public class UserCoursesDTO {
         this.current_stage = trainee.getCurrentStages();
         this.course_point = trainee.getCoursePoint();
         this.is_finished = trainee.getIsFinished();
+        this.courseId= course.getId();
         this.name = course.getName();
         this.instructor = course.getTeacher().getUser().getName() + " " + course.getTeacher().getUser().getSurname();
         this.description = course.getDescription();

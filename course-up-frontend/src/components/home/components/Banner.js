@@ -5,6 +5,7 @@ import textStyles from '../../css/Text.module.css';
 import axios from "axios";
 import Endpoints from "../../../constants/Endpoints";
 import mainStyles from "../../css/Main.module.css";
+import {Link} from "react-router-dom";
 
 const Banner = () => {
     const [user, setUser] = useState(null);
@@ -153,10 +154,10 @@ const Banner = () => {
                                             <p className={classNames(textStyles["text-small"], textStyles["font-italic"])}>Eğitmen: {item.instructor}</p>
                                             <ProgressBar percentage={percentage} />
                                             <p className={textStyles["text-small"]}>İlerleme <span className={textStyles["font-bold"]}>% {percentage}</span></p>
-                                            <div className={styles["custom-row"]} style={{justifyContent:"end", gap:4}}>
+                                            <Link to={`/profile/course-view/${item.id}`} className={styles["custom-row"]} style={{justifyContent:"end", gap:4,textDecoration:"none",color:"var(--secondary-color-2)"}}>
                                                 <p className={textStyles["text-small"]} style={{textAlign:"end"}}>Devam Et</p>
                                                 <img className={styles["arrow-icon"]} src="/icon/long-arrow.png" alt=""/>
-                                            </div>
+                                            </Link>
                                         </div>
                                     );
                                 })}

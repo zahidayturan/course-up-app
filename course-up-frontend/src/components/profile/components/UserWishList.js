@@ -104,7 +104,7 @@ const UserWishList = () => {
                                             <div className={styles["custom-column"]}>
                                                 <p style={{fontWeight:600}}>{item.name}</p>
                                                 <p style={{fontSize:13}}>{item.description}</p>
-                                                <div style={{display:"flex",alignItems:"end",gap:4}}>
+                                                <div style={{display:"flex",alignItems:"end",gap:4,alignSelf:"center"}}>
                                                     {item.discount !== 0 && (<p className={textStyles["text-small"]} style={{ textDecoration: "line-through" }}>{item.originalPrice} ₺</p>)}
                                                     <p className={textStyles["font-bold"]}>{item.discountedPrice} ₺</p>
                                                     {item.discount > 0 && (<p className={textStyles["text-small"]}>%{item.discount} indirim</p>)}
