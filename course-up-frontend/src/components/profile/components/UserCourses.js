@@ -5,12 +5,14 @@ import mainStyles from "../../css/Main.module.css";
 import textStyles from "../../css/Text.module.css";
 import styles from "../css/UserCourses.module.css";
 import classNames from "classnames";
+import {useNavigate} from "react-router-dom";
 
 const UserCourses = () => {
     const [user, setUser] = useState(null);
     const [courses, setCourses] = useState(null);
     const [coursesError, setCoursesError] = useState(null);
     const [coursesLoading, setCoursesLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchOngoingCourses = async (userId) => {
@@ -36,7 +38,7 @@ const UserCourses = () => {
         }
     }, []);
 
-    const ProgressBarAndPlayButton = ({ percentage }) => {
+    const ProgressBarAndPlayButton = ({ percentage , traineeId}) => {
         const backgroundColor = percentage >= 75 ? 'var(--green-color-1)' : percentage >=40 ? 'var(--orange-color-1)' : 'var(--yellow-color-1)';
         return (
             <div className={styles["custom-column"]} style={{marginLeft:8}}>
@@ -49,7 +51,7 @@ const UserCourses = () => {
                     </div>
                     <p className={classNames(textStyles["text-center"])} style={{fontSize:12}}>İlerleme<br/><span className={textStyles["font-bold"]}>% {percentage}</span></p>
                 </div>
-                <div className={styles["play-button"]} style={{backgroundColor}}>
+                <div onClick={() => navigate(`/profile/course-view/${traineeId}`)} className={styles["play-button"]} style={{backgroundColor}}>
                     <img src="/icon/play.png" alt="Play" />
                 </div>
             </div>
@@ -101,7 +103,7 @@ const UserCourses = () => {
                                                             <p>Başlama Tarihin<br/><span  style={{fontWeight:400}}>{item.started_date ? item.started_date : "Başlamadın"}</span></p>
                                                         </div>
                                                     </div>
-                                                    <ProgressBarAndPlayButton percentage={percentage} />
+                                                    <ProgressBarAndPlayButton percentage={percentage} traineeId={item.id}/>
                                                 </div>
                                             </div>
                                     );

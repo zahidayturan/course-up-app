@@ -93,7 +93,7 @@ const OneCategory = () => {
                                                     <p className={classNames(textStyles["font-italic"], textStyles["text-small"])}>Eğitmen: {course.teacher}</p>
                                                 </div>
                                                 <p className={textStyles["text-small"]} style={{ textAlign: "justify" }}>{course.description}</p>
-                                                <p className={textStyles["text-small"]}>{(course.duration/60).toFixed(2)} Saat Eğitim Süresi - {course.students} öğrenci</p>
+                                                <p className={textStyles["text-small"]}>{(course.duration/3660).toFixed(2)} Saat Eğitim Süresi - {course.students} öğrenci</p>
                                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "end", width: "100%" }}>
                                                     <div>
                                                         <p className={textStyles["text-small"]} style={{marginBottom:4}}>{course.rating} <span style={{ fontSize: 12 }}>({course.reviews}) kişi</span></p>

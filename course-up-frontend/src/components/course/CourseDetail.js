@@ -256,7 +256,7 @@ const CourseDetail = () => {
                                             <p style={{height:19,fontStyle:"italic"}}>Eğitmen: {course.teacher}</p>
                                         </div>
                                         <div className={styles["course-info-box"]}>
-                                            <div><span>{(course.duration/60).toFixed(2)} Saat</span><p>Eğitim<br/>Süresi</p></div>
+                                            <div><span>{(course.duration/3600).toFixed(2)} Saat</span><p>Eğitim<br/>Süresi</p></div>
                                             <div><span>{course.students}</span><p>Kayıtlı<br/>Öğrenci</p></div>
                                             <div><p style={{fontSize:12}}><span style={{fontSize:15}}>{course.rating} </span>({course.reviews} kişi)</p><p>Kurs Puanı</p><RatingStars rating={course.rating}/></div>
                                         </div>
@@ -264,7 +264,7 @@ const CourseDetail = () => {
                                             <p><span>Video Dili: </span>{course.language}</p>
                                             <p><span>Altyazı Desteği: </span>{course.subtitles}</p>
                                         </div>
-                                        {(user) && (<p className={textStyles["text-underline"]} style={{color:"var(--orange-color-1)",fontSize:13,width:"max-content"}} onClick={isInWishList ? null :addToWishList}>{isInWishList ? ("Kurs İstek Listende") : "İstek Listene Ekle"}</p>)}
+                                        {(user) && (<p className={textStyles["text-underline"]} style={{color:"var(--orange-color-1)",fontSize:13,width:"max-content"}} onClick={ () => isInWishList ? navigate(`/profile/my-wish-list`) :addToWishList}>{isInWishList ? ("Kurs İstek Listende") : "İstek Listene Ekle"}</p>)}
                                     </div>
                                 </div>
                                 <div className={styles["price-and-button"]}>

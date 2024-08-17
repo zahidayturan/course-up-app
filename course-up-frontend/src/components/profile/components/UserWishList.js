@@ -5,6 +5,7 @@ import styles from "../css/UserWishList.module.css";
 import mainStyles from "../../css/Main.module.css";
 import textStyles from "../../css/Text.module.css";
 import {toast} from "react-toastify";
+import {useNavigate} from "react-router-dom";
 
 
 const UserWishList = () => {
@@ -13,6 +14,7 @@ const UserWishList = () => {
     const [wishListError, setWishListError] = useState(null);
     const [wishListLoading, setWishListLoading] = useState(false);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchWishList = async (userId) => {
@@ -44,7 +46,7 @@ const UserWishList = () => {
             const response = await axios.delete(`${Endpoints.DELETE_FROM_WISH_LIST}/${id}`);
             if (response.status === 204) {
                 console.log('Course successfully removed from wish list');
-                toast.success("İstek listesinden kaldırıldı");
+                toast.success("Kurs istek listenden kaldırıldı");
                 setWishList(wishList.filter(item => item.id !== id));
             }
         } catch (error) {
@@ -99,12 +101,19 @@ const UserWishList = () => {
                                             <div style={{width:"100%"}}>
                                                 {item.imageId ? (<img className={styles["course-img"]} src={`https://${bName}.s3.amazonaws.com/${item.imageId}`} alt="Course" />) : (<img style={{objectFit:"contain"}} className={styles["course-img"]} src="/logo/courseup-l-v1.png" alt="Course" />)}
                                             </div>
-                                            <p>{item.name}</p>
-                                            <p>{item.description}</p>
-                                            {item.discount !== 0 && (<p className={textStyles["text-small"]} style={{ textDecoration: "line-through" }}>{item.originalPrice} ₺</p>)}
-                                            <p className={textStyles["font-bold"]}>{item.discountedPrice} ₺</p>
-                                            {item.discount > 0 && (<p>% {item.discount} indirim</p>)}
-                                            <button className={styles["remove-button"]} onClick={() => handleDelete(item.id)}>İstek Listenden Çıkar</button>
+                                            <div className={styles["custom-column"]}>
+                                                <p style={{fontWeight:600}}>{item.name}</p>
+                                                <p style={{fontSize:13}}>{item.description}</p>
+                                                <div style={{display:"flex",alignItems:"end",gap:4,alignSelf:"center"}}>
+                                                    {item.discount !== 0 && (<p className={textStyles["text-small"]} style={{ textDecoration: "line-through" }}>{item.originalPrice} ₺</p>)}
+                                                    <p className={textStyles["font-bold"]}>{item.discountedPrice} ₺</p>
+                                                    {item.discount > 0 && (<p className={textStyles["text-small"]}>%{item.discount} indirim</p>)}
+                                                </div>
+                                            </div>
+                                            <div className={styles["custom-column"]}>
+                                                <button className={styles["remove-button"]} onClick={() => navigate(`/course/${item.courseId}`)} style={{backgroundColor:"var(--secondary-color-2)",color:"white"}}>Kurs Sayfasına Git</button>
+                                                <button className={styles["remove-button"]} onClick={() => handleDelete(item.id)}>İstek Listenden Çıkar</button>
+                                            </div>
                                         </div>
                                     );
                                 })}

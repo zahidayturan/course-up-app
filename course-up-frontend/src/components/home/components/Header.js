@@ -78,7 +78,7 @@ const Header = () => {
                                 <Link to="/category/personal-development">Kişisel Gelişim</Link>
                                 <Link to="/category/photography-and-video">Fotoğraf ve Video</Link>
                                 <Link to="/category/music">Müzik</Link>
-                                <Link to="/category" style={{backgroundColor:"var(--grey-color-1)",borderRadius:8,margin:4}}>Tüm Kategoriler</Link>
+                                <Link to="/category" style={{color:"var(--orange-color-1)"}}>Tüm Kategoriler</Link>
                             </div>
                         )}
                     </div>

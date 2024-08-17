@@ -12,6 +12,7 @@ import CourseDetail from "./components/course/CourseDetail";
 import AllCategory from "./components/course/AllCategory";
 import OneCategory from "./components/course/OneCategory";
 import Basket from "./components/basket/Basket";
+import UserCourseView from "./components/profile/components/UserCourseView";
 
 function App() {
     return (
@@ -30,6 +31,7 @@ function App() {
                     <Route path="/category" element={<AllCategory/>} />
                     <Route path="/category/:name" element={<OneCategory/>} />
                     <Route path="/basket" element={<Basket/>} />
+                    <Route path="/profile/course-view/:id" element={<UserCourseView />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>
