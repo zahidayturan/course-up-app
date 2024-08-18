@@ -27,7 +27,7 @@ public class UserCoursesDTO {
     private Integer stage;
     private String imageId;
 
-    public UserCoursesDTO(Course course, Trainee trainee) {
+    public UserCoursesDTO(Trainee trainee) {
         this.id = trainee.getId();
         this.started_date = trainee.getStartedDate();
         this.end_date = trainee.getEndDate();
@@ -35,13 +35,13 @@ public class UserCoursesDTO {
         this.current_stage = trainee.getCurrentStages();
         this.course_point = trainee.getCoursePoint();
         this.is_finished = trainee.getIsFinished();
-        this.courseId= course.getId();
-        this.name = course.getName();
-        this.instructor = course.getTeacher().getUser().getName() + " " + course.getTeacher().getUser().getSurname();
-        this.description = course.getDescription();
-        this.duration = course.getTotalDuration();
-        this.stage = course.getTotalStages();
-        this.imageId = course.getImageId();
+        this.courseId= trainee.getCourse().getId();
+        this.name = trainee.getCourse().getName();
+        this.instructor = trainee.getCourse().getTeacher().getUser().getName() + " " + trainee.getCourse().getTeacher().getUser().getSurname();
+        this.description = trainee.getCourse().getDescription();
+        this.duration = trainee.getCourse().getTotalDuration();
+        this.stage = trainee.getCourse().getTotalStages();
+        this.imageId = trainee.getCourse().getImageId();
     }
 
 }

@@ -103,4 +103,10 @@ public class TraineeController {
             return ResponseEntity.ok("false");
         }
     }
+
+    @Operation(summary = "Get trainee by courseId")
+    @GetMapping("/get/{courseId}/{userId}")
+    public UserCoursesDTO getTraineeByCourseId(@PathVariable Long courseId, @PathVariable Long userId) {
+        return traineeService.findTraineeByCourseId(courseId,userId);
+    }
 }

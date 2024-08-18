@@ -7,9 +7,32 @@
 
 .course-box {
     margin-top: 24px;
-    width: 100%;
     height: max-content;
     justify-content: center;
     background-color: var(--primary-color-1);
     border-radius: 8px;
+    padding: 12px;
+}
+
+.progress-box{
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    padding: 8px;
+    background-color: var(--background-color);
+}
+
+.progress-bar-background {
+    width: 96px;
+    height: 18px;
+    background-color: var(--primary-color-1);
+    border-radius: 50px;
+    padding: 5px;
+
+}
+
+.progress-bar-foreground {
+    height: 100%;
+    background-color: var(--green-color-1);
+    border-radius: 50px;
 }
