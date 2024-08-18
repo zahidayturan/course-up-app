@@ -19,8 +19,6 @@ const Banner = () => {
                 setOngoingCoursesLoading(true);
                 const response = await axios.get(`${Endpoints.ONGOING_COURSES}/${userId}`);
                 setOngoingCourses(response.data);
-
-                console.log('Ongoing courses set');
             } catch (error) {
                 setOngoingCoursesError('Kurslarınız yüklenirken bir hata oluştu');
             } finally {

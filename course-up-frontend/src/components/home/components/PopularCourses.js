@@ -23,7 +23,6 @@ const PopularCourses = () => {
                 setLoading(true);
                 const response = await axios.get(Endpoints.POPULAR_COURSES);
                 setCourses(response.data);
-                console.log('Popular courses set');
             } catch (err) {
                 console.error('Error fetching remote data:', err);
                 try {

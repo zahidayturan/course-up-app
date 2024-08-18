@@ -68,10 +68,10 @@ const UserCourseView = () => {
     }, [id, fetchCourseDetail, navigate]);
 
     useEffect(() => {
-        if (course?.id) {
-            fetchCourseStages(course.id);
+        if (course) {
+            fetchCourseStages(course.courseId);
         }
-    }, [course?.id, fetchCourseStages]);
+    }, [course?.courseId, fetchCourseStages]);
 
 
 
@@ -102,15 +102,15 @@ const UserCourseView = () => {
                 </div>
             )}
             <Header />
-            {loading ? (
+            {loading && courseStagesLoading ? (
                 <div className={styles['course-box']}>
                     <div className={mainStyles['loader']}>
                         <div className={mainStyles['spinner']}></div>
                     </div>
                 </div>
-            ) : courseError ? (
+            ) : courseError && courseStagesError ? (
                 <div className={styles['course-box']}>
-                    <p className={textStyles["text-center"]} style={{ padding: "14px 0", fontSize: 14 }}>{courseError}</p>
+                    <p className={textStyles["text-center"]} style={{ padding: "14px 0", fontSize: 14 }}>{courseError} {courseStagesError}</p>
                 </div>
             ) : user && course && courseStages && (
                 <div className={styles["custom-row"]}>

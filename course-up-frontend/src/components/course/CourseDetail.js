@@ -110,7 +110,6 @@ const CourseDetail = () => {
             try {
                 const response = await axios.get(`${Endpoints.CHECK_WISH_LIST}/${id}/${user.id}`);
                 setIsInWishList(response.data);
-                console.log('wish list');
             } catch (error) {
                 console.error('An unexpected error occurred:', error);
             }
@@ -126,7 +125,6 @@ const CourseDetail = () => {
             try {
                 const response = await axios.get(`${Endpoints.CHECK_BASKET}/${id}/${user.id}`);
                 setIsInBasket(response.data);
-                console.log('wish list: ',response.data);
             } catch (error) {
                 console.error('An unexpected error occurred:', error);
             }
@@ -142,7 +140,6 @@ const CourseDetail = () => {
             try {
                 const response = await axios.get(`${Endpoints.CHECK_USER_COURSE}/${id}/${user.id}`);
                 setIsAlreadyExist(response.data);
-                console.log('already exist');
             } catch (error) {
                 console.error('An unexpected error occurred:', error);
             }
@@ -158,7 +155,6 @@ const CourseDetail = () => {
             setTeacherLoading(true);
             const response = await axios.get(`${Endpoints.TEACHER_DETAIL}/${teacherId}`);
             setTeacher(response.data);
-            console.log("Teacher data set");
         } catch (error) {
             setTeacherError('Eğitmen yüklenirken bir hata oluştu');
         } finally {
