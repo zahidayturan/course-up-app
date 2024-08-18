@@ -39,14 +39,14 @@ public class TraineeService {
     public List<UserCoursesDTO> getTraineeByUserId(Long userId) {
         List<Trainee> trainees = traineeRepository.findTraineeByUserId(userId);
         return trainees.stream()
-                .map(trainee -> new UserCoursesDTO(trainee.getCourse(), trainee))
+                .map(UserCoursesDTO::new)
                 .collect(Collectors.toList());
     }
 
     public List<UserCoursesDTO> getActiveTraineeByUserId(Long userId) {
         List<Trainee> trainees = traineeRepository.findActiveTraineeByUserId(userId);
         return trainees.stream()
-                .map(trainee -> new UserCoursesDTO(trainee.getCourse(), trainee))
+                .map(UserCoursesDTO::new)
                 .collect(Collectors.toList());
     }
 
@@ -54,4 +54,10 @@ public class TraineeService {
         List<Trainee> courseTraineeLists = traineeRepository.findByCourseAndUserId(courseId, userId);
         return !courseTraineeLists.isEmpty();
     }
+
+    public UserCoursesDTO findTraineeByCourseId(Long id) {
+        Trainee trainee = traineeRepository.findById(id).orElseThrow(() -> new RuntimeException("Trainee not found ."));
+        return new UserCoursesDTO(trainee);
+    }
+
 }
