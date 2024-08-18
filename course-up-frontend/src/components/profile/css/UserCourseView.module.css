@@ -1,8 +1,8 @@
 .custom-row{
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    align-items: start;
     justify-content: space-between;
+    gap: 24px;
 }
 
 .course-box {
@@ -12,18 +12,21 @@
     background-color: var(--primary-color-1);
     border-radius: 8px;
     padding: 12px;
+    display: flex;
+    flex-direction: column;
 }
 
 .progress-box{
     display: flex;
     flex-direction: column;
     border-radius: 8px;
-    padding: 8px;
+    gap: 8px;
+    width: 180px;
     background-color: var(--background-color);
 }
 
 .progress-bar-background {
-    width: 96px;
+    width: 100%;
     height: 18px;
     background-color: var(--primary-color-1);
     border-radius: 50px;
@@ -35,4 +38,13 @@
     height: 100%;
     background-color: var(--green-color-1);
     border-radius: 50px;
+}
+
+.mini-button{
+    font-size: 12px;
+    background-color: var(--secondary-color-1);
+    border-radius: 50px;
+    width: max-content;
+    padding: 2px 6px;
+    cursor: pointer;
 }

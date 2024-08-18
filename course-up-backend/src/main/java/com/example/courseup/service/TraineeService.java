@@ -55,12 +55,9 @@ public class TraineeService {
         return !courseTraineeLists.isEmpty();
     }
 
-    public UserCoursesDTO findTraineeByCourseId(Long courseId, Long userId) {
-        List<Trainee> trainees = traineeRepository.findByCourseAndUserId(courseId, userId);
-        if (trainees.isEmpty()) {
-            return null;
-        }
-        return new UserCoursesDTO(trainees.get(0));
+    public UserCoursesDTO findTraineeByCourseId(Long id) {
+        Trainee trainee = traineeRepository.findById(id).orElseThrow(() -> new RuntimeException("Trainee not found ."));
+        return new UserCoursesDTO(trainee);
     }
 
 }

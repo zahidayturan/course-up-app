@@ -105,8 +105,8 @@ public class TraineeController {
     }
 
     @Operation(summary = "Get trainee by courseId")
-    @GetMapping("/get/{courseId}/{userId}")
-    public UserCoursesDTO getTraineeByCourseId(@PathVariable Long courseId, @PathVariable Long userId) {
-        return traineeService.findTraineeByCourseId(courseId,userId);
+    @GetMapping("/get/{id}")
+    public UserCoursesDTO getTraineeById(@PathVariable Long id) {
+        return traineeService.findTraineeByCourseId(id);
     }
 }
