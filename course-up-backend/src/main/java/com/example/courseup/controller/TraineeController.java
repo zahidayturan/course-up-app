@@ -179,6 +179,7 @@ public class TraineeController {
     @Operation(summary = "Update trainee's course point")
     @PostMapping("/updateCoursePoint")
     public ResponseEntity<String> updateTraineeCoursePoint(@RequestParam Long traineeId, @RequestParam Double coursePoint) {
+        System.out.println(traineeId+coursePoint);
         Trainee trainee = traineeService.findById(traineeId)
                 .orElseThrow(() -> new EntityNotFoundException("Trainee with id " + traineeId + " not found"));
 

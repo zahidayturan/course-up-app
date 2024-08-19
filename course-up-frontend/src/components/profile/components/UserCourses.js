@@ -88,7 +88,7 @@ const UserCourses = () => {
                                                     <div className={styles["text-info"]}>
                                                         <div>
                                                             <p className={textStyles["font-bold"]}>{item.name}</p>
-                                                            <p className={classNames(textStyles["text-small"], textStyles["font-italic"])}>Eğitmen: {item.teacher}</p>
+                                                            <p className={classNames(textStyles["text-small"], textStyles["font-italic"])}>Eğitmen: {item.instructor}</p>
                                                         </div>
                                                         <p className={textStyles["text-small"]} style={{width:"100%"}}>{item.description}</p>
                                                         <div className={textStyles["text-small"]}>
@@ -98,7 +98,11 @@ const UserCourses = () => {
 
                                                         <div className={classNames(styles["custom-row"],styles["course-info"])}>
                                                             <p>Geçirdiğin Süre<br/><span style={{fontWeight:400}}>{(item.current_duration/60).toFixed(2)} dakika</span></p>
-                                                            <p>Kaldığın Bölüm<br/><span  style={{fontWeight:400}}>Bölüm {item.current_stage}</span></p>
+                                                            {item.finished ? (
+                                                                <p>Bitirme Tarihi<br/><span  style={{fontWeight:400}}>{item.end_date}</span></p>
+                                                            ) : (
+                                                                <p>Kaldığın Bölüm<br/><span  style={{fontWeight:400}}>Bölüm {item.current_stage}</span></p>
+                                                            )}
                                                             <p>Başlama Tarihin<br/><span  style={{fontWeight:400}}>{item.started_date ? item.started_date : "Başlamadın"}</span></p>
                                                         </div>
                                                     </div>

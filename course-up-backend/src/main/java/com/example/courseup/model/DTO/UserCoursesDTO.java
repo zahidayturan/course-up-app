@@ -15,7 +15,7 @@ public class UserCoursesDTO {
     private Double current_duration;
     private Integer current_stage;
     private Double course_point;
-    private boolean is_finished;
+    private boolean isFinished;
     private Double percentage;
     //Course
     private Long courseId;
@@ -33,7 +33,7 @@ public class UserCoursesDTO {
         this.current_duration = trainee.getCurrentDuration();
         this.current_stage = trainee.getCurrentStage();
         this.course_point = trainee.getCoursePoint();
-        this.is_finished = trainee.getIsFinished();
+        this.isFinished = trainee.getIsFinished();
         this.percentage = calculatePercentage(trainee.getCurrentDuration(),trainee.getCourse().getTotalDuration());
         this.courseId= trainee.getCourse().getId();
         this.name = trainee.getCourse().getName();

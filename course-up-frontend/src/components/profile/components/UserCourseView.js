@@ -6,8 +6,9 @@ import axios from "axios";
 import Endpoints from "../../../constants/Endpoints";
 import mainStyles from "../../css/Main.module.css";
 import styles from "../css/UserCourseView.module.css";
-import RatingStars from "../../course/RatingStars";
 import classNames from "classnames";
+import RatingStars from "../../course/RatingStars";
+import {Button, Modal, Slider} from "@mui/material";
 
 
 const UserCourseView = () => {
@@ -74,7 +75,37 @@ const UserCourseView = () => {
         }
     }, [course?.courseId, fetchCourseStages]);
 
+    const [open, setOpen] = useState(false);
+    const [rating, setRating] = useState(0);
+    const handleOpen = (currentPoint = 0) => {
+        setOpen(true);
+        setRating(currentPoint);
+    };
 
+    const handleClose = () => setOpen(false);
+    const handleRatingChange = (event, newValue) => {
+        setRating(newValue);
+    };
+
+    const handleSave = async () => {
+        setMainLoading(true);
+        const formData = new FormData();
+        formData.append('traineeId', id);
+        formData.append('coursePoint', rating);
+
+        try {
+            const response = await axios.post(Endpoints.UPDATE_COURSE_POINT, formData);
+            console.log('Rating updated successfully:', response.data);
+            handleClose();
+            if (response.data) {
+                setCourse(prevCourse => ({ ...prevCourse, course_point: rating }));
+            }
+        } catch (error) {
+            console.error('Error updating rating:', error);
+        } finally {
+            setMainLoading(false);
+        }
+    };
 
     const ProgressBar = ({ percentage = 0}) => {
         const backgroundColor = percentage >= 75 ? 'var(--green-color-1)' : percentage >= 50 ? 'var(--orange-color-1)' : 'var(--yellow-color-1)';
@@ -135,18 +166,40 @@ const UserCourseView = () => {
                                     <p style={{fontWeight:600}}>Başlama Tarihin</p>
                                     <p>{course.started_date}</p>
                                 </div>
-                                <div style={{marginLeft:6}}>
-                                    <p style={{fontWeight:600}}>Kurs Puanın</p>
-                                    <p style={{fontStyle:"italic",fontSize:13}}>Puan verebilmek için kurs ilerlemen en az %95 olmalı</p>
-                                    <div className={styles["mini-button"]}>
-                                        <RatingStars rating={0} size={13}/>
+                                <div style={{ marginLeft: 6 }}>
+                                    <p style={{ fontWeight: 600 }}>Kurs Puanın</p>
+                                    <p style={{ fontStyle: "italic", fontSize: 13 }}>
+                                        {course.percentage >= 95
+                                            ? (course.course_point === 0 ? "Puan vermediniz" : course.course_point)
+                                            : "Puan verebilmek için kurs ilerlemen en az %95 olmalı"}
+                                    </p>
+                                    <div className={styles["mini-button"]} onClick={() => handleOpen(course.course_point)}>
+                                        <RatingStars rating={course.course_point} size={13} />
                                     </div>
+
+                                    <Modal open={open} onClose={handleClose}>
+                                        <div className={styles["open-menu"]}>
+                                            <h3>Kursu Puanla</h3>
+                                            <Slider
+                                                value={rating}
+                                                onChange={handleRatingChange}
+                                                step={0.1}
+                                                min={0.1}
+                                                max={5}
+                                                valueLabelDisplay="auto"
+                                                aria-labelledby="continuous-slider"
+                                                style={{color:"var(--orange-color-1)"}}
+                                            />
+                                            <p>Vereceğiniz Puan: <span>{rating}</span></p>
+                                            <RatingStars rating={rating}/>
+                                            <button style={{backgroundColor:"var(--orange-color-1)",color:"var(--secondary-color-1)",border:"none",width:"100%",height:"32px",borderRadius:6,fontSize:14}} onClick={handleSave}>Kaydet</button>
+                                        </div>
+                                    </Modal>
                                 </div>
                                 <div style={{marginLeft:6}}>
                                     <p style={{fontWeight:600}}>Kurs Yorumun</p>
-                                    <p style={{fontStyle:"italic",fontSize:13}}>Yorum yapabilmek için kurs ilerlemen en az %95 olmalı</p>
-                                    <p className={styles["mini-button"]}>
-                                        Yorum yapılmadı</p>
+                                    <p style={{fontStyle:"italic",fontSize:13}}>{course.percentage < 95 && "Yorum yapabilmek için kurs ilerlemen en az %95 olmalı"}</p>
+                                    <p className={styles["mini-button"]}>Yorum yapılmadı</p>
                                 </div>
                             </div>
                         </div>
