@@ -31,7 +31,7 @@ public class UserCoursesDTO {
         this.started_date = trainee.getStartedDate();
         this.end_date = trainee.getEndDate();
         this.current_duration = trainee.getCurrentDuration();
-        this.current_stage = trainee.getCurrentStages();
+        this.current_stage = trainee.getCurrentStage();
         this.course_point = trainee.getCoursePoint();
         this.is_finished = trainee.getIsFinished();
         this.percentage = calculatePercentage(trainee.getCurrentDuration(),trainee.getCourse().getTotalDuration());

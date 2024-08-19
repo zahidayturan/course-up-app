@@ -57,7 +57,7 @@ public class CourseController {
         course.setDiscount(discount);
         course.setImageId(params.get("imageId"));
 
-        Long userId = courseService.parseLongOneParameter(params.get("userId"));
+        Long userId = courseService.parseLong(params.get("userId"));
         if (userId == null) {
             return ResponseEntity.badRequest().body("Invalid userId value.");
         }
