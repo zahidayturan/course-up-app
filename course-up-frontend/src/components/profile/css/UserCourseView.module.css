@@ -48,3 +48,58 @@
     padding: 2px 6px;
     cursor: pointer;
 }
+
+.course-info-menu{
+    margin-top: 24px;
+    width: 180px;
+}
+
+.course-view-menu{
+    width: 100%;
+    gap: 12px;
+}
+
+.info-text{
+    gap: 16px;
+}
+
+.progress-box-content{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+@media (max-width: 820px) {
+    .custom-row{
+        flex-direction: column-reverse;
+        gap: 12px;
+    }
+    .course-info-menu{
+        width: 100%;
+        margin-top: 0;
+    }
+
+    .course-view-menu{
+        width: auto;
+        margin-top: 12px;
+    }
+
+    .info-text{
+        margin-top: 12px;
+        height: max-content;
+        flex-wrap: wrap;
+    }
+
+    .progress-box{
+        flex-direction: row;
+        height: max-content;
+        align-items: center;
+        width: 100%;
+    }
+
+    .progress-box-content{
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+}
