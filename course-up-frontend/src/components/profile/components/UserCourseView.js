@@ -76,8 +76,7 @@ const UserCourseView = () => {
 
 
 
-    const ProgressBar = ({ current_duration = 0, duration = 0.1 }) => {
-        const percentage = current_duration !== 0 ? ((current_duration / duration) * 100).toFixed(0) : "0";
+    const ProgressBar = ({ percentage = 0}) => {
         const backgroundColor = percentage >= 75 ? 'var(--green-color-1)' : percentage >= 50 ? 'var(--orange-color-1)' : 'var(--yellow-color-1)';
         return (
             <div className={styles["progress-box-content"]}>
@@ -118,7 +117,7 @@ const UserCourseView = () => {
                         <div className={styles["course-info-menu"]}>
                             <div className={styles["progress-box"]}>
                                 <p style={{fontSize:15,fontWeight:600}}>Kurs gösteriliyor</p>
-                                <ProgressBar current_duration={course.current_duration} duration={course.duration} />
+                                <ProgressBar percentage={course.percentage}  />
                             </div>
                             <div className={classNames(styles['course-box'],styles["info-text"])}>
                                 <h3>Kurs<br/>Bilgilerin</h3>

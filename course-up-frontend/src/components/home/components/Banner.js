@@ -81,7 +81,7 @@ const Banner = () => {
         setCurrentBanner((prev) => (prev - 1 + banners.length) % banners.length);
     };
 
-    const ProgressBar = ({ percentage }) => {
+    const ProgressBar = ({ percentage= 0 }) => {
         const backgroundColor = percentage >= 75 ? 'var(--green-color-1)' : percentage >=50 ? 'var(--orange-color-1)' : 'var(--yellow-color-1)';
 
         return (
@@ -145,13 +145,12 @@ const Banner = () => {
                             <div style={{padding:12}}>
                                 {title}
                                 {ongoingCourses.map((item) => {
-                                    const percentage = item.current_duration !== 0 ? ((item.current_duration / item.duration) * 100).toFixed(0) : "0";
                                     return (
                                         <div key={item.id} className={styles["course-box"]}>
                                             <p className={textStyles["font-bold"]}>{item.name}</p>
                                             <p className={classNames(textStyles["text-small"], textStyles["font-italic"])}>Eğitmen: {item.instructor}</p>
-                                            <ProgressBar percentage={percentage} />
-                                            <p className={textStyles["text-small"]}>İlerleme <span className={textStyles["font-bold"]}>% {percentage}</span></p>
+                                            <ProgressBar percentage={item.percentage} />
+                                            <p className={textStyles["text-small"]}>İlerleme <span className={textStyles["font-bold"]}>% {item.percentage}</span></p>
                                             <Link to={`/profile/course-view/${item.id}`} className={styles["custom-row"]} style={{justifyContent:"end", gap:4,textDecoration:"none",color:"var(--secondary-color-2)"}}>
                                                 <p className={textStyles["text-small"]} style={{textAlign:"end"}}>Devam Et</p>
                                                 <img className={styles["arrow-icon"]} src="/icon/long-arrow.png" alt=""/>

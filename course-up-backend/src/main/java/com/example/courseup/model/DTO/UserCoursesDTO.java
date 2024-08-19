@@ -1,6 +1,5 @@
 package com.example.courseup.model.DTO;
 
-import com.example.courseup.model.Course;
 import com.example.courseup.model.Trainee;
 import lombok.Data;
 
@@ -17,7 +16,7 @@ public class UserCoursesDTO {
     private Integer current_stage;
     private Double course_point;
     private boolean is_finished;
-
+    private Double percentage;
     //Course
     private Long courseId;
     private String name;
@@ -35,6 +34,7 @@ public class UserCoursesDTO {
         this.current_stage = trainee.getCurrentStages();
         this.course_point = trainee.getCoursePoint();
         this.is_finished = trainee.getIsFinished();
+        this.percentage = calculatePercentage(trainee.getCurrentDuration(),trainee.getCourse().getTotalDuration());
         this.courseId= trainee.getCourse().getId();
         this.name = trainee.getCourse().getName();
         this.instructor = trainee.getCourse().getTeacher().getUser().getName() + " " + trainee.getCourse().getTeacher().getUser().getSurname();
@@ -43,5 +43,13 @@ public class UserCoursesDTO {
         this.stage = trainee.getCourse().getTotalStages();
         this.imageId = trainee.getCourse().getImageId();
     }
+
+    private Double calculatePercentage(Double current_duration, Double duration) {
+        if (current_duration == null || duration == null || current_duration == 0 || duration == 0) {
+            return 0.0;
+        }
+        return Math.round((current_duration / duration) * 1000) / 10.0;
+    }
+
 
 }

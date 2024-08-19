@@ -82,7 +82,6 @@ const UserCourses = () => {
 
                             <div className={styles["course-grid"]}>
                                 {courses.map((item) => {
-                                    const percentage = item.current_duration !== 0 ? ((item.current_duration / item.duration) * 100).toFixed(1) : 0;
                                     return (
                                             <div key={item.id} className={styles["course-container"]}>
                                                 <div className={styles["custom-row"]} style={{height:"100%"}}>
@@ -103,7 +102,7 @@ const UserCourses = () => {
                                                             <p>Başlama Tarihin<br/><span  style={{fontWeight:400}}>{item.started_date ? item.started_date : "Başlamadın"}</span></p>
                                                         </div>
                                                     </div>
-                                                    <ProgressBarAndPlayButton percentage={percentage} traineeId={item.id}/>
+                                                    <ProgressBarAndPlayButton percentage={item.percentage} traineeId={item.id}/>
                                                 </div>
                                             </div>
                                     );
