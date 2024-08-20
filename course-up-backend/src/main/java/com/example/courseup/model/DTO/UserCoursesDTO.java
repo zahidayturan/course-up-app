@@ -48,8 +48,8 @@ public class UserCoursesDTO {
         if (current_duration == null || duration == null || current_duration == 0 || duration == 0) {
             return 0.0;
         }
-        return Math.round((current_duration / duration) * 1000) / 10.0;
+        double percentage = Math.round((current_duration / duration) * 1000) / 10.0;
+        return percentage <= 100 ? percentage : 100.0;
     }
-
 
 }

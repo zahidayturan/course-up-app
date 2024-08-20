@@ -10,6 +10,7 @@ import com.example.courseup.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -175,6 +176,47 @@ public class TraineeController {
 
         return ResponseEntity.ok("Current stage updated successfully.");
     }
+
+    @Operation(summary = "Update trainee's course progress")
+    @PostMapping("/updateCourseProgress")
+    public ResponseEntity<String> updateCourseProgress(
+            @RequestParam Long traineeId,
+            @RequestParam Double currentDuration,
+            @RequestParam Integer currentStage,
+            @RequestParam Boolean isStageCompleted) {
+
+        System.out.println(traineeId+" "+currentDuration+" "+currentStage+" "+isStageCompleted);
+
+        Trainee trainee = traineeService.findById(traineeId)
+                .orElseThrow(() -> new EntityNotFoundException("Trainee with id " + traineeId + " not found"));
+
+        if (currentStage.equals(trainee.getCurrentStage()) || currentStage.equals(trainee.getCurrentStage() + 1)) {
+            trainee.setCurrentDuration(trainee.getCurrentDuration()+currentDuration);
+
+            if(isStageCompleted && currentStage.equals(trainee.getCurrentStage()) && currentStage == 1){
+                trainee.setCurrentStage(currentStage+1);
+                if(trainee.getStartedDate() == null){
+                    trainee.setStartedDate(LocalDate.now());
+                }
+            } else if (isStageCompleted && currentStage.equals(trainee.getCurrentStage() + 1)) {
+                trainee.setCurrentStage(currentStage+1);
+            } else {
+                System.out.println("stage update olmadı");
+            }
+
+            if(currentStage.equals(trainee.getCourse().getTotalStages())){
+                trainee.setCurrentStage(trainee.getCourse().getTotalStages());
+                trainee.setIsFinished(true);
+                trainee.setEndDate(LocalDate.now());
+            }
+
+            traineeService.update(trainee);
+            return ResponseEntity.ok("Course progress updated successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid stage progression");
+        }
+    }
+
 
     @Operation(summary = "Update trainee's course point")
     @PostMapping("/updateCoursePoint")
