@@ -1,9 +1,11 @@
 package com.example.courseup.controller;
 
 import com.example.courseup.model.Course;
+import com.example.courseup.model.CourseComments;
 import com.example.courseup.model.DTO.UserCoursesDTO;
 import com.example.courseup.model.Trainee;
 import com.example.courseup.model.User;
+import com.example.courseup.service.CourseCommentsService;
 import com.example.courseup.service.CourseService;
 import com.example.courseup.service.TraineeService;
 import com.example.courseup.service.UserService;
@@ -31,6 +33,9 @@ public class TraineeController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CourseCommentsService courseCommentsService;
 
     @Operation(summary = "Get all trainees")
     @GetMapping
@@ -185,7 +190,6 @@ public class TraineeController {
             @RequestParam Integer currentStage,
             @RequestParam Boolean isStageCompleted) {
 
-        System.out.println(traineeId+" "+currentDuration+" "+currentStage+" "+isStageCompleted);
 
         Trainee trainee = traineeService.findById(traineeId)
                 .orElseThrow(() -> new EntityNotFoundException("Trainee with id " + traineeId + " not found"));
@@ -221,7 +225,6 @@ public class TraineeController {
     @Operation(summary = "Update trainee's course point")
     @PostMapping("/updateCoursePoint")
     public ResponseEntity<String> updateTraineeCoursePoint(@RequestParam Long traineeId, @RequestParam Double coursePoint) {
-        System.out.println(traineeId+coursePoint);
         Trainee trainee = traineeService.findById(traineeId)
                 .orElseThrow(() -> new EntityNotFoundException("Trainee with id " + traineeId + " not found"));
 
@@ -230,6 +233,31 @@ public class TraineeController {
 
         return ResponseEntity.ok("Course point updated successfully.");
     }
+
+    @Operation(summary = "Update trainee's course comment")
+    @PostMapping("/updateCourseComment")
+    public ResponseEntity<String> updateTraineeCourseComment(@RequestParam Long traineeId, @RequestParam String comment) {
+        System.out.println(traineeId + comment);
+
+        Trainee trainee = traineeService.findById(traineeId)
+                .orElseThrow(() -> new EntityNotFoundException("Trainee with id " + traineeId + " not found"));
+
+        CourseComments existingComment = courseCommentsService.findByTrainee(traineeId);
+
+        if (existingComment != null) {
+            existingComment.setComments(comment);
+            courseCommentsService.update(existingComment);
+        } else {
+            CourseComments newComment = new CourseComments();
+            newComment.setComments(comment);
+            newComment.setTrainee(trainee);
+            newComment.setCourse(trainee.getCourse());
+            courseCommentsService.save(newComment);
+        }
+
+        return ResponseEntity.ok("Course comment updated successfully.");
+    }
+
 
     @Operation(summary = "Update trainee's end date")
     @PostMapping("/updateEndDate")

@@ -17,6 +17,7 @@ public class UserCoursesDTO {
     private Double course_point;
     private boolean isFinished;
     private Double percentage;
+    private String comment;
     //Course
     private Long courseId;
     private String name;
@@ -35,6 +36,9 @@ public class UserCoursesDTO {
         this.course_point = trainee.getCoursePoint();
         this.isFinished = trainee.getIsFinished();
         this.percentage = calculatePercentage(trainee.getCurrentDuration(),trainee.getCourse().getTotalDuration());
+        this.comment = (trainee.getCourseComments() != null && trainee.getCourseComments().getComments() != null)
+                ? trainee.getCourseComments().getComments()
+                : "";
         this.courseId= trainee.getCourse().getId();
         this.name = trainee.getCourse().getName();
         this.instructor = trainee.getCourse().getTeacher().getUser().getName() + " " + trainee.getCourse().getTeacher().getUser().getSurname();

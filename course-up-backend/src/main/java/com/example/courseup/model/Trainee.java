@@ -34,7 +34,7 @@ public class Trainee {
     private LocalDate startedDate;
     private LocalDate endDate;
 
-    @OneToMany(mappedBy = "trainee")
+    @OneToOne(mappedBy = "trainee")
     @JsonIgnore
-    private List<CourseComments> courseComments;
+    private CourseComments courseComments;
 }

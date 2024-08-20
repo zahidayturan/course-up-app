@@ -18,7 +18,7 @@ public class CourseComments {
     @JsonIgnore
     private Course course;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "trainee_id", referencedColumnName = "id")
     @JsonIgnore
     private Trainee trainee;
