@@ -164,7 +164,7 @@ const Banner = () => {
                         ) : (
                             <div style={{padding:12}}>
                                 {title}
-                                <p className={textStyles["text-center"]} style={{padding:"14px 0",fontSize:14}}>Devam eden bir kursun yok.<br/><span className={classNames(textStyles["text-underline"],textStyles["font-bold"])}>Şimdi yeni bir kurs ekle</span></p>
+                                <p onClick={() => navigate(`/category`)} className={textStyles["text-center"]} style={{padding:"14px 0",fontSize:14}}>Devam eden bir kursun yok.<br/><span className={classNames(textStyles["text-underline"],textStyles["font-bold"])}>Şimdi yeni bir kurs ekle</span></p>
                             </div>
                         )}
                     </div>

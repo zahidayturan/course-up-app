@@ -107,6 +107,39 @@ const UserCourseView = () => {
         }
     };
 
+    const [commentOpen, setCommentOpen] = useState(false);
+    const [comment, setComment] = useState('');
+
+    const handleOpenComment = (currentComment = '') => {
+        setCommentOpen(true);
+        setComment(currentComment);
+    };
+
+    const handleCloseComment = () => setCommentOpen(false);
+    const handleCommentChange = (event) => {
+        setComment(event.target.value);
+    };
+
+    const handleSaveComment = async () => {
+        setMainLoading(true);
+        const formData = new FormData();
+        formData.append('traineeId', id);
+        formData.append('comment', comment);
+
+        try {
+            const response = await axios.post(Endpoints.UPDATE_COURSE_COMMENT, formData);
+            console.log('Comment updated successfully:', response.data);
+            handleCloseComment();
+            if (response.data) {
+                setCourse(prevCourse => ({ ...prevCourse, comment }));
+            }
+        } catch (error) {
+            console.error('Error updating comment:', error);
+        } finally {
+            setMainLoading(false);
+        }
+    };
+
     const [hasSentProgress, setHasSentProgress] = useState(false);
 
     const handleVideoProgress = (e) => {
@@ -227,14 +260,36 @@ const UserCourseView = () => {
                                             />
                                             <p>Vereceğiniz Puan: <span>{rating}</span></p>
                                             <RatingStars rating={rating}/>
-                                            <button style={{backgroundColor:"var(--orange-color-1)",color:"var(--secondary-color-1)",border:"none",width:"100%",height:"32px",borderRadius:6,fontSize:14}} onClick={handleSave}>Kaydet</button>
+                                            <button className={styles["menu-button"]} onClick={handleSave}>Kaydet</button>
+                                            <button className={classNames(styles["menu-button"],styles["menu-button-dis"])} onClick={handleClose}>Kaydetmeden Çık</button>
                                         </div>
                                     </Modal>
                                 </div>
-                                <div style={{marginLeft:6}}>
-                                    <p style={{fontWeight:600}}>Kurs Yorumun</p>
-                                    <p style={{fontStyle:"italic",fontSize:13}}>{course.percentage < 95 && "Yorum yapabilmek için kurs ilerlemen en az %95 olmalı"}</p>
-                                    <p className={styles["mini-button"]}>Yorum yapılmadı</p>
+                                <div style={{ marginLeft: 6 }}>
+                                    <p style={{ fontWeight: 600 }}>Kurs Yorumun</p>
+                                    <p style={{ fontStyle: "italic", fontSize: 13 }}>
+                                        {course.percentage >= 95
+                                            ? (course.comment ? course.comment : "Yorum yapılmadı")
+                                            : "Yorum yapabilmek için kurs ilerlemen en az %95 olmalı"}
+                                    </p>
+                                    <div className={styles["mini-button"]} onClick={() => course.percentage >= 95 && handleOpenComment(course.comment)}>
+                                        {course.comment ? "Yorumu Güncelle" : "Yorum Yap"}
+                                    </div>
+
+                                    <Modal open={commentOpen} onClose={handleCloseComment}>
+                                        <div className={styles["open-menu"]}>
+                                            <h3>Kursu Yorumla</h3>
+                                            <textarea
+                                                value={comment}
+                                                onChange={handleCommentChange}
+                                                placeholder="Yorumunuzu buraya yazın"
+                                                maxLength={256}
+                                                style={{ width: '90%', minHeight: '100px' }}
+                                            />
+                                            <button className={styles["menu-button"]} onClick={handleSaveComment}>Kaydet</button>
+                                            <button className={classNames(styles["menu-button"], styles["menu-button-dis"])} onClick={handleCloseComment}>Kaydetmeden Çık</button>
+                                        </div>
+                                    </Modal>
                                 </div>
                             </div>
                         </div>

@@ -37,6 +37,7 @@ const Endpoints = {
     GET_BASKET: `${API_BASE_URL}/basket/user`,
     DELETE_FROM_BASKET: `${API_BASE_URL}/basket/delete`,
     UPDATE_COURSE_POINT: `${API_BASE_URL}/trainee/updateCoursePoint`,
+    UPDATE_COURSE_COMMENT: `${API_BASE_URL}/trainee/updateCourseComment`,
     UPDATE_COURSE_PROGRESS: `${API_BASE_URL}/trainee/updateCourseProgress`
 
 };
