@@ -107,6 +107,41 @@ const UserCourseView = () => {
         }
     };
 
+    const [hasSentProgress, setHasSentProgress] = useState(false);
+
+    const handleVideoProgress = (e) => {
+        const currentTime = e.target.currentTime;
+        const duration = e.target.duration;
+
+        if (duration - currentTime <= 2 && !hasSentProgress) {
+            const isStageCompleted = true;
+            console.log(currentTime);
+            console.log(currentCourseStage.episodeNumber);
+            console.log(isStageCompleted);
+            saveProgress(duration, currentCourseStage.episodeNumber, isStageCompleted);
+            setHasSentProgress(true);
+        }
+    };
+
+    const saveProgress = async (currentDuration, currentStage, isStageCompleted) => {
+        setMainLoading(true);
+        const formData = new FormData();
+        formData.append('traineeId', id);
+        formData.append('currentDuration', currentDuration);
+        formData.append('currentStage', currentStage);
+        formData.append('isStageCompleted', isStageCompleted);
+
+        try {
+            const response = await axios.post(Endpoints.UPDATE_COURSE_PROGRESS, formData);
+            console.log('Progress updated successfully:', response.data);
+        } catch (error) {
+            console.error('Error updating progress:', error);
+        } finally {
+            setMainLoading(false);
+        }
+    };
+
+
     const ProgressBar = ({ percentage = 0}) => {
         const backgroundColor = percentage >= 75 ? 'var(--green-color-1)' : percentage >= 50 ? 'var(--orange-color-1)' : 'var(--yellow-color-1)';
         return (
@@ -173,7 +208,7 @@ const UserCourseView = () => {
                                             ? (course.course_point === 0 ? "Puan vermediniz" : course.course_point)
                                             : "Puan verebilmek için kurs ilerlemen en az %95 olmalı"}
                                     </p>
-                                    <div className={styles["mini-button"]} onClick={() => handleOpen(course.course_point)}>
+                                    <div className={styles["mini-button"]} onClick={() => course.percentage >=95 && handleOpen(course.course_point)}>
                                         <RatingStars rating={course.course_point} size={13} />
                                     </div>
 
@@ -227,7 +262,15 @@ const UserCourseView = () => {
                                                 ))}
                                             </select>
                                         </div>
-                                        {currentCourseStage.videoId ? <video width="100%" height="auto" style={{ borderRadius: 8, marginTop: 12 }} src={`https://${bName}.s3.amazonaws.com/${currentCourseStage.videoId}`} controls></video> : <p>Kurs bölümü yüklenemedi</p>}
+                                        {currentCourseStage.videoId ? <video
+                                            width="100%"
+                                            height="auto"
+                                            style={{ borderRadius: 8, marginTop: 12 }}
+                                            src={`https://${bName}.s3.amazonaws.com/${currentCourseStage.videoId}`}
+                                            controls
+                                            onTimeUpdate={course.finished === false ? handleVideoProgress : null}
+                                            onEnded={() => setHasSentProgress(false)}
+                                        /> : <p>Kurs bölümü yüklenemedi</p>}
                                     </div>
                                 )}
 

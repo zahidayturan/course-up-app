@@ -5,13 +5,14 @@ import textStyles from '../../css/Text.module.css';
 import axios from "axios";
 import Endpoints from "../../../constants/Endpoints";
 import mainStyles from "../../css/Main.module.css";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const Banner = () => {
     const [user, setUser] = useState(null);
     const [ongoingCourses, setOngoingCourses] = useState(null);
     const [ongoingCoursesError, setOngoingCoursesError] = useState(null);
     const [ongoingCoursesLoading, setOngoingCoursesLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchOngoingCourses = async (userId) => {
@@ -158,7 +159,7 @@ const Banner = () => {
                                         </div>
                                     );
                                 })}
-                                <p className={textStyles["text-center"]} style={{padding:"14px 0", fontSize:14}}>Aradığın kurs burada yok mu?<br/><span className={classNames(textStyles["text-underline"], textStyles["font-bold"])}>Şimdi yeni bir kurs ekle</span></p>
+                                <p onClick={() => navigate(`/category`)} className={textStyles["text-center"]} style={{padding:"14px 0", fontSize:14}}>Aradığın kurs burada yok mu?<br/><span className={classNames(textStyles["text-underline"], textStyles["font-bold"])}>Şimdi yeni bir kurs ekle</span></p>
                             </div>
                         ) : (
                             <div style={{padding:12}}>
