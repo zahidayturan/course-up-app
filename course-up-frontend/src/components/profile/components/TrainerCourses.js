@@ -5,6 +5,7 @@ import classNames from "classnames";
 import styles from "../css/TrainerCourses.module.css";
 import textStyles from "../../css/Text.module.css";
 import mainStyles from "../../css/Main.module.css";
+import {useNavigate} from "react-router-dom";
 
 const TrainerCourses = () => {
     const [user, setUser] = useState(null);
@@ -12,6 +13,7 @@ const TrainerCourses = () => {
     const [inactiveCourses, setInactiveCourses] = useState([]);
     const [coursesError, setCoursesError] = useState(null);
     const [coursesLoading, setCoursesLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchTeacherCourses = async (userId) => {
@@ -103,7 +105,7 @@ const TrainerCourses = () => {
                                                 </div>
                                             ) : (
                                                 <div style={{ padding: 12 }}>
-                                                    <p className={textStyles["text-center"]} style={{ padding: "14px 0", fontSize: 14 }}>Henüz aktif kursun yok.<br /><span className={classNames(textStyles["text-underline"], textStyles["font-bold"])}>Şimdi yeni bir kurs ekle</span></p>
+                                                    <p onClick={() => navigate(`/category`)} className={textStyles["text-center"]} style={{ padding: "14px 0", fontSize: 14 }}>Henüz aktif kursun yok.<br /><span className={classNames(textStyles["text-underline"], textStyles["font-bold"])}>Şimdi yeni bir kurs ekle</span></p>
                                                 </div>
                                             )}
                                         </div>

@@ -11,8 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -149,14 +147,6 @@ public class CourseService {
 
     public Boolean parseBoolean(String value, Boolean defaultValue) {
         return value != null ? Boolean.valueOf(value) : defaultValue;
-    }
-
-    public Long parseLongOneParameter(String value) {
-        try {
-            return value != null ? Long.valueOf(value) : null;
-        } catch (NumberFormatException e) {
-            return null;
-        }
     }
 
     public Double parseDoubleOneParameter(String value) {

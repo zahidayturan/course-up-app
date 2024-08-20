@@ -1,12 +1,17 @@
 package com.example.courseup.service;
 
+import com.example.courseup.model.Course;
 import com.example.courseup.model.DTO.UserCoursesDTO;
 import com.example.courseup.model.Trainee;
 import com.example.courseup.repository.CourseRepository;
 import com.example.courseup.repository.TraineeRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -58,6 +63,21 @@ public class TraineeService {
     public UserCoursesDTO findTraineeByCourseId(Long id) {
         Trainee trainee = traineeRepository.findById(id).orElseThrow(() -> new RuntimeException("Trainee not found ."));
         return new UserCoursesDTO(trainee);
+    }
+
+    public Trainee update(Trainee trainee) {
+        if (!traineeRepository.existsById(trainee.getId())) {
+            throw new EntityNotFoundException("Trainee with id " + trainee.getId() + " not found");
+        }
+        return traineeRepository.save(trainee);
+    }
+
+    public LocalDate parseLocalDate(String value, LocalDate defaultValue) {
+        try {
+            return value != null ? LocalDate.parse(value,  DateTimeFormatter.ISO_LOCAL_DATE) : defaultValue;
+        } catch (DateTimeParseException e) {
+            return defaultValue;
+        }
     }
 
 }

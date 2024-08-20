@@ -82,14 +82,13 @@ const UserCourses = () => {
 
                             <div className={styles["course-grid"]}>
                                 {courses.map((item) => {
-                                    const percentage = item.current_duration !== 0 ? ((item.current_duration / item.duration) * 100).toFixed(1) : 0;
                                     return (
                                             <div key={item.id} className={styles["course-container"]}>
                                                 <div className={styles["custom-row"]} style={{height:"100%"}}>
                                                     <div className={styles["text-info"]}>
                                                         <div>
                                                             <p className={textStyles["font-bold"]}>{item.name}</p>
-                                                            <p className={classNames(textStyles["text-small"], textStyles["font-italic"])}>Eğitmen: {item.teacher}</p>
+                                                            <p className={classNames(textStyles["text-small"], textStyles["font-italic"])}>Eğitmen: {item.instructor}</p>
                                                         </div>
                                                         <p className={textStyles["text-small"]} style={{width:"100%"}}>{item.description}</p>
                                                         <div className={textStyles["text-small"]}>
@@ -99,11 +98,15 @@ const UserCourses = () => {
 
                                                         <div className={classNames(styles["custom-row"],styles["course-info"])}>
                                                             <p>Geçirdiğin Süre<br/><span style={{fontWeight:400}}>{(item.current_duration/60).toFixed(2)} dakika</span></p>
-                                                            <p>Kaldığın Bölüm<br/><span  style={{fontWeight:400}}>Bölüm {item.current_stage}</span></p>
+                                                            {item.finished ? (
+                                                                <p>Bitirme Tarihi<br/><span  style={{fontWeight:400}}>{item.end_date}</span></p>
+                                                            ) : (
+                                                                <p>Kaldığın Bölüm<br/><span  style={{fontWeight:400}}>Bölüm {item.current_stage}</span></p>
+                                                            )}
                                                             <p>Başlama Tarihin<br/><span  style={{fontWeight:400}}>{item.started_date ? item.started_date : "Başlamadın"}</span></p>
                                                         </div>
                                                     </div>
-                                                    <ProgressBarAndPlayButton percentage={percentage} traineeId={item.id}/>
+                                                    <ProgressBarAndPlayButton percentage={item.percentage} traineeId={item.id}/>
                                                 </div>
                                             </div>
                                     );
@@ -112,7 +115,7 @@ const UserCourses = () => {
                         </div>
                     ) : (
                         <div style={{padding:12}}>
-                            <p className={textStyles["text-center"]} style={{padding:"14px 0",fontSize:14}}>Devam eden bir kursun yok.<br/><span className={classNames(textStyles["text-underline"],textStyles["font-bold"])}>Şimdi yeni bir kurs ekle</span></p>
+                            <p onClick={() => navigate(`/category`)} className={textStyles["text-center"]} style={{padding:"14px 0",fontSize:14}}>Devam eden bir kursun yok.<br/><span className={classNames(textStyles["text-underline"],textStyles["font-bold"])}>Şimdi yeni bir kurs ekle</span></p>
                         </div>
                     )}
                 </div>

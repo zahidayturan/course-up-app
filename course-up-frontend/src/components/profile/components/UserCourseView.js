@@ -6,7 +6,9 @@ import axios from "axios";
 import Endpoints from "../../../constants/Endpoints";
 import mainStyles from "../../css/Main.module.css";
 import styles from "../css/UserCourseView.module.css";
+import classNames from "classnames";
 import RatingStars from "../../course/RatingStars";
+import {Button, Modal, Slider} from "@mui/material";
 
 
 const UserCourseView = () => {
@@ -73,13 +75,110 @@ const UserCourseView = () => {
         }
     }, [course?.courseId, fetchCourseStages]);
 
+    const [open, setOpen] = useState(false);
+    const [rating, setRating] = useState(0);
+    const handleOpen = (currentPoint = 0) => {
+        setOpen(true);
+        setRating(currentPoint);
+    };
+
+    const handleClose = () => setOpen(false);
+    const handleRatingChange = (event, newValue) => {
+        setRating(newValue);
+    };
+
+    const handleSave = async () => {
+        setMainLoading(true);
+        const formData = new FormData();
+        formData.append('traineeId', id);
+        formData.append('coursePoint', rating);
+
+        try {
+            const response = await axios.post(Endpoints.UPDATE_COURSE_POINT, formData);
+            console.log('Rating updated successfully:', response.data);
+            handleClose();
+            if (response.data) {
+                setCourse(prevCourse => ({ ...prevCourse, course_point: rating }));
+            }
+        } catch (error) {
+            console.error('Error updating rating:', error);
+        } finally {
+            setMainLoading(false);
+        }
+    };
+
+    const [commentOpen, setCommentOpen] = useState(false);
+    const [comment, setComment] = useState('');
+
+    const handleOpenComment = (currentComment = '') => {
+        setCommentOpen(true);
+        setComment(currentComment);
+    };
+
+    const handleCloseComment = () => setCommentOpen(false);
+    const handleCommentChange = (event) => {
+        setComment(event.target.value);
+    };
+
+    const handleSaveComment = async () => {
+        setMainLoading(true);
+        const formData = new FormData();
+        formData.append('traineeId', id);
+        formData.append('comment', comment);
+
+        try {
+            const response = await axios.post(Endpoints.UPDATE_COURSE_COMMENT, formData);
+            console.log('Comment updated successfully:', response.data);
+            handleCloseComment();
+            if (response.data) {
+                setCourse(prevCourse => ({ ...prevCourse, comment }));
+            }
+        } catch (error) {
+            console.error('Error updating comment:', error);
+        } finally {
+            setMainLoading(false);
+        }
+    };
+
+    const [hasSentProgress, setHasSentProgress] = useState(false);
+
+    const handleVideoProgress = (e) => {
+        const currentTime = e.target.currentTime;
+        const duration = e.target.duration;
+
+        if (duration - currentTime <= 2 && !hasSentProgress) {
+            const isStageCompleted = true;
+            console.log(currentTime);
+            console.log(currentCourseStage.episodeNumber);
+            console.log(isStageCompleted);
+            saveProgress(duration, currentCourseStage.episodeNumber, isStageCompleted);
+            setHasSentProgress(true);
+        }
+    };
+
+    const saveProgress = async (currentDuration, currentStage, isStageCompleted) => {
+        setMainLoading(true);
+        const formData = new FormData();
+        formData.append('traineeId', id);
+        formData.append('currentDuration', currentDuration);
+        formData.append('currentStage', currentStage);
+        formData.append('isStageCompleted', isStageCompleted);
+
+        try {
+            const response = await axios.post(Endpoints.UPDATE_COURSE_PROGRESS, formData);
+            console.log('Progress updated successfully:', response.data);
+        } catch (error) {
+            console.error('Error updating progress:', error);
+        } finally {
+            setMainLoading(false);
+        }
+    };
 
 
-    const ProgressBar = ({ current_duration = 0, duration = 0.1 }) => {
-        const percentage = current_duration !== 0 ? ((current_duration / duration) * 100).toFixed(0) : "0";
+    const ProgressBar = ({ percentage = 0}) => {
         const backgroundColor = percentage >= 75 ? 'var(--green-color-1)' : percentage >= 50 ? 'var(--orange-color-1)' : 'var(--yellow-color-1)';
         return (
-            <div style={{display:"flex",gap:12,alignItems:"center"}}>
+            <div className={styles["progress-box-content"]}>
                 <div className={styles["progress-bar-background"]}>
                     <div
                         className={styles["progress-bar-foreground"]}
@@ -114,12 +213,12 @@ const UserCourseView = () => {
                 </div>
             ) : user && course && courseStages && (
                 <div className={styles["custom-row"]}>
-                        <div style={{marginTop:24,width:180}}>
+                        <div className={styles["course-info-menu"]}>
                             <div className={styles["progress-box"]}>
                                 <p style={{fontSize:15,fontWeight:600}}>Kurs gösteriliyor</p>
-                                <ProgressBar current_duration={course.current_duration} duration={course.duration} />
+                                <ProgressBar percentage={course.percentage}  />
                             </div>
-                            <div className={styles['course-box']} style={{gap:16}}>
+                            <div className={classNames(styles['course-box'],styles["info-text"])}>
                                 <h3>Kurs<br/>Bilgilerin</h3>
                                 <div style={{marginLeft:6}}>
                                     <p style={{fontWeight:600}}>Harcadığın Süre</p>
@@ -135,22 +234,66 @@ const UserCourseView = () => {
                                     <p style={{fontWeight:600}}>Başlama Tarihin</p>
                                     <p>{course.started_date}</p>
                                 </div>
-                                <div style={{marginLeft:6}}>
-                                    <p style={{fontWeight:600}}>Kurs Puanın</p>
-                                    <p style={{fontStyle:"italic",fontSize:13}}>Puan verebilmek için kurs ilerlemen en az %95 olmalı</p>
-                                    <div className={styles["mini-button"]}>
-                                        <RatingStars rating={0} size={13}/>
+                                <div style={{ marginLeft: 6 }}>
+                                    <p style={{ fontWeight: 600 }}>Kurs Puanın</p>
+                                    <p style={{ fontStyle: "italic", fontSize: 13 }}>
+                                        {course.percentage >= 95
+                                            ? (course.course_point === 0 ? "Puan vermediniz" : course.course_point)
+                                            : "Puan verebilmek için kurs ilerlemen en az %95 olmalı"}
+                                    </p>
+                                    <div className={styles["mini-button"]} onClick={() => course.percentage >=95 && handleOpen(course.course_point)}>
+                                        <RatingStars rating={course.course_point} size={13} />
                                     </div>
+
+                                    <Modal open={open} onClose={handleClose}>
+                                        <div className={styles["open-menu"]}>
+                                            <h3>Kursu Puanla</h3>
+                                            <Slider
+                                                value={rating}
+                                                onChange={handleRatingChange}
+                                                step={0.1}
+                                                min={0.1}
+                                                max={5}
+                                                valueLabelDisplay="auto"
+                                                aria-labelledby="continuous-slider"
+                                                style={{color:"var(--orange-color-1)"}}
+                                            />
+                                            <p>Vereceğiniz Puan: <span>{rating}</span></p>
+                                            <RatingStars rating={rating}/>
+                                            <button className={styles["menu-button"]} onClick={handleSave}>Kaydet</button>
+                                            <button className={classNames(styles["menu-button"],styles["menu-button-dis"])} onClick={handleClose}>Kaydetmeden Çık</button>
+                                        </div>
+                                    </Modal>
                                 </div>
-                                <div style={{marginLeft:6}}>
-                                    <p style={{fontWeight:600}}>Kurs Yorumun</p>
-                                    <p style={{fontStyle:"italic",fontSize:13}}>Yorum yapabilmek için kurs ilerlemen en az %95 olmalı</p>
-                                    <p className={styles["mini-button"]}>
-                                        Yorum yapılmadı</p>
+                                <div style={{ marginLeft: 6 }}>
+                                    <p style={{ fontWeight: 600 }}>Kurs Yorumun</p>
+                                    <p style={{ fontStyle: "italic", fontSize: 13 }}>
+                                        {course.percentage >= 95
+                                            ? (course.comment ? course.comment : "Yorum yapılmadı")
+                                            : "Yorum yapabilmek için kurs ilerlemen en az %95 olmalı"}
+                                    </p>
+                                    <div className={styles["mini-button"]} onClick={() => course.percentage >= 95 && handleOpenComment(course.comment)}>
+                                        {course.comment ? "Yorumu Güncelle" : "Yorum Yap"}
+                                    </div>
+
+                                    <Modal open={commentOpen} onClose={handleCloseComment}>
+                                        <div className={styles["open-menu"]}>
+                                            <h3>Kursu Yorumla</h3>
+                                            <textarea
+                                                value={comment}
+                                                onChange={handleCommentChange}
+                                                placeholder="Yorumunuzu buraya yazın"
+                                                maxLength={256}
+                                                style={{ width: '90%', minHeight: '100px' }}
+                                            />
+                                            <button className={styles["menu-button"]} onClick={handleSaveComment}>Kaydet</button>
+                                            <button className={classNames(styles["menu-button"], styles["menu-button-dis"])} onClick={handleCloseComment}>Kaydetmeden Çık</button>
+                                        </div>
+                                    </Modal>
                                 </div>
                             </div>
                         </div>
-                        <div className={styles['course-box']} style={{width:"100%",gap:12}}>
+                        <div className={classNames(styles['course-box'],styles["course-view-menu"])}>
                             <div>
                                 <h2>{course.name}</h2>
                                 <p style={{fontSize:14}}>Eğitmen: {course.instructor}</p>
@@ -174,7 +317,15 @@ const UserCourseView = () => {
                                                 ))}
                                             </select>
                                         </div>
-                                        {currentCourseStage.videoId ? <video width="100%" height="auto" style={{ borderRadius: 8, marginTop: 12 }} src={`https://${bName}.s3.amazonaws.com/${currentCourseStage.videoId}`} controls></video> : <p>Kurs bölümü yüklenemedi</p>}
+                                        {currentCourseStage.videoId ? <video
+                                            width="100%"
+                                            height="auto"
+                                            style={{ borderRadius: 8, marginTop: 12 }}
+                                            src={`https://${bName}.s3.amazonaws.com/${currentCourseStage.videoId}`}
+                                            controls
+                                            onTimeUpdate={course.finished === false ? handleVideoProgress : null}
+                                            onEnded={() => setHasSentProgress(false)}
+                                        /> : <p>Kurs bölümü yüklenemedi</p>}
                                     </div>
                                 )}
 

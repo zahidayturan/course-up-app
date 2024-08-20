@@ -70,7 +70,7 @@ const Header = () => {
                         <img src="/logo/courseup-l-v1.png" alt="CourseUp Logo" />
                     </Link>
                     <div className={classNames(styles['category-container'], styles['hide'])}>
-                        <p onClick={handleCategoryToggle}>Kategoriler</p>
+                        <p className={styles["category-text-b"]} onClick={handleCategoryToggle}>Kategoriler</p>
                         {showCategories && (
                             <div className={styles['dropdown-menu']}>
                                 <Link to="/category/development">Yazılım ve Bilişim</Link>

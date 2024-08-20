@@ -1,6 +1,5 @@
 package com.example.courseup.model.DTO;
 
-import com.example.courseup.model.Course;
 import com.example.courseup.model.Trainee;
 import lombok.Data;
 
@@ -16,8 +15,9 @@ public class UserCoursesDTO {
     private Double current_duration;
     private Integer current_stage;
     private Double course_point;
-    private boolean is_finished;
-
+    private boolean isFinished;
+    private Double percentage;
+    private String comment;
     //Course
     private Long courseId;
     private String name;
@@ -32,9 +32,13 @@ public class UserCoursesDTO {
         this.started_date = trainee.getStartedDate();
         this.end_date = trainee.getEndDate();
         this.current_duration = trainee.getCurrentDuration();
-        this.current_stage = trainee.getCurrentStages();
+        this.current_stage = trainee.getCurrentStage();
         this.course_point = trainee.getCoursePoint();
-        this.is_finished = trainee.getIsFinished();
+        this.isFinished = trainee.getIsFinished();
+        this.percentage = calculatePercentage(trainee.getCurrentDuration(),trainee.getCourse().getTotalDuration());
+        this.comment = (trainee.getCourseComments() != null && trainee.getCourseComments().getComments() != null)
+                ? trainee.getCourseComments().getComments()
+                : "";
         this.courseId= trainee.getCourse().getId();
         this.name = trainee.getCourse().getName();
         this.instructor = trainee.getCourse().getTeacher().getUser().getName() + " " + trainee.getCourse().getTeacher().getUser().getSurname();
@@ -42,6 +46,14 @@ public class UserCoursesDTO {
         this.duration = trainee.getCourse().getTotalDuration();
         this.stage = trainee.getCourse().getTotalStages();
         this.imageId = trainee.getCourse().getImageId();
+    }
+
+    private Double calculatePercentage(Double current_duration, Double duration) {
+        if (current_duration == null || duration == null || current_duration == 0 || duration == 0) {
+            return 0.0;
+        }
+        double percentage = Math.round((current_duration / duration) * 1000) / 10.0;
+        return percentage <= 100 ? percentage : 100.0;
     }
 
 }

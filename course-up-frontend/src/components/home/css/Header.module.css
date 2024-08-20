@@ -185,6 +185,15 @@
     display: none;
 }
 
+.category-text-b{
+    padding: 8px 5px;
+    border-radius: 4px;
+}
+
+.category-text-b:hover{
+    background-color: var(--grey-color-1);
+}
+
 @media (max-width: 744px) {
     .hide {
         display: none;

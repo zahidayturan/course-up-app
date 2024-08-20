@@ -28,13 +28,13 @@ public class Trainee {
     private Course course;
 
     private Double currentDuration;
-    private Integer currentStages;
+    private Integer currentStage;
     private Double coursePoint;
     private Boolean isFinished;
     private LocalDate startedDate;
     private LocalDate endDate;
 
-    @OneToMany(mappedBy = "trainee")
+    @OneToOne(mappedBy = "trainee")
     @JsonIgnore
-    private List<CourseComments> courseComments;
+    private CourseComments courseComments;
 }

@@ -5,13 +5,14 @@ import textStyles from '../../css/Text.module.css';
 import axios from "axios";
 import Endpoints from "../../../constants/Endpoints";
 import mainStyles from "../../css/Main.module.css";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const Banner = () => {
     const [user, setUser] = useState(null);
     const [ongoingCourses, setOngoingCourses] = useState(null);
     const [ongoingCoursesError, setOngoingCoursesError] = useState(null);
     const [ongoingCoursesLoading, setOngoingCoursesLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchOngoingCourses = async (userId) => {
@@ -81,7 +82,7 @@ const Banner = () => {
         setCurrentBanner((prev) => (prev - 1 + banners.length) % banners.length);
     };
 
-    const ProgressBar = ({ percentage }) => {
+    const ProgressBar = ({ percentage= 0 }) => {
         const backgroundColor = percentage >= 75 ? 'var(--green-color-1)' : percentage >=50 ? 'var(--orange-color-1)' : 'var(--yellow-color-1)';
 
         return (
@@ -145,13 +146,12 @@ const Banner = () => {
                             <div style={{padding:12}}>
                                 {title}
                                 {ongoingCourses.map((item) => {
-                                    const percentage = item.current_duration !== 0 ? ((item.current_duration / item.duration) * 100).toFixed(0) : "0";
                                     return (
                                         <div key={item.id} className={styles["course-box"]}>
                                             <p className={textStyles["font-bold"]}>{item.name}</p>
                                             <p className={classNames(textStyles["text-small"], textStyles["font-italic"])}>Eğitmen: {item.instructor}</p>
-                                            <ProgressBar percentage={percentage} />
-                                            <p className={textStyles["text-small"]}>İlerleme <span className={textStyles["font-bold"]}>% {percentage}</span></p>
+                                            <ProgressBar percentage={item.percentage} />
+                                            <p className={textStyles["text-small"]}>İlerleme <span className={textStyles["font-bold"]}>% {item.percentage}</span></p>
                                             <Link to={`/profile/course-view/${item.id}`} className={styles["custom-row"]} style={{justifyContent:"end", gap:4,textDecoration:"none",color:"var(--secondary-color-2)"}}>
                                                 <p className={textStyles["text-small"]} style={{textAlign:"end"}}>Devam Et</p>
                                                 <img className={styles["arrow-icon"]} src="/icon/long-arrow.png" alt=""/>
@@ -159,12 +159,12 @@ const Banner = () => {
                                         </div>
                                     );
                                 })}
-                                <p className={textStyles["text-center"]} style={{padding:"14px 0", fontSize:14}}>Aradığın kurs burada yok mu?<br/><span className={classNames(textStyles["text-underline"], textStyles["font-bold"])}>Şimdi yeni bir kurs ekle</span></p>
+                                <p onClick={() => navigate(`/category`)} className={textStyles["text-center"]} style={{padding:"14px 0", fontSize:14}}>Aradığın kurs burada yok mu?<br/><span className={classNames(textStyles["text-underline"], textStyles["font-bold"])}>Şimdi yeni bir kurs ekle</span></p>
                             </div>
                         ) : (
                             <div style={{padding:12}}>
                                 {title}
-                                <p className={textStyles["text-center"]} style={{padding:"14px 0",fontSize:14}}>Devam eden bir kursun yok.<br/><span className={classNames(textStyles["text-underline"],textStyles["font-bold"])}>Şimdi yeni bir kurs ekle</span></p>
+                                <p onClick={() => navigate(`/category`)} className={textStyles["text-center"]} style={{padding:"14px 0",fontSize:14}}>Devam eden bir kursun yok.<br/><span className={classNames(textStyles["text-underline"],textStyles["font-bold"])}>Şimdi yeni bir kurs ekle</span></p>
                             </div>
                         )}
                     </div>

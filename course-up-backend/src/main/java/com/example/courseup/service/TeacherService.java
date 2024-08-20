@@ -8,6 +8,8 @@ import com.example.courseup.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -70,7 +72,13 @@ public class TeacherService {
 
     public double getNumberOfTeacherRatings(Long id) {
         Double rating = teacherRepository.findTeacherRating(id);
-        return rating != null ? rating : 0.0;
+        return rating != null ? roundToTwoDecimalPlaces(rating) : 0.0;
+    }
+
+    private double roundToTwoDecimalPlaces(double value) {
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
     public Integer getNumberOfTeacherStudents(Long id) {

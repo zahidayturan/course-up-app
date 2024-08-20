@@ -1,8 +1,10 @@
 package com.example.courseup.service;
 
 import com.example.courseup.model.CourseComments;
+import com.example.courseup.model.CourseWishList;
 import com.example.courseup.model.DTO.CourseCommentsDTO;
 import com.example.courseup.repository.CourseCommentsRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +32,13 @@ public class CourseCommentsService {
         return courseCommentsRepository.save(courseComments);
     }
 
+    public CourseComments update(CourseComments courseComments) {
+        if (!courseCommentsRepository.existsById(courseComments.getId())) {
+            throw new EntityNotFoundException("Course comment with id " + courseComments.getId() + " not found");
+        }
+        return courseCommentsRepository.save(courseComments);
+    }
+
     public void deleteById(Long id) {
         courseCommentsRepository.deleteById(id);
     }
@@ -47,6 +56,11 @@ public class CourseCommentsService {
         return comments.stream()
                 .map(CourseCommentsDTO::new)
                 .collect(Collectors.toList());
+    }
+
+
+    public CourseComments findByTrainee(Long traineeId) {
+        return courseCommentsRepository.findByTrainee(traineeId);
     }
 
 
