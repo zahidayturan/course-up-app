@@ -8,7 +8,7 @@ const TrainerAgreement = () => {
         <div style={{backgroundColor:"var(--primary-color-1)",padding:8,borderRadius:8}}>
             <TrainerAgreementText/>
             <div style={{padding:12}}>
-                <p className={textStyles["text-center"]} style={{padding:"14px 0",fontSize:15,fontStyle:"italic",fontWeight:600}}>Sözleşmen hakkında dilediğin soruları sorabilirsin. Bizimle iletişime geçmen yeterli. Aramızda olduğun için çok mutluyuz.</p>
+                <p className={textStyles["text-center"]} style={{padding:"14px 0",fontStyle:"italic",fontWeight:600}}>Sözleşmen hakkında dilediğin soruları sorabilirsin. Bizimle iletişime geçmen yeterli. Aramızda olduğun için çok mutluyuz.</p>
             </div>
         </div>
     );
