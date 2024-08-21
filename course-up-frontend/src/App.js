@@ -13,6 +13,7 @@ import AllCategory from "./components/course/AllCategory";
 import OneCategory from "./components/course/OneCategory";
 import Basket from "./components/basket/Basket";
 import UserCourseView from "./components/profile/components/UserCourseView";
+import SearchResults from "./components/course/SearchResults";
 
 function App() {
     return (
@@ -27,11 +28,12 @@ function App() {
                     <Route path="/home" element={<Home />} />
                     <Route path="/profile/*" element={<Profile />} />
                     <Route path="/profile/trainer/*" element={<Trainer />} />
-                    <Route path="/course/:id" element={<CourseDetail />} />
+                    <Route path="/course/:name/:id" element={<CourseDetail />} />
                     <Route path="/category" element={<AllCategory/>} />
                     <Route path="/category/:name" element={<OneCategory/>} />
                     <Route path="/basket" element={<Basket/>} />
-                    <Route path="/profile/course-view/:id" element={<UserCourseView />} />
+                    <Route path="/home/search-results/:keywords" element={<SearchResults/>} />
+                    <Route path="/profile/course-view/:name" element={<UserCourseView />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>

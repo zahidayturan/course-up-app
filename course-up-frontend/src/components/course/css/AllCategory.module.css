@@ -34,3 +34,9 @@
 .category-button:hover{
     background-color: var(--yellow-color-1);
 }
+
+@media (max-width: 500px) {
+    .basic-category-box{
+        width: 100%;
+    }
+}

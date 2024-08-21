@@ -1,16 +1,13 @@
 package com.example.courseup.service;
 
-import com.example.courseup.controller.AuthController;
 import com.example.courseup.model.DTO.UserDTO;
 import com.example.courseup.model.PasswordResetToken;
 import com.example.courseup.model.User;
 import com.example.courseup.repository.PasswordResetTokenRepository;
 import com.example.courseup.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import textStyles from "../../css/Text.module.css";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import Header from "../../home/components/Header";
 import axios from "axios";
 import Endpoints from "../../../constants/Endpoints";
@@ -8,11 +8,15 @@ import mainStyles from "../../css/Main.module.css";
 import styles from "../css/UserCourseView.module.css";
 import classNames from "classnames";
 import RatingStars from "../../course/RatingStars";
-import {Button, Modal, Slider} from "@mui/material";
+import {Modal, Slider} from "@mui/material";
 
 
 const UserCourseView = () => {
-    const { id } = useParams();
+    const { name } = useParams();
+
+    const location = useLocation();
+    const { id } = location.state || {};
+
     const [course, setCourse] = useState(null);
     const [courseError, setCourseError] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -211,7 +215,7 @@ const UserCourseView = () => {
                 <div className={styles['course-box']}>
                     <p className={textStyles["text-center"]} style={{ padding: "14px 0", fontSize: 14 }}>{courseError} {courseStagesError}</p>
                 </div>
-            ) : user && course && courseStages && (
+            ) : (user && course && courseStages) ? (
                 <div className={styles["custom-row"]}>
                         <div className={styles["course-info-menu"]}>
                             <div className={styles["progress-box"]}>
@@ -332,7 +336,9 @@ const UserCourseView = () => {
                             </div>
                         </div>
                     </div>
-            ) }
+            ) : <div style={{padding:12}}>
+                <p className={textStyles["text-center"]} style={{padding:"14px 0",fontSize:14}}><span>Erişim hatası oldu.</span> Tekrardan oturum açmayı deneyin</p>
+            </div> }
         </div>
     );
 };

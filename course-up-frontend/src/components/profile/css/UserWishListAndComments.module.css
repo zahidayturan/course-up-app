@@ -73,7 +73,13 @@
     border-radius: 3px;
     border: 1px solid var(--secondary-color-2);
 }
-
+.comments-box{
+    width: 100%;
+    min-height: max-content;
+    background-color: var(--secondary-color-1);
+    padding: 8px;
+    border-radius: 4px;
+}
 @media (max-width: 460px) {
     .course-container{
         width: 100%;

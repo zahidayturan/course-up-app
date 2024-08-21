@@ -12,6 +12,7 @@ import {toast} from "react-toastify";
 
 
 const CourseDetail = () => {
+
     const { id } = useParams();
 
     const [course, setCourse] = useState(null);
@@ -61,7 +62,6 @@ const CourseDetail = () => {
                 const response = await axios.get(`${Endpoints.COURSE_DETAIL}/${courseId}`);
                 if (response.data) {
                     setCourse(response.data);
-                    console.log("Course detail set");
                     await fetchCourseStages(id);
                 } else {
                     navigate('/home');
@@ -79,7 +79,6 @@ const CourseDetail = () => {
                 if (response.data) {
                     const sortedStages = response.data.sort((a, b) => a.episodeNumber - b.episodeNumber);
                     setCourseStages(sortedStages);
-                    console.log("Course stages set");
                 }
             } catch (error) {
                 setCourseStagesError('Kurs bölümleri yüklenirken bir hata oluştu');
@@ -260,7 +259,7 @@ const CourseDetail = () => {
                                             <p><span>Video Dili: </span>{course.language}</p>
                                             <p><span>Altyazı Desteği: </span>{course.subtitles}</p>
                                         </div>
-                                        {(user) && (<p className={textStyles["text-underline"]} style={{color:"var(--orange-color-1)",fontSize:13,width:"max-content"}} onClick={ () => isInWishList ? navigate(`/profile/my-wish-list`) :addToWishList}>{isInWishList ? ("Kurs İstek Listende") : "İstek Listene Ekle"}</p>)}
+                                        {(user) && (<p className={textStyles["text-underline"]} style={{color:"var(--orange-color-1)",fontSize:13,width:"max-content",marginBottom:8}} onClick={ () => isInWishList ? navigate(`/profile/my-wish-list`) :addToWishList()}>{isInWishList ? ("Kurs İstek Listende") : "İstek Listene Ekle"}</p>)}
                                     </div>
                                 </div>
                                 <div className={styles["price-and-button"]}>

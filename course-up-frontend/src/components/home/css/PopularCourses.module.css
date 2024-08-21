@@ -95,6 +95,7 @@
     background-color: var(--primary-color-1);
     border-radius: 30px;
     padding: 4px;
+    max-width: max-content;
     box-shadow: rgba(0, 0, 0, 0.24) 0 4px 8px;
 }
 

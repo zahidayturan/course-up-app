@@ -31,4 +31,14 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     @Query("SELECT AVG(t.coursePoint) FROM Trainee t WHERE t.course.id = :courseId AND t.isFinished = true AND t.coursePoint > 0")
     Double findCourseRating(@Param("courseId") Long courseId);
+
+    @Query("SELECT c FROM Course c WHERE " +
+            "LOWER(c.name) LIKE LOWER(CONCAT('%', :keywords, '%')) " +
+            "OR LOWER(c.description) LIKE LOWER(CONCAT('%', :keywords, '%')) " +
+            "OR LOWER(c.category) LIKE LOWER(CONCAT('%', :keywords, '%')) " +
+            "OR LOWER(c.teacher.user.name) LIKE LOWER(CONCAT('%', :keywords, '%')) " +
+            "OR LOWER(c.teacher.user.surname) LIKE LOWER(CONCAT('%', :keywords, '%'))")
+    List<Course> search(@Param("keywords") String keywords);
+
+
 }

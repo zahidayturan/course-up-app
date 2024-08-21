@@ -1,6 +1,5 @@
 package com.example.courseup.repository;
 
-import com.example.courseup.model.CourseWishList;
 import com.example.courseup.model.Trainee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

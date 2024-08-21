@@ -25,24 +25,29 @@ const Options = ({ options, title }) => {
     }, []);
 
     return (
-        <div className={classNames(styles["option"], styles["custom-row"])}>
-            <div className={styles["custom-row"]}>
-                <p>Merhaba <br/><span className={classNames(textStyles["font-bold"], textStyles["text-large"])}>{title}</span></p>
-                <p className={styles["is-mobile"]} dangerouslySetInnerHTML={{ __html: currentDate }}></p>
-            </div>
-            <div className={styles["options-names"]}>
-                {options.map((option, index) => (
-                    <Link
-                        key={index}
-                        to={option.path}
-                        className={classNames(styles["text-button"], { [styles.active]: location.pathname.includes(option.path) })}
-                    >
-                        {option.name}
-                    </Link>
-                ))}
-            </div>
-            <p className={styles["is-web"]} dangerouslySetInnerHTML={{ __html: currentDate }}></p>
-        </div>
+        <>  {
+            user ?
+                (<div className={classNames(styles["option"], styles["custom-row"])}>
+                    <div className={styles["custom-row"]}>
+                        <p>Merhaba {user.name}<br/><span className={classNames(textStyles["font-bold"], textStyles["text-large"])}>{title}</span></p>
+                        <p className={styles["is-mobile"]} dangerouslySetInnerHTML={{ __html: currentDate }}></p>
+                    </div>
+                    <div className={styles["options-names"]}>
+                        {options.map((option, index) => (
+                            <Link
+                                key={index}
+                                to={option.path}
+                                className={classNames(styles["text-button"], { [styles.active]: location.pathname.includes(option.path) })}
+                            >
+                                {option.name}
+                            </Link>
+                        ))}
+                    </div>
+                    <p className={styles["is-web"]} dangerouslySetInnerHTML={{ __html: currentDate }}></p>
+                </div>) :
+                (<p style={{textAlign:"center",margin:"24px 0"}}><span>Kullanıcı bilgileriniz alınamadı!</span> Lütfen çıkış yapıp tekrar oturum açmayı deneyiniz</p>)
+        }
+        </>
     );
 };
 

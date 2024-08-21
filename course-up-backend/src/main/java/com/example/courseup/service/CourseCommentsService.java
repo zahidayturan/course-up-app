@@ -1,7 +1,6 @@
 package com.example.courseup.service;
 
 import com.example.courseup.model.CourseComments;
-import com.example.courseup.model.CourseWishList;
 import com.example.courseup.model.DTO.CourseCommentsDTO;
 import com.example.courseup.repository.CourseCommentsRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -53,6 +52,13 @@ public class CourseCommentsService {
     public List<CourseCommentsDTO> getCourseCommentsWithPagination(Long courseId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         List<CourseComments> comments = courseCommentsRepository.findByCourseId(courseId, pageable);
+        return comments.stream()
+                .map(CourseCommentsDTO::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<CourseCommentsDTO> getCourseCommentsWithUserId(Long userId) {
+        List<CourseComments> comments = courseCommentsRepository.findByUserId(userId);
         return comments.stream()
                 .map(CourseCommentsDTO::new)
                 .collect(Collectors.toList());

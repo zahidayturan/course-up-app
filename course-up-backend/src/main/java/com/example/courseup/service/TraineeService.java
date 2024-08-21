@@ -1,6 +1,5 @@
 package com.example.courseup.service;
 
-import com.example.courseup.model.Course;
 import com.example.courseup.model.DTO.UserCoursesDTO;
 import com.example.courseup.model.Trainee;
 import com.example.courseup.repository.CourseRepository;

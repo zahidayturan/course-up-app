@@ -38,7 +38,7 @@ const UserCourses = () => {
         }
     }, []);
 
-    const ProgressBarAndPlayButton = ({ percentage , traineeId}) => {
+    const ProgressBarAndPlayButton = ({ percentage , traineeId, courseName}) => {
         const backgroundColor = percentage >= 75 ? 'var(--green-color-1)' : percentage >=40 ? 'var(--orange-color-1)' : 'var(--yellow-color-1)';
         return (
             <div className={styles["custom-column"]} style={{marginLeft:8}}>
@@ -51,7 +51,8 @@ const UserCourses = () => {
                     </div>
                     <p className={classNames(textStyles["text-center"])} style={{fontSize:12}}>İlerleme<br/><span className={textStyles["font-bold"]}>% {percentage}</span></p>
                 </div>
-                <div onClick={() => navigate(`/profile/course-view/${traineeId}`)} className={styles["play-button"]} style={{backgroundColor}}>
+                <div onClick={() => navigate(`/profile/course-view/${courseName.replace(/\s+/g, '-').toLowerCase()}`, { state: { id: traineeId } })} title={"Kursu oynat"}
+                     className={styles["play-button"]} style={{backgroundColor}}>
                     <img src="/icon/play.png" alt="Play" />
                 </div>
             </div>
@@ -106,7 +107,7 @@ const UserCourses = () => {
                                                             <p>Başlama Tarihin<br/><span  style={{fontWeight:400}}>{item.started_date ? item.started_date : "Başlamadın"}</span></p>
                                                         </div>
                                                     </div>
-                                                    <ProgressBarAndPlayButton percentage={item.percentage} traineeId={item.id}/>
+                                                    <ProgressBarAndPlayButton percentage={item.percentage} traineeId={item.id} courseName={item.name}/>
                                                 </div>
                                             </div>
                                     );

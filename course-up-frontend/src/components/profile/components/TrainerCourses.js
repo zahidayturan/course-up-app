@@ -6,6 +6,7 @@ import styles from "../css/TrainerCourses.module.css";
 import textStyles from "../../css/Text.module.css";
 import mainStyles from "../../css/Main.module.css";
 import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 
 const TrainerCourses = () => {
     const [user, setUser] = useState(null);
@@ -64,7 +65,7 @@ const TrainerCourses = () => {
                         <p className={textStyles["font-bold"]}>{item.discountedPrice} ₺</p>
                         {item.discount !== 0 && (<p className={textStyles["text-small"]} style={{ color: "var(--orange-color-1)" }}>%{item.discount} indirim</p>)}
                     </div>
-                    <p className={styles["text-button"]} style={{backgroundColor: item.active ? "var(--orange-color-1)": "var(--secondary-color-2)"}}>Kurs Düzenleme ve İstatistikler</p>
+                    <p onClick={() => toast.error("Kursunuz incelemede olduğundan dolayı düzenlenemez")} className={styles["text-button"]} style={{backgroundColor: item.active ? "var(--orange-color-1)": "var(--secondary-color-2)"}}>Kurs Düzenleme ve İstatistikler</p>
                 </div>
             </div>
         </div>

@@ -137,4 +137,11 @@ public class CourseController {
     public List<AllCoursesDTO> getTopPopularCourses() {
         return courseService.getTopPopularCourses();
     }
+
+
+    @Operation(summary = "Get search results")
+    @GetMapping("/search/{keywords}")
+    public List<AllCoursesDTO> getSearchResults(@PathVariable String keywords) {
+        return courseService.getSearchResults(keywords);
+    }
 }

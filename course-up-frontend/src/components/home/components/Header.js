@@ -5,6 +5,7 @@ import styles from '../css/Header.module.css';
 import mainStyles from '../../css/Main.module.css';
 import axios from "axios";
 import Endpoints from "../../../constants/Endpoints";
+import {toast} from "react-toastify";
 
 const Header = () => {
     const [showCategories, setShowCategories] = useState(false);
@@ -45,16 +46,29 @@ const Header = () => {
         setShowLanguages(!showLanguages);
     };
 
-    const handleSearch = (event) => {
-        event.preventDefault();
-    };
-
     const handleProfileToggle = () => {
         setShowProfile(!showProfile);
     };
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+    };
+
+    const [keywords, setKeywords] = useState('');
+
+    const handleSearch = async (event) => {
+        event.preventDefault();
+        setLoading(true)
+        try {
+            const response = await axios.get(`${Endpoints.COURSE_SEARCH}/${keywords}`);
+            const results = response.data;
+            navigate(`/home/search-results/${keywords}`, { state: { results } });
+        } catch (error) {
+            toast.error("Arama yaparken bir hata oluştu")
+            console.error('Error fetching search results:', error);
+        } finally {
+            setLoading(false)
+        }
     };
 
     return (
@@ -85,7 +99,13 @@ const Header = () => {
                 </div>
 
                 <form className={classNames(styles['search-bar'], styles['hide'])} onSubmit={handleSearch}>
-                    <input type="text" placeholder="Kurs, eğitmen veya kategori arayın" />
+                    <input
+                        type="text"
+                        placeholder="Kurs, eğitmen veya kategori arayın"
+                        value={keywords}
+                        onChange={(e) => setKeywords(e.target.value)}
+                        required
+                    />
                     <button type="submit">
                         <img src="/icon/search.png" alt="Search" style={{ height: 20 }} />
                     </button>
@@ -183,7 +203,13 @@ const Header = () => {
                 )}
             </div>
             <form className={classNames(styles['search-bar'], styles['show'])} onSubmit={handleSearch}>
-                <input type="text" placeholder="Kurs, eğitmen veya kategori arayın" />
+                <input
+                    type="text"
+                    placeholder="Kurs, eğitmen veya kategori arayın"
+                    value={keywords}
+                    onChange={(e) => setKeywords(e.target.value)}
+                    required
+                />
                 <button type="submit">
                     <img src="/icon/search.png" alt="Search" style={{ height: 20 }} />
                 </button>

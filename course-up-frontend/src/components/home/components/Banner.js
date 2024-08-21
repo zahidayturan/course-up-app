@@ -152,7 +152,7 @@ const Banner = () => {
                                             <p className={classNames(textStyles["text-small"], textStyles["font-italic"])}>Eğitmen: {item.instructor}</p>
                                             <ProgressBar percentage={item.percentage} />
                                             <p className={textStyles["text-small"]}>İlerleme <span className={textStyles["font-bold"]}>% {item.percentage}</span></p>
-                                            <Link to={`/profile/course-view/${item.id}`} className={styles["custom-row"]} style={{justifyContent:"end", gap:4,textDecoration:"none",color:"var(--secondary-color-2)"}}>
+                                            <Link to={`/profile/course-view/${item.name.replace(/\s+/g,'-').toLowerCase()}`} state={{ id: item.id }} className={styles["custom-row"]} style={{justifyContent:"end", gap:4,textDecoration:"none",color:"var(--secondary-color-2)"}}>
                                                 <p className={textStyles["text-small"]} style={{textAlign:"end"}}>Devam Et</p>
                                                 <img className={styles["arrow-icon"]} src="/icon/long-arrow.png" alt=""/>
                                             </Link>

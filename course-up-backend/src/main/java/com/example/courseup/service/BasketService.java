@@ -2,10 +2,7 @@ package com.example.courseup.service;
 
 import com.example.courseup.exception.ResourceNotFoundException;
 import com.example.courseup.model.Basket;
-import com.example.courseup.model.Course;
-import com.example.courseup.model.CourseWishList;
 import com.example.courseup.model.DTO.BasketDTO;
-import com.example.courseup.model.DTO.CourseWishListDTO;
 import com.example.courseup.repository.BasketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
