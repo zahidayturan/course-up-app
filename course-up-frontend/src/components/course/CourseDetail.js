@@ -78,7 +78,6 @@ const CourseDetail = () => {
                 if (response.data) {
                     const sortedStages = response.data.sort((a, b) => a.episodeNumber - b.episodeNumber);
                     setCourseStages(sortedStages);
-                    console.log("Course stages set");
                 }
             } catch (error) {
                 setCourseStagesError('Kurs bölümleri yüklenirken bir hata oluştu');

@@ -8,7 +8,7 @@ import mainStyles from "../../css/Main.module.css";
 import styles from "../css/UserCourseView.module.css";
 import classNames from "classnames";
 import RatingStars from "../../course/RatingStars";
-import {Button, Modal, Slider} from "@mui/material";
+import {Modal, Slider} from "@mui/material";
 
 
 const UserCourseView = () => {
