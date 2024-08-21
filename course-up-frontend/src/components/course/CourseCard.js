@@ -11,7 +11,7 @@ const CourseCard = ({course}) => {
 
     return (
         <div>
-            <Link to={`/course/${course.name.replace(/\s+/g, '-').toLowerCase()}`} state={{ id: course.id }}   key={course.id} title={course.name} style={{textDecoration:"none"}}>
+            <Link to={`/course/${course.name.replace(/\s+/g, '-').toLowerCase()}/${course.id}`} key={course.id} title={course.name} style={{textDecoration:"none"}}>
                 <div key={course.id} className={styles["course-container"]}>
                     {course.discount > 0 && (
                         <div className={styles["discount-text"]}>

@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import textStyles from "../../css/Text.module.css";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import Header from "../../home/components/Header";
 import axios from "axios";
 import Endpoints from "../../../constants/Endpoints";
@@ -12,7 +12,11 @@ import {Modal, Slider} from "@mui/material";
 
 
 const UserCourseView = () => {
-    const { id } = useParams();
+    const { name } = useParams();
+
+    const location = useLocation();
+    const { id } = location.state || {};
+
     const [course, setCourse] = useState(null);
     const [courseError, setCourseError] = useState(null);
     const [loading, setLoading] = useState(true);

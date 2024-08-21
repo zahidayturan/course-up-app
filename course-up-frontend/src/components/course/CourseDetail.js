@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Link, useLocation, useNavigate, useParams} from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import axios from 'axios';
 import Endpoints from "../../constants/Endpoints";
 import styles from "./css/CourseDetail.module.css";
@@ -12,8 +12,8 @@ import {toast} from "react-toastify";
 
 
 const CourseDetail = () => {
-    const location = useLocation();
-    const { id } = location.state || {};
+
+    const { id } = useParams();
 
     const [course, setCourse] = useState(null);
     const [courseError, setCourseError] = useState(null);

@@ -64,7 +64,7 @@ const UserComments = () => {
                             <div className={styles["course-grid"]}>
                                 {comments.map((item) => {
                                     return (
-                                        <Link to={`/profile/course-view/${item.traineeId}`} title={"Kurs paneline git"} key={item.id}  className={styles["comments-box"]} style={{textDecoration:"none",color:"var(--secondary-color-2)"}}>
+                                        <Link to={`/profile/course-view/${item.courseName.replace(/\s+/g, '-').toLowerCase()}`} state={{ id: item.traineeId }} title={"Kurs paneline git"} key={item.id}  className={styles["comments-box"]} style={{textDecoration:"none",color:"var(--secondary-color-2)"}}>
                                             <p style={{fontSize:14}}><span style={{fontSize:15}}>{item.courseName}</span> kursuna yaptığın yorum</p>
                                             <p style={{margin:"6px 6px 0 12px"}}>{item.comments}</p>
                                             <div style={{display:"flex",justifyContent:"end",alignItems:"center"}}>
