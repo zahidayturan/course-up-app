@@ -184,9 +184,9 @@ const Basket = () => {
                                 <div style={{width:"100%"}}>
                                     {basketCourses.map((item) => (
                                     <div key={item.id} className={styles["item-box"]}>
-                                        <div style={{flex : "0 auto"}}>
+                                        <Link to={`/course/${item.name.replace(/\s+/g, '-').toLowerCase()}/${item.courseId}`} title={item.name} style={{flex : "0 auto"}}>
                                             {item.imageId ? (<img className={styles["course-img"]} src={`https://${bName}.s3.amazonaws.com/${item.imageId}`} alt={item.name} />) : (<img style={{objectFit:"contain"}} className={styles["course-img"]} src="/logo/courseup-l-v1.png" alt="Course" />)}
-                                        </div>
+                                        </Link>
                                         <div style={{display:"flex",flexDirection:"column",justifyContent:"space-between", flex:1}}>
                                             <p><span style={{fontSize:17} }>{item.name}</span><br/><span className={textStyles["font-italic"]} style={{fontWeight:"normal"}}>Eğitmen: {item.teacher}</span></p>
                                             <p>{item.category}</p>

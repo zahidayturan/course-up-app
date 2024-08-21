@@ -4,6 +4,7 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import TrainerCourseOptions from "./TrainerCourseOptions";
 import TrainerCourses from "./TrainerCourses";
 import TrainerAddCourse from "./TrainerAddCourse";
+import TrainerAgreement from "./TrainerAgreement";
 
 const TrainerCoursesPanel = () => {
     return (
@@ -13,6 +14,7 @@ const TrainerCoursesPanel = () => {
                     <Routes>
                         <Route path="courses" element={<TrainerCourses />} />
                         <Route path="add-course" element={<TrainerAddCourse />} />
+                        <Route path="agreement" element={<TrainerAgreement />} />
                         <Route path="/" element={<Navigate to="courses" />} /> {}
                     </Routes>
                 </div>
