@@ -22,7 +22,6 @@ const UserWishList = () => {
                 setWishListLoading(true);
                 const response = await axios.get(`${Endpoints.WISH_LIST}/${userId}`);
                 setWishList(response.data);
-                console.log('Wish list courses set');
             } catch (error) {
                 setWishListError('İstek listeniz yüklenirken bir hata oluştu');
             } finally {
@@ -45,7 +44,6 @@ const UserWishList = () => {
             setLoading(true);
             const response = await axios.delete(`${Endpoints.DELETE_FROM_WISH_LIST}/${id}`);
             if (response.status === 204) {
-                console.log('Course successfully removed from wish list');
                 toast.success("Kurs istek listenden kaldırıldı");
                 setWishList(wishList.filter(item => item.id !== id));
             }
