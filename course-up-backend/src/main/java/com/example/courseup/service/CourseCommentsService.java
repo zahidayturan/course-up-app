@@ -1,7 +1,6 @@
 package com.example.courseup.service;
 
 import com.example.courseup.model.CourseComments;
-import com.example.courseup.model.CourseWishList;
 import com.example.courseup.model.DTO.CourseCommentsDTO;
 import com.example.courseup.repository.CourseCommentsRepository;
 import jakarta.persistence.EntityNotFoundException;

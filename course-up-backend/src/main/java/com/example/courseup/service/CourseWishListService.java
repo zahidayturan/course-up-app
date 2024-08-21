@@ -1,10 +1,6 @@
 package com.example.courseup.service;
 
-import com.example.courseup.model.Basket;
-import com.example.courseup.model.CourseStages;
 import com.example.courseup.model.CourseWishList;
-import com.example.courseup.model.DTO.CourseDTO;
-import com.example.courseup.model.DTO.CourseStagesDTO;
 import com.example.courseup.model.DTO.CourseWishListDTO;
 import com.example.courseup.repository.CourseWishListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
