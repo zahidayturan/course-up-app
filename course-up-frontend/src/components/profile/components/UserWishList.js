@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import Endpoints from "../../../constants/Endpoints";
-import styles from "../css/UserWishList.module.css";
+import styles from "../css/UserWishListAndComments.module.css";
 import mainStyles from "../../css/Main.module.css";
 import textStyles from "../../css/Text.module.css";
 import {toast} from "react-toastify";

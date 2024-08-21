@@ -6,7 +6,6 @@
 }
 
 @media (max-width: 480px) {
-
     .all-courses div{
         width: calc(100% - 12px);
     }
