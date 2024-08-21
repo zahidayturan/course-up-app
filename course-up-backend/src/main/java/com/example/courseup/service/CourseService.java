@@ -121,6 +121,17 @@ public class CourseService {
         return new AllCoursesDTO(course, students, rating, reviews);
     }
 
+    public List<AllCoursesDTO> getSearchResults(String keywords) {
+        List<Course> courses = courseRepository.search(keywords);
+        return courses.stream().map(course -> {
+            Integer students = getNumberOfCourseStudents(course.getId());
+            Double rating = getCourseRating(course.getId());
+            Integer reviews = getNumberOfCourseReviewers(course.getId());
+            return new AllCoursesDTO(course, students, rating, reviews);
+        }).collect(Collectors.toList());
+    }
+
+
     public Long parseLong(String value) {
         try {
             return value != null ? Long.valueOf(value) : null;
