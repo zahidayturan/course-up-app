@@ -12,8 +12,6 @@ import {Modal, Slider} from "@mui/material";
 
 
 const UserCourseView = () => {
-    const { name } = useParams();
-
     const location = useLocation();
     const { id } = location.state || {};
 
@@ -215,7 +213,7 @@ const UserCourseView = () => {
                 <div className={styles['course-box']}>
                     <p className={textStyles["text-center"]} style={{ padding: "14px 0", fontSize: 14 }}>{courseError} {courseStagesError}</p>
                 </div>
-            ) : (user && course && courseStages) ? (
+            ) : (user && course && courseStages) && (
                 <div className={styles["custom-row"]}>
                         <div className={styles["course-info-menu"]}>
                             <div className={styles["progress-box"]}>
@@ -336,9 +334,7 @@ const UserCourseView = () => {
                             </div>
                         </div>
                     </div>
-            ) : <div style={{padding:12}}>
-                <p className={textStyles["text-center"]} style={{padding:"14px 0",fontSize:14}}><span>Erişim hatası oldu.</span> Tekrardan oturum açmayı deneyin</p>
-            </div> }
+            )}
         </div>
     );
 };

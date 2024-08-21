@@ -20,7 +20,6 @@ const UserCourses = () => {
                 setCoursesLoading(true);
                 const response = await axios.get(`${Endpoints.USER_COURSES}/${userId}`);
                 setCourses(response.data);
-                console.log('Ongoing courses set');
             } catch (error) {
                 setCoursesError('Kurslarınız yüklenirken bir hata oluştu');
             } finally {

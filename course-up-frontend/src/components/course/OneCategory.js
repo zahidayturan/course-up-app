@@ -40,7 +40,6 @@ const OneCategory = () => {
                 console.log(categoryName);
                 const response = await axios.get(`${Endpoints.COURSES_BY_CATEGORY}/${categoryName}`);
                 setCourses(response.data);
-                console.log('Courses set');
             } catch (error) {
                 setCoursesError('Kategoriye ait kurslar yüklenirken bir hata oluştu');
             } finally {

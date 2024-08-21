@@ -22,7 +22,6 @@ const UserComments = () => {
                 setCommentsLoading(true);
                 const response = await axios.get(`${Endpoints.USER_COMMENTS}/${userId}`);
                 setComments(response.data);
-                console.log('Wish list courses set');
             } catch (error) {
                 setCommentsError('Yorumlarınız yüklenirken bir hata oluştu');
             } finally {
