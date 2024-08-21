@@ -18,5 +18,7 @@ public interface CourseCommentsRepository extends JpaRepository<CourseComments, 
     @Query("SELECT w FROM CourseComments w WHERE w.trainee.id = :traineeId")
     CourseComments findByTrainee(@Param("traineeId") Long traineeId);
 
+    @Query("SELECT c FROM CourseComments c WHERE c.trainee.user.id= :userId")
+    List<CourseComments> findByUserId(@Param("userId") Long userId);
 
 }

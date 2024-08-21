@@ -58,6 +58,13 @@ public class CourseCommentsService {
                 .collect(Collectors.toList());
     }
 
+    public List<CourseCommentsDTO> getCourseCommentsWithUserId(Long userId) {
+        List<CourseComments> comments = courseCommentsRepository.findByUserId(userId);
+        return comments.stream()
+                .map(CourseCommentsDTO::new)
+                .collect(Collectors.toList());
+    }
+
 
     public CourseComments findByTrainee(Long traineeId) {
         return courseCommentsRepository.findByTrainee(traineeId);

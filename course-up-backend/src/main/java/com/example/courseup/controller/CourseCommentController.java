@@ -57,4 +57,10 @@ public class CourseCommentController {
         return courseCommentsService.getCourseCommentsWithPagination(id, page, size);
     }
 
+    @Operation(summary = "Course comments by userId")
+    @GetMapping("/user/{userId}")
+    public List<CourseCommentsDTO> getAllCourseCommentsByUserId(@PathVariable Long userId) {
+        return courseCommentsService.getCourseCommentsWithUserId(userId);
+    }
+
 }
